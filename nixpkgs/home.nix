@@ -12,6 +12,7 @@
     feh
     git
     alacritty
+    i3lock-color
   ];
 
   programs.git = {
