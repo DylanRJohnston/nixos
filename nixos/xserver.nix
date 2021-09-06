@@ -4,17 +4,21 @@
     layout = "us";
     xkbOptions = "eurosign:e";
 
-    libinput.enable = true;
-    libinput.touchpad.naturalScrolling = true;
+    libinput = {
+      enable = true;
+      touchpad.naturalScrolling = true;
+    };
 
-    displayManager.lightdm.enable = true;
-    displayManager.defaultSession = "none+i3";
-    displayManager.lightdm.greeters.mini.enable = true;
-    displayManager.lightdm.greeters.mini.user = "dylanj";
-    displayManager.lightdm.greeters.mini.extraConfig = ''
-      [greeter]
-      active-monitor=1
-    '';
+    displayManager = {
+      defaultSession = "none+i3";
+
+      autoLogin = {
+        enable = true;
+        user = "dylanj";
+      };
+
+      lightdm.enable = true;
+    };
 
     desktopManager.xterm.enable = false;
 
