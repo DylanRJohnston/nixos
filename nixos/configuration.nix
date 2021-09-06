@@ -7,17 +7,39 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  users.users.dylanj.isNormalUser = true;
-  users.users.dylanj.extraGroups = [ "wheel" "networkmanager" ];
-
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev";
+    version = 2;
+    efiSupport = true;
+    enableCryptodisk = true;
+  };
+
+  boot.initrd = {
+    luks.devices."root" = {
+      device = "/dev/nvme0n1p4";
+      preLVM = true;
+      keyFile = "/keyfile.bin";
+      allowDiscards = true;
+    }; 
+    secrets = {
+      "keyfile.bin" = "/etc/secrets/initrd/keyfile.bin";
+    };
+  };
+
+  users.users.dylanj = {
+    isNormalUser = true;
+    home = "/home/dylanj";
+    extraGroups = [ "wheel" "networkmanager" ];
+  };
 
   # networking.hostName = "nixos"; # Define your hostname.
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -40,6 +62,12 @@
 
     displayManager.lightdm.enable = true;
     displayManager.defaultSession = "none+i3";
+    displayManager.lightdm.greeters.mini.enable = true;
+    displayManager.lightdm.greeters.mini.user = "dylanj";
+    displayManager.lightdm.greeters.mini.extraConfig = ''
+    [greeter]
+    active-monitor=1
+    '';
     
     desktopManager.xterm.enable = false;
     
@@ -96,6 +124,7 @@
   # $ nix search wget
    environment.systemPackages = with pkgs; [
      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+     _1password-gui
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -123,7 +152,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "21.11"; # Did you read the comment?
 
 }
 
