@@ -61,6 +61,9 @@
     enable = true;
     layout = "us";
     xkbOptions = "eurosign:e"; 
+    
+    libinput.enable = true;
+    libinput.touchpad.naturalScrolling = true;
 
     displayManager.lightdm.enable = true;
     displayManager.defaultSession = "none+i3";
