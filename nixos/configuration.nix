@@ -55,7 +55,6 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.eno2.useDHCP = true;
-  networking.interfaces.enp8s0u2u4.useDHCP = true;
   networking.interfaces.wlo1.useDHCP = true;
 
   services.xserver = {
