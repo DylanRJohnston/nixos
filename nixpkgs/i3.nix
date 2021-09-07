@@ -19,6 +19,7 @@
 
         keybindings = lib.mkOptionDefault {
           "${modifier}+L" = "exec $HOME/.config/nixpkgs/scripts/i3lock-solarized-dark.sh";
+          "${modifier}+Shift+s" = "exec flameshot gui";
         };
       };
     };

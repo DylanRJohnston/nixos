@@ -14,5 +14,6 @@
     i3lock-color
     git-town
     nixpkgs-fmt
+    flameshot
   ];
 }
