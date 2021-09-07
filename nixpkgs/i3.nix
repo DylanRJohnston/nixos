@@ -5,11 +5,6 @@
       enable = true;
       package = pkgs.i3-gaps;
 
-      extraConfig = ''
-        exec_always autorandr --change
-        exec_always --no-startup-id sleep 5 && feh --bg-center --no-xinerama $HOME/Pictures/background.png
-      '';
-
       config = rec {
         modifier = "Mod4";
         bars = [ ];

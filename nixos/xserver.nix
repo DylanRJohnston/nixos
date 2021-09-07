@@ -1,4 +1,6 @@
 { pkgs, ... }: {
+  services.autorandr.enable = true;
+
   services.xserver = {
     enable = true;
     layout = "us";
