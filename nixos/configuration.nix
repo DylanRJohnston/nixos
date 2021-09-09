@@ -12,6 +12,7 @@
       ./bluetooth.nix
       ./xserver.nix
       ./packages.nix
+      ./fonts.nix
     ];
 
   time.timeZone = "Australia/Perth";
