@@ -3,6 +3,7 @@
     enable = true;
 
     hooks.postswitch.change-background = "feh --bg-scale ~/Pictures/background.png";
+    hooks.postswitch.restart-polybar = "systemctl --user restart polybar.service";
 
     profiles =
       let

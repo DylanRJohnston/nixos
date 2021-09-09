@@ -12,6 +12,7 @@
         fonts = [
           "FiraCode"
           "JetBrainsMono"
+          "Iosevka"
         ];
       })
     ];

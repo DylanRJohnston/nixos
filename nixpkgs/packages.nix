@@ -16,5 +16,9 @@
     nixpkgs-fmt
     flameshot
     spotify
+    playerctl
+    rustc
+    cargo
+    gcc
   ];
 }
