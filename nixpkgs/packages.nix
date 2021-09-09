@@ -15,5 +15,6 @@
     git-town
     nixpkgs-fmt
     flameshot
+    spotify
   ];
 }

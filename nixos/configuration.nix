@@ -9,6 +9,7 @@
       ./boot.nix
       ./user.nix
       ./networking.nix
+      ./bluetooth.nix
       ./xserver.nix
       ./packages.nix
     ];
