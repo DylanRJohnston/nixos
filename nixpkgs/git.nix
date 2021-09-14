@@ -15,9 +15,8 @@
       sync = "town sync";
     };
     extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
+      init.defaultBranch = "main";
+      core.editor = "vim";
     };
   };
 }
