@@ -10,6 +10,8 @@
     ./polybar/default.nix
     ./rofi.nix
     ./vscode.nix
+    ./zsh.nix
+    ./alacritty.nix
   ];
 
   programs.home-manager = {
