@@ -19,8 +19,10 @@
           window.border = 0;
 
           gaps = {
-            inner = 15;
+            inner = 10;
             outer = 0;
+            smartBorders = "on";
+            smartGaps = true;
           };
 
           keybindings = lib.mkOptionDefault {

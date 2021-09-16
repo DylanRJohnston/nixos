@@ -38,6 +38,9 @@
         tabSize = 2;
       };
 
+      window.titlebarStyle = "custom";
+      window.menuBarVisibility = "toggle";
+
       workbench = {
         colorTheme = "GitHub Dark Dimmed";
       };
