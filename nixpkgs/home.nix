@@ -3,16 +3,7 @@
 {
   imports = [
     ./packages.nix
-    ./git.nix
-    ./autorandr.nix
-    ./i3.nix
-    ./compton.nix
-    ./polybar/default.nix
-    ./rofi.nix
-    ./vscode.nix
-    ./zsh.nix
-    ./alacritty.nix
-    ./vim.nix
+    ./config
   ];
 
   programs.home-manager = {
