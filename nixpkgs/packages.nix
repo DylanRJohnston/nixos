@@ -5,7 +5,6 @@
     fortune
     google-chrome
     _1password
-    vim
     tmux
     vscode
     feh

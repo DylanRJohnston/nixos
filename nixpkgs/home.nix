@@ -12,6 +12,7 @@
     ./vscode.nix
     ./zsh.nix
     ./alacritty.nix
+    ./vim.nix
   ];
 
   programs.home-manager = {
