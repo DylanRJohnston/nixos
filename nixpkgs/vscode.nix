@@ -29,6 +29,13 @@
         version = "4.2.1";
         sha256 = "08n7jhm4ixfxjpfdwly6q15n4y3cga4r0qbl5qxh69s4c80370fh";
       }
+      #Icons
+      {
+        name = "material-icon-theme";
+        publisher = "PKief";
+        version = "4.10.0";
+        sha256 = "119zpdx2hx9d1xb3d9d773b88i2awr62ivmmnhxm9zp77x9y6b70";
+      }
     ];
 
     userSettings = {
@@ -36,13 +43,15 @@
         fontFamily = "FiraCode Nerd Font Mono";
         fontLigatures = true;
         tabSize = 2;
+        formatOnSave = true;
       };
 
       window.titlebarStyle = "custom";
       window.menuBarVisibility = "toggle";
 
       workbench = {
-        colorTheme = "GitHub Dark Dimmed";
+        colorTheme = "Solarized Dark";
+        iconTheme = "material-icon-theme";
       };
     };
   };
