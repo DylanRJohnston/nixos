@@ -10,5 +10,6 @@
     ./vscode.nix
     ./zsh.nix
     ./gpg-agent.nix
+    ./direnv.nix
   ];
 }
