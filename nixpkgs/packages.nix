@@ -21,5 +21,7 @@
     gcc
     fzf
     xclip
+    lsof
+    iftop
   ];
 }
