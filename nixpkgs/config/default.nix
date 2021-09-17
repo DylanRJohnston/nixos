@@ -9,5 +9,6 @@
     ./vim.nix
     ./vscode.nix
     ./zsh.nix
+    ./gpg-agent.nix
   ];
 }

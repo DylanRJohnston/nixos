@@ -20,5 +20,6 @@
     cargo
     gcc
     fzf
+    xclip
   ];
 }
