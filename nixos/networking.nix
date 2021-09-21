@@ -6,23 +6,14 @@
   };
 
   networking = {
-    networkmanager = {
-      enable = true;
-    };
-
     useDHCP = false;
-    interfaces = {
-      eno2.useDHCP = true;
-      enp8s0u2u4 = {
-        useDHCP = true;
-        ipv4.routes = [{
-          address = "172.23.0.0";
-          prefixLength = 16;
-          via = "172.23.18.254";
-        }];
-      };
-      wlo1.useDHCP = true;
-    };
+    networkmanager.enable = true;
+
+    interfaces.enp8s0u2u4.ipv4.routes = [{
+      address = "172.23.0.0";
+      prefixLength = 16;
+      via = "172.23.18.254";
+    }];
 
     dhcpcd.extraConfig = ''
       ssid spaarc
