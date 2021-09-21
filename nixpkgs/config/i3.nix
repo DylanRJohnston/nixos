@@ -1,3 +1,6 @@
+let
+  modifier = "Mod4";
+in
 { pkgs, lib, ... }: {
   xsession = {
     enable = true;
@@ -5,32 +8,53 @@
       enable = true;
       package = pkgs.i3-gaps;
 
-      extraConfig = "exec_always autorandr --change";
+      extraConfig = ''
+        exec_always autorandr --change
+        
+        set $mode_gaps Toggle gaps: (1) on (2) off
+        bindsym ${modifier}+g mode "$mode_gaps"
+        mode "$mode_gaps" {
+          bindsym 1 mode "default", gaps inner all set 10, gaps outer all set 0
+          bindsym 2 mode "default", gaps inner all set 0, gaps outer all set 0
+          bindsym Return mode "default"
+          bindsym Escape mode "default"
+        }
+      '';
 
       config =
-        let
-          modifier = "Mod4";
-        in
         {
           modifier = modifier;
-          bars = [ ];
+          bars = [{
+            fonts = {
+              names = [ "Iosevka, Iosevka Nerd Font" ];
+              size = 14.0;
+            };
+            mode = "hide";
+            hiddenState = "hide";
+            position = "top";
+            statusCommand = "i3status";
+            extraConfig = "modifier none";
+          }];
           terminal = "alacritty";
 
           window.border = 0;
 
           gaps = {
-            inner = 10;
+            inner = 0;
             outer = 0;
             smartBorders = "on";
             smartGaps = true;
           };
 
           keybindings = lib.mkOptionDefault {
-            "${modifier}+L" = "exec $HOME/.config/nixpkgs/scripts/i3lock-solarized-dark.sh";
-            "${modifier}+Shift+s" = "exec flameshot gui";
             "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
             "${modifier}+space" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
             "${modifier}+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
+            "${modifier}+L" = "exec $HOME/.config/nixpkgs/scripts/i3lock-solarized-dark.sh";
+            "${modifier}+Shift+s" = "exec flameshot gui";
+            "${modifier}+b" = "bar mode toggle";
+
+            # Audio Shorcuts
             "XF86AudioRaiseVolume" = "exec amixer sset 'Master' 5%+";
             "XF86AudioLowerVolume" = "exec amixer sset 'Master' 5%-";
             "XF86AudioMute" = "exec amixer sset 'Master' toggle";
@@ -38,6 +62,8 @@
             "XF86AudioPause" = "exec playerctl -p spotify play-pause";
             "XF86AudioNext" = "exec playerctl -p spotify next";
             "XF86AudioPrev" = "exec playerctl -p spotify previous";
+
+            # Brightness Shortcuts
             "XF86MonBrightnessUp" = "exec brightnessctl s +10%";
             "XF86MonBrightnessDown" = "exec brightnessctl s 10%-";
           };
@@ -45,4 +71,3 @@
     };
   };
 }
- 
