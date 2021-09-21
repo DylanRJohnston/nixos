@@ -9,6 +9,7 @@
     useDHCP = false;
     networkmanager.enable = true;
 
+    interfaces.enp8s0u2u4.useDHCP = false;
     interfaces.enp8s0u2u4.ipv4.routes = [{
       address = "172.23.0.0";
       prefixLength = 16;
