@@ -9,6 +9,7 @@
     libinput = {
       enable = true;
       touchpad.naturalScrolling = true;
+      touchpad.disableWhileTyping = true;
     };
 
     displayManager = {
