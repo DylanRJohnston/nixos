@@ -23,5 +23,6 @@
     xclip
     lsof
     iftop
+    brightnessctl
   ];
 }
