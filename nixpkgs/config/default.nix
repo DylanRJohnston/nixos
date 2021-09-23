@@ -11,5 +11,6 @@
     ./zsh.nix
     ./gpg-agent.nix
     ./direnv.nix
+    ./xss-lock.nix
   ];
 }

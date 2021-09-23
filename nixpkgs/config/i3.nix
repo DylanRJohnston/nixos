@@ -13,8 +13,12 @@ let
       "${modifier}+L" = "exec ${../scripts/i3lock-solarized-dark.sh}";
       "${modifier}+Shift+L" = "exec ${../scripts/i3lock-solarized-dark.sh} && systemctl suspend-then-hibernate";
     };
-    screenshot."${modifier}+Shift+s" = "exec flameshot gui";
-    i3bar."${modifier}+b" = "bar mode toggle";
+    screenshot = {
+      "${modifier}+Shift+s" = "exec flameshot gui";
+    };
+    i3bar = {
+      "${modifier}+b" = "bar mode toggle";
+    };
     audioControls = {
       "XF86AudioRaiseVolume" = "exec amixer sset 'Master' 5%+";
       "XF86AudioLowerVolume" = "exec amixer sset 'Master' 5%-";
