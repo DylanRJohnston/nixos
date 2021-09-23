@@ -1,7 +1,36 @@
+{ pkgs, lib, ... }:
 let
+  merge = x: y: x // y;
+  pipe = lib.foldl (x: f: f x);
   modifier = "Mod4";
+  keybindings = {
+    rofi = {
+      "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
+      "${modifier}+space" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
+      "${modifier}+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
+    };
+    lockscreen = {
+      "${modifier}+L" = "exec ${../scripts/i3lock-solarized-dark.sh}";
+      "${modifier}+Shift+L" = "exec ${../scripts/i3lock-solarized-dark.sh} && systemctl suspend-then-hibernate";
+    };
+    screenshot."${modifier}+Shift+s" = "exec flameshot gui";
+    i3bar."${modifier}+b" = "bar mode toggle";
+    audioControls = {
+      "XF86AudioRaiseVolume" = "exec amixer sset 'Master' 5%+";
+      "XF86AudioLowerVolume" = "exec amixer sset 'Master' 5%-";
+      "XF86AudioMute" = "exec amixer sset 'Master' toggle";
+      "XF86AudioPlay" = "exec playerctl -p spotify play-pause";
+      "XF86AudioPause" = "exec playerctl -p spotify play-pause";
+      "XF86AudioNext" = "exec playerctl -p spotify next";
+      "XF86AudioPrev" = "exec playerctl -p spotify previous";
+    };
+    brightnessControls = {
+      "XF86MonBrightnessUp" = "exec brightnessctl s +10%";
+      "XF86MonBrightnessDown" = "exec brightnessctl s 10%-";
+    };
+  };
 in
-{ pkgs, lib, ... }: {
+{
   xsession = {
     enable = true;
     windowManager.i3 = {
@@ -46,28 +75,11 @@ in
             smartGaps = true;
           };
 
-          keybindings = lib.mkOptionDefault {
-            "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
-            "${modifier}+space" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
-            "${modifier}+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
-            "${modifier}+L" = "exec ${../scripts/i3lock-solarized-dark.sh}";
-            "${modifier}+BackSpace" = "exec ${../scripts/i3lock-solarized-dark.sh} && systemctl suspend-then-hibernate";
-            "${modifier}+Shift+s" = "exec flameshot gui";
-            "${modifier}+b" = "bar mode toggle";
-
-            # Audio Shorcuts
-            "XF86AudioRaiseVolume" = "exec amixer sset 'Master' 5%+";
-            "XF86AudioLowerVolume" = "exec amixer sset 'Master' 5%-";
-            "XF86AudioMute" = "exec amixer sset 'Master' toggle";
-            "XF86AudioPlay" = "exec playerctl -p spotify play-pause";
-            "XF86AudioPause" = "exec playerctl -p spotify play-pause";
-            "XF86AudioNext" = "exec playerctl -p spotify next";
-            "XF86AudioPrev" = "exec playerctl -p spotify previous";
-
-            # Brightness Shortcuts
-            "XF86MonBrightnessUp" = "exec brightnessctl s +10%";
-            "XF86MonBrightnessDown" = "exec brightnessctl s 10%-";
-          };
+          keybindings = pipe keybindings [
+            lib.attrValues
+            (lib.foldl merge { })
+            lib.mkOptionDefault
+          ];
         };
     };
   };
