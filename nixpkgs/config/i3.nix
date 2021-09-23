@@ -50,7 +50,8 @@ in
             "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
             "${modifier}+space" = "exec ${pkgs.rofi}/bin/rofi -modi run -show run";
             "${modifier}+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
-            "${modifier}+L" = "exec $HOME/.config/nixpkgs/scripts/i3lock-solarized-dark.sh";
+            "${modifier}+L" = "exec ${../scripts/i3lock-solarized-dark.sh}";
+            "${modifier}+BackSpace" = "exec ${../scripts/i3lock-solarized-dark.sh} && systemctl suspend-then-hibernate";
             "${modifier}+Shift+s" = "exec flameshot gui";
             "${modifier}+b" = "bar mode toggle";
 
