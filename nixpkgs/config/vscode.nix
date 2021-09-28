@@ -14,6 +14,11 @@
       pkief.material-icon-theme
     ];
 
+    keybindings = [
+      { key = "ctrl+e"; command = "cursorLineEnd"; }
+      { key = "ctrl+a"; command = "cursorLineStart"; }
+    ];
+
     userSettings = {
       update.mode = "manual";
       editor = {
