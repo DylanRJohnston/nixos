@@ -27,6 +27,8 @@
     };
     shellAliases = {
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";
+      "pbcopy" = "xclip -i -selection clipboard";
+      "pbpaste" = "xclip -o -selection clipboard";
     };
   };
 }
