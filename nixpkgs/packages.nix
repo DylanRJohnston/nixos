@@ -4,7 +4,7 @@
     htop
     fortune
     google-chrome
-    _1password
+    _1password-gui
     tmux
     vscode
     feh
@@ -24,5 +24,7 @@
     lsof
     iftop
     brightnessctl
+    git-crypt
+    awscli2
   ];
 }
