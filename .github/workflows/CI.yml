@@ -22,4 +22,4 @@ jobs:
       - uses: cachix/install-nix-action@v14
       
       - name: Instantiate NixOS
-        run: nix-instantiate "<nixpkgs/nixos>" -A system --arg ./nixos/configuration.nix
+        run: nix-instantiate "<nixpkgs/nixos>" -A system --arg config ./nixos/configuration.nix
