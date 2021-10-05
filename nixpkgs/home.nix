@@ -4,6 +4,7 @@
   imports = [
     ./packages.nix
     ./config
+    ./services
   ];
 
   programs.home-manager = {

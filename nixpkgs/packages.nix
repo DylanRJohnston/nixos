@@ -1,30 +1,32 @@
 { pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    htop
-    fortune
-    google-chrome
+let
+  applications = with pkgs; [
     _1password-gui
-    tmux
-    vscode
-    feh
-    git
     alacritty
-    i3lock-color
-    git-town
-    nixpkgs-fmt
+    feh
     flameshot
+    google-chrome
     spotify
-    playerctl
-    rustc
-    cargo
-    gcc
-    fzf
-    xclip
-    lsof
-    iftop
-    brightnessctl
-    git-crypt
-    awscli2
+    vscode
   ];
+  clis = with pkgs; [
+    awscli2
+    brightnessctl
+    fzf
+    gcc
+    git
+    git-crypt
+    git-town
+    htop
+    i3lock-color
+    iftop
+    lsof
+    nixpkgs-fmt
+    playerctl
+    tmux
+    xclip
+  ];
+in
+{
+  home.packages = applications ++ clis;
 }
