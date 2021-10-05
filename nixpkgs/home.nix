@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./packages.nix
     ./config
+    ./packages.nix
     ./services
   ];
 

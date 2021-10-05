@@ -5,7 +5,6 @@ let
     alacritty
     feh
     flameshot
-    google-chrome
     spotify
     vscode
   ];
