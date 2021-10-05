@@ -11,6 +11,7 @@ let
   clis = with pkgs; [
     awscli2
     brightnessctl
+    docker-compose
     fzf
     gcc
     git
