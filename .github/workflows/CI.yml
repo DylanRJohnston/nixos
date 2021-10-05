@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   workflow_dispatch:
 
@@ -18,10 +18,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - uses: cachix/install-nix-action@v14
         with:
           nix_path: nixpkgs=channel:nixos-unstable:nixos-config=./nixos/configuration.nix
-      
+
       - name: Instantiate NixOS
         run: nix-instantiate "<nixpkgs/nixos>" -A system --arg config ./nixos/configuration.nix
+
+      - name: Install HomeManager
+        run: |
+          nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+          nix-channel --update
+
+      - name: Instantiate HomeManager
+        run: |
+          NIX_PATH=home-manager=$HOME/.nix-defexpr/channels/home-manager:$NIX_PATH \
+          NIXPKGS_ALLOW_UNFREE=1 \
+          nix-instantiate \
+          "<home-manager/home-manager/home-manager.nix>" \
+          --argstr confPath $(pwd)/nixpkgs/home.nix
