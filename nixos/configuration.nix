@@ -5,14 +5,15 @@
 
   imports =
     [
-      ./hardware-configuration.nix
-      ./boot.nix
-      ./user.nix
-      ./networking.nix
       ./bluetooth.nix
-      ./xserver.nix
-      ./packages.nix
+      ./boot.nix
+      ./docker.nix
       ./fonts.nix
+      ./hardware-configuration.nix
+      ./networking.nix
+      ./packages.nix
+      ./user.nix
+      ./xserver.nix
     ];
 
   time.timeZone = "Australia/Perth";

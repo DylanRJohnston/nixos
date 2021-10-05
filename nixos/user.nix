@@ -3,6 +3,6 @@
     isNormalUser = true;
     home = "/home/dylanj";
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "docker" ];
   };
 }
