@@ -56,7 +56,7 @@ i3lock-color \
   --date-color=$blue \
   --time-color=$blue \
   --screen 1 \
-  --image $HOME/Pictures/background.png \
+  --image $HOME/Pictures/background.jpg \
   --clock \
   --indicator \
   --time-str="%H:%M:%S" \
