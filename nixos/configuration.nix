@@ -11,6 +11,7 @@
       ./fonts.nix
       ./hardware-configuration.nix
       ./networking.nix
+      ./nvidia.nix
       ./packages.nix
       ./user.nix
       ./xserver.nix
