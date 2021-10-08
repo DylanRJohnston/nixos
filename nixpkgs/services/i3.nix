@@ -1,7 +1,5 @@
 { pkgs, lib, ... }:
 let
-  merge = x: y: x // y;
-  pipe = lib.foldl (x: f: f x);
   modifier = "Mod4";
   keybindings = {
     rofi = {
@@ -79,10 +77,10 @@ in
             smartGaps = true;
           };
 
-          keybindings = pipe keybindings [
-            lib.attrValues
-            (lib.foldl merge { })
-            lib.mkOptionDefault
+          keybindings = with lib; pipe keybindings [
+            attrValues
+            (foldl mergeAttrs { })
+            mkOptionDefault
           ];
         };
     };

@@ -8,7 +8,7 @@ in
   programs.autorandr = {
     enable = true;
 
-    hooks.postswitch.change-background = "feh --bg-scale ~/Pictures/background.jpg";
+    hooks.postswitch.change-background = "feh --bg-scale ~/Pictures/background.png";
 
     profiles = {
       "undocked" = {
