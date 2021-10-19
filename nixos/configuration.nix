@@ -8,6 +8,7 @@
       ./bluetooth.nix
       ./boot.nix
       ./docker.nix
+      ./flakes.nix
       ./fonts.nix
       ./hardware-configuration.nix
       ./networking.nix
