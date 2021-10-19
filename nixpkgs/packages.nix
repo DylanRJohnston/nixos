@@ -5,6 +5,7 @@ let
     alacritty
     feh
     flameshot
+    google-chrome
     spotify
     vscode
   ];
@@ -20,7 +21,9 @@ let
     htop
     i3lock-color
     iftop
+    killall
     lsof
+    ngrok
     nixpkgs-fmt
     playerctl
     tmux
