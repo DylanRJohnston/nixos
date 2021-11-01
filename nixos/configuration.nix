@@ -11,6 +11,7 @@
       ./flakes.nix
       ./fonts.nix
       ./hardware-configuration.nix
+      ./i18n.nix
       ./networking.nix
       ./nvidia.nix
       ./packages.nix
