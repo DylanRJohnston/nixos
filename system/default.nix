@@ -3,12 +3,18 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   imports =
     [
       ./bluetooth.nix
       ./boot.nix
       ./docker.nix
-      ./flakes.nix
       ./fonts.nix
       ./hardware-configuration.nix
       ./i18n.nix
