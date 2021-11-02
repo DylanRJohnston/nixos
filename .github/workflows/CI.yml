@@ -22,4 +22,4 @@ jobs:
       - uses: cachix/install-nix-action@v14
 
       - name: Instantiate NixOS
-        run: nix --extra-experimental-features flakes eval .#nixosConfigurations."dylanj-fugro-dell".config.system.build.toplevel.drvPath
+        run: nix --extra-experimental-features nix-command --extra-experimental-features flakes eval .#nixosConfigurations."dylanj-fugro-dell".config.system.build.toplevel.drvPath
