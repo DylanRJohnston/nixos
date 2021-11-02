@@ -24,17 +24,4 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable:nixos-config=./nixos/configuration.nix
 
       - name: Instantiate NixOS
-        run: nix-instantiate "<nixpkgs/nixos>" -A system --arg config ./nixos/configuration.nix
-
-      - name: Install HomeManager
-        run: |
-          nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-          nix-channel --update
-
-      - name: Instantiate HomeManager
-        run: |
-          NIX_PATH=home-manager=$HOME/.nix-defexpr/channels/home-manager:$NIX_PATH \
-          NIXPKGS_ALLOW_UNFREE=1 \
-          nix-instantiate \
-          "<home-manager/home-manager/home-manager.nix>" \
-          --argstr confPath $(pwd)/nixpkgs/home.nix
+        run: nix eval .#nixosConfigurations."dylanj-fugro-dell".config.system.build.toplevel.drvPath
