@@ -10,6 +10,8 @@
   };
 
   networking = {
+    hostName = "dylanj-fugro-dell";
+
     useDHCP = false;
     networkmanager = {
       enable = true;

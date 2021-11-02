@@ -7,7 +7,7 @@
     extensions = with pkgs.vscode-extensions; [
       esbenp.prettier-vscode
       jnoortheen.nix-ide
-      matklad.rust-analyzer
+      # matklad.rust-analyzer
       arrterian.nix-env-selector
       dbaeumer.vscode-eslint
       github.github-vscode-theme
