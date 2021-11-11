@@ -25,4 +25,4 @@ jobs:
 
       - name: Instantiate NixOS
         run: |
-          nix eval .#nixosConfigurations."dylanj-fugro-dell".config.system.build.toplevel.drvPath
+          nix eval .#nixosConfigurations."dylanj-work".config.system.build.toplevel.drvPath
