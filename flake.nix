@@ -1,11 +1,15 @@
 {
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
-  inputs.home-manager.url = "github:nix-community/home-manager";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = { self, nixpkgs, home-manager, flake-utils, ... }: {
-    nixosConfigurations."dylanj-fugro-dell" = nixpkgs.lib.nixosSystem
+    nixosConfigurations."dylanj-work" = nixpkgs.lib.nixosSystem
       {
         system = "x86_64-linux";
         modules = [

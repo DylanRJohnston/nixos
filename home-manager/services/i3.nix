@@ -50,6 +50,8 @@ in
           bindsym Return mode "default"
           bindsym Escape mode "default"
         }
+
+        for_window [class="flappy"] floating enable
       '';
 
       config =
