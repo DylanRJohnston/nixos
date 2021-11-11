@@ -12,7 +12,12 @@
       dbaeumer.vscode-eslint
       github.github-vscode-theme
       pkief.material-icon-theme
-    ];
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
+      name = "rust-analyzer";
+      publisher = "matklad";
+      version = "0.2.801";
+      sha256 = "FcJhoFvSQU4362Ubzmuyn12W1G3rWR/vvFNXXnS0mqY=";
+    }];
 
     keybindings = [
       { key = "ctrl+e"; command = "cursorLineEnd"; }
