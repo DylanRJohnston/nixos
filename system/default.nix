@@ -21,6 +21,7 @@
       ./networking.nix
       ./nvidia.nix
       ./packages.nix
+      ./persistence.nix
       ./user.nix
       ./xserver.nix
     ];

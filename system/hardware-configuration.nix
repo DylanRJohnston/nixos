@@ -5,27 +5,42 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3be60b45-e55d-4bc0-92e7-b91ff35ce281";
-      fsType = "ext4";
+    {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=2G" "mode=755" ];
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/CEF5-4AF0";
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-uuid/AA81-8380";
       fsType = "vfat";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/89da8212-3fdb-4066-902a-9fc851af9a87"; }
-    ];
+  fileSystems."/nix" =
+    {
+      device = "/dev/disk/by-uuid/404ce749-81ab-4d58-9e81-313d3fa79fe8";
+      fsType = "ext4";
+    };
+
+  fileSystems."/etc/nixos" =
+    {
+      device = "/nix/persist/etc/nixos";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
