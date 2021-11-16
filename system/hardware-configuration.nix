@@ -40,6 +40,12 @@
       options = [ "bind" ];
     };
 
+  fileSystems."/home/dylanj" = {
+    device = "/nix/persist/home/dylanj";
+    fsType = "none";
+    options = [ "bind" ];
+  };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

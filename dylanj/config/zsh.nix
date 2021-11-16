@@ -6,6 +6,7 @@
     oh-my-zsh = {
       enable = true;
     };
+    history.path = "/nix/persist/home/dylanj/.zsh_history";
     initExtra = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
     plugins = [{
       name = "enhancd";

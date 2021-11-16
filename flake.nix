@@ -2,24 +2,19 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    impermanence.url = "github:RiscadoA/impermanence";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, impermanence, ... }: {
+  outputs = { self, nixpkgs, flake-utils, home-manager, ... }: {
     nixosConfigurations."dylanj-work" = nixpkgs.lib.nixosSystem
       {
         system = "x86_64-linux";
         modules = [
           ./system
-          impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager
-          ./home-manager
+          ./dylanj
         ];
-        specialArgs = { inherit impermanence; };
       };
   };
 }
