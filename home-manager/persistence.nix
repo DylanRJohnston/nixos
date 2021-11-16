@@ -10,6 +10,7 @@
       ".config/1Password"
       ".enhancd"
       ".mozilla"
+      ".config/spotify"
     ];
     files = [
       ".zsh_history"
