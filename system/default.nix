@@ -22,6 +22,7 @@
       ./nvidia.nix
       ./packages.nix
       ./persistence.nix
+      ./sudo.nix
       ./user.nix
       ./xserver.nix
     ];
