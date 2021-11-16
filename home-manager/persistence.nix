@@ -11,6 +11,7 @@
       ".enhancd"
       ".mozilla"
       ".config/spotify"
+      ".local/share/direnv"
     ];
     files = [
       ".zsh_history"
