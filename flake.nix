@@ -13,7 +13,6 @@
         modules = [
           ./system
           home-manager.nixosModules.home-manager
-          ./dylanj
         ];
       };
   };

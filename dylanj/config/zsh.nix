@@ -6,7 +6,6 @@
     oh-my-zsh = {
       enable = true;
     };
-    history.path = "/nix/persist/home/dylanj/.zsh_history";
     initExtra = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
     plugins = [{
       name = "enhancd";
@@ -30,6 +29,7 @@
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";
       "pbcopy" = "xclip -i -selection clipboard";
       "pbpaste" = "xclip -o -selection clipboard";
+      "headphones" = "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
     };
   };
 }
