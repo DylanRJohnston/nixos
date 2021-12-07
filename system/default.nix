@@ -20,6 +20,7 @@
       ./hardware-configuration.nix
       ./i18n.nix
       ./networking.nix
+      ./nomad.nix
       ./nvidia.nix
       ./packages.nix
       ./persistence.nix
