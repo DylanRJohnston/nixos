@@ -1,7 +1,7 @@
 {
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
