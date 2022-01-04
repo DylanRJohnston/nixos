@@ -1,6 +1,4 @@
 { pkgs, ... }: {
-  imports = [ ../dylanj ];
-
   users = {
     mutableUsers = false;
     users.dylanj = {
