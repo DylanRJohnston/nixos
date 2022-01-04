@@ -29,6 +29,8 @@
       ./xserver.nix
     ];
 
+  services.fstrim.enable = true;
+
   time.timeZone = "Australia/Perth";
   system.stateVersion = "21.11";
 }
