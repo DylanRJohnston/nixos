@@ -1,4 +1,11 @@
 {
+  services.consul = {
+    enable = true;
+    extraConfig = {
+      bootstrap = true;
+      server = true;
+    };
+  };
   services.nomad = {
     enable = true;
     settings = {
