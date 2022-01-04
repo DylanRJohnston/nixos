@@ -6,6 +6,7 @@ let
     feh
     flameshot
     google-chrome
+    postman
     spotify
     vscode
   ];
