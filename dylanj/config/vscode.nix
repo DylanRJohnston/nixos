@@ -14,6 +14,7 @@
         github.github-vscode-theme
         pkief.material-icon-theme
         eamodio.gitlens
+        _4ops.terraform
       ];
 
       keybindings = [
