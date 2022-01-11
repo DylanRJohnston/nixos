@@ -40,6 +40,13 @@
       options = [ "bind" ];
     };
 
+  fileSystems."/tmp" =
+    {
+      device = "/nix/persist/tmp";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
   fileSystems."/home/dylanj" = {
     device = "/nix/persist/home/dylanj";
     fsType = "none";
