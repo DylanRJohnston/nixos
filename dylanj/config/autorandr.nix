@@ -44,7 +44,7 @@ in
           "DP-1" = {
             enable = true;
             crtc = 1;
-            mode = "3440x2160";
+            mode = "3840x2160";
             position = "0x0";
             primary = true;
             rate = "60.00";
