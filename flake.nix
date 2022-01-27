@@ -7,16 +7,12 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager, ... }:
-
     {
-      nixosConfigurations."dylanj-work" = nixpkgs.lib.nixosSystem
-        {
-          system = "x86_64-linux";
-          modules = [
-            ./system
-            home-manager.nixosModules.home-manager
-            ./dylanj
-          ];
+      nixosConfigurations = {
+        "dylanj-work-dell" = import ./hosts/dylanj-work-dell {
+          inherit (nixpkgs.lib) nixosSystem;
+          inherit (home-manager.nixosModules) home-manager;
         };
+      };
     };
 }

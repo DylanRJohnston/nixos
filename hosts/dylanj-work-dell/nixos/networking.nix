@@ -10,7 +10,7 @@
   };
 
   networking = {
-    hostName = "dylanj-work";
+    hostName = "dylanj-work-dell";
 
     useDHCP = false;
     networkmanager = {
