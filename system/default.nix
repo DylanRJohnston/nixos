@@ -25,6 +25,7 @@
       ./packages.nix
       ./persistence.nix
       ./sudo.nix
+      ./tailscale.nix
       ./user.nix
       ./xserver.nix
     ];
