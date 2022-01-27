@@ -53,7 +53,7 @@
     options = [ "bind" ];
   };
 
-  swapDevices = [ ];
+  swapDevices = [{ device = "/nix/persist/swapfile"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
