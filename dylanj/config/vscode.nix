@@ -30,6 +30,8 @@
           tabSize = 2;
           formatOnSave = true;
           codeActionsOnSave.source.fixAll = true;
+          bracketPairColorization.enabled = true;
+          guides.bracketPairs = "active";
         };
 
         window.titlebarStyle = "custom";
