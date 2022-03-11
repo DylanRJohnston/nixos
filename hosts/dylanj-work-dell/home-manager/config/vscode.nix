@@ -15,6 +15,8 @@
         pkief.material-icon-theme
         eamodio.gitlens
         hashicorp.terraform
+        _4ops.terraform
+        golang.go
       ];
 
       keybindings = [

@@ -22,6 +22,7 @@ let
     htop
     i3lock-color
     iftop
+    jq
     killall
     lsof
     ngrok
