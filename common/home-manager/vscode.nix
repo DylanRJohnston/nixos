@@ -41,7 +41,7 @@
         window.menuBarVisibility = "toggle";
 
         workbench = {
-          colorTheme = "Solarized Dark";
+          colorTheme = "GitHub Dark";
           iconTheme = "material-icon-theme";
         };
 
