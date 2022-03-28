@@ -26,3 +26,4 @@ jobs:
       - name: Instantiate NixOS
         run: |
           nix eval .#nixosConfigurations."dylanj-work-dell".config.system.build.toplevel.drvPath
+          nix eval .#darwinConfigurations."macbook-pro".config.system.build.toplevel.drvPath

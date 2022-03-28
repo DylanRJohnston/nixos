@@ -1,12 +1,16 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./fonts.nix
+    ./homebrew.nix
+  ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     [
       pkgs.vim
-      pkgs.nixpkgs-fmt
       pkgs.git
     ];
 
@@ -30,4 +34,21 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
+
+  system.defaults.dock.show-recents = false;
+  system.defaults.dock.autohide = true;
+
+  system.defaults = {
+    NSGlobalDomain = {
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+      AppleKeyboardUIMode = 3;
+
+      "com.apple.sound.beep.feedback" = 0;
+
+      AppleShowAllExtensions = true;
+      AppleInterfaceStyle = "Dark";
+    };
+  };
+
 }
