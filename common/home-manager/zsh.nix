@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -27,7 +27,7 @@
       POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = [ "context" "dir" "vcs" ];
       POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = [ "status" "root_indicator" "background_jobs" "history" ];
     };
-    shellAliases = {
+    shellAliases = lib.mkIf (! pkgs.stdenv.isDarwin) {
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";
       "pbcopy" = "xclip -i -selection clipboard";
       "pbpaste" = "xclip -o -selection clipboard";
