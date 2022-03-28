@@ -34,6 +34,7 @@
           codeActionsOnSave.source.fixAll = true;
           bracketPairColorization.enabled = true;
           guides.bracketPairs = "active";
+          minimap.enabled = false;
         };
 
         window.titlebarStyle = "custom";
