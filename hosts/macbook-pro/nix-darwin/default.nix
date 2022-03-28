@@ -4,6 +4,7 @@
   imports = [
     ./fonts.nix
     ./homebrew.nix
+    ./touchID.nix
   ];
 
   # List packages installed in system profile. To search by name, run:
@@ -37,6 +38,7 @@
 
   system.defaults.dock.show-recents = false;
   system.defaults.dock.autohide = true;
+
 
   system.defaults = {
     NSGlobalDomain = {
