@@ -3,6 +3,6 @@
   modules = [
     ./nix-darwin
     home-manager
-    ./home-manager
+    ./home-manager.nix
   ];
 }
