@@ -16,7 +16,6 @@
       ./bluetooth.nix
       ./boot.nix
       ./docker.nix
-      ./fonts.nix
       ./hardware-configuration.nix
       ./i18n.nix
       ./networking.nix

@@ -10,7 +10,5 @@
     ./autorandr.nix
     ./firefox.nix
     ./rofi.nix
-    ./vim.nix
-    ./zsh.nix
   ];
 }
