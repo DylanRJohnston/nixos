@@ -10,5 +10,10 @@
     ./autorandr.nix
     ./firefox.nix
     ./rofi.nix
+<<<<<<< HEAD
+=======
+    ./vim.nix
+    ./zsh.nix
+>>>>>>> d20f286 (Squash me)
   ];
 }
