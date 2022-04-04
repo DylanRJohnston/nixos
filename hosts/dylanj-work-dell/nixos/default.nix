@@ -28,6 +28,7 @@
       ./tailscale.nix
       ./user.nix
       ./xserver.nix
+      ../../../common/nixos/fonts.nix
     ];
 
   services.fstrim.enable = true;

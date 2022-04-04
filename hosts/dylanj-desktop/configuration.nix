@@ -8,6 +8,7 @@ in
 {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
+    ../../common/nixos/fonts.nix
   ];
 
   nix.package = pkgs.nixUnstable;
