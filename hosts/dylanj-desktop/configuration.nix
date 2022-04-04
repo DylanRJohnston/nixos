@@ -22,9 +22,11 @@ in
 
   networking.dhcpcd.enable = false;
 
+  programs.zsh.enable = true;
   users.users.${defaultUser} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
   };
 
   users.users.root = {
@@ -51,5 +53,5 @@ in
   networking.hostName = "dylanj-desktop";
 
   environment.noXlibs = lib.mkForce false;
-  environment.systemPackages = with pkgs; [ vim htop tmux git vscode wget ];
+  environment.systemPackages = with pkgs; [ vim htop tmux git vscode wget nixpkgs-fmt ];
 }

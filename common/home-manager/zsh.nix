@@ -27,11 +27,16 @@
       POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = [ "context" "dir" "vcs" ];
       POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = [ "status" "root_indicator" "background_jobs" "history" ];
     };
-    shellAliases = lib.mkIf (! pkgs.stdenv.isDarwin) {
-      "battery" = "cat /sys/class/power_supply/BAT0/capacity";
-      "pbcopy" = "xclip -i -selection clipboard";
-      "pbpaste" = "xclip -o -selection clipboard";
-      "headphones" = "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
-    };
+    shellAliases = lib.mkMerge [
+      ({
+        gitlog = "git log --oneline --graph --all";
+      })
+      (lib.optionalAttrs pkgs.stdenv.isLinux {
+        "battery" = "cat /sys/class/power_supply/BAT0/capacity";
+        "pbcopy" = "xclip -i -selection clipboard";
+        "pbpaste" = "xclip -o -selection clipboard";
+        "headphones" = "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
+      })
+    ];
   };
 }

@@ -14,6 +14,12 @@
   };
 
   outputs = { self, nixpkgs, darwin, home-manager, ... }:
+    let
+      mkSystem = path: import path {
+        inherit (nixpkgs.lib) nixosSystem;
+        inherit (home-manager.nixosModules) home-manager;
+      };
+    in
     {
       nixosConfigurations = {
         "dylanj-work-dell" = mkSystem ./hosts/dylanj-work-dell;
