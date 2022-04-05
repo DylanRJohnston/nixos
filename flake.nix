@@ -16,11 +16,11 @@
   outputs = { self, nixpkgs, darwin, home-manager, ... }:
     {
       nixosConfigurations = {
-        "dylanj-work-dell" = mkSystem ./hosts/dylanj-work-dell {
+        "dylanj-work-dell" = import ./hosts/dylanj-work-dell {
           inherit (nixpkgs.lib) nixosSystem;
           inherit (home-manager.nixosModules) home-manager;
         };
-        "dylanj-desktop" = mkSystem ./hosts/dylanj-desktop {
+        "dylanj-desktop" = import ./hosts/dylanj-desktop {
           inherit (nixpkgs.lib) nixosSystem;
           inherit (home-manager.nixosModules) home-manager;
         };
