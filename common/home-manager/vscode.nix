@@ -6,17 +6,18 @@
       package = pkgs.vscode;
 
       extensions = with pkgs.vscode-extensions; [
-        esbenp.prettier-vscode
-        jnoortheen.nix-ide
-        matklad.rust-analyzer
+        _4ops.terraform
         arrterian.nix-env-selector
         dbaeumer.vscode-eslint
-        github.github-vscode-theme
-        pkief.material-icon-theme
         eamodio.gitlens
-        hashicorp.terraform
-        _4ops.terraform
+        esbenp.prettier-vscode
+        github.github-vscode-theme
         golang.go
+        hashicorp.terraform
+        jnoortheen.nix-ide
+        matklad.rust-analyzer
+        pkief.material-icon-theme
+        streetsidesoftware.code-spell-checker
       ];
 
       keybindings = [
@@ -36,6 +37,14 @@
           guides.bracketPairs = "active";
           minimap.enabled = false;
         };
+
+        cSpell = {
+          enabled = true;
+          enableFiletypes = [
+            "terraform"
+          ];
+        };
+
 
         window.titlebarStyle = "custom";
         window.menuBarVisibility = "toggle";
