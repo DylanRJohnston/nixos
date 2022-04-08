@@ -18,8 +18,8 @@
       };
     }];
     sessionVariables = {
-      LC_ALL = "en_IN.UTF-8";
-      LANG = "en_IN.UTF-8";
+      LC_ALL = "en_US.UTF-8";
+      LANG = "en_US.UTF-8";
       DEFAULT_USER = "dylanj";
       POWERLEVEL9K_SHORTEN_DIR_LENGTH = 1;
       POWERLEVEL9K_SHORTEN_DELIMITER = "";
