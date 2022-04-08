@@ -13,6 +13,7 @@
     ];
 
     home.packages = with pkgs; [
+      cachix
       fzf
       git-town
       htop
