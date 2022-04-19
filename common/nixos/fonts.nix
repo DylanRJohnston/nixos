@@ -1,8 +1,6 @@
 { pkgs, ... }: {
 
   fonts = {
-    enableDefaultFonts = true;
-    fontDir.enable = true;
     fonts = with pkgs; [
       corefonts
       dejavu_fonts

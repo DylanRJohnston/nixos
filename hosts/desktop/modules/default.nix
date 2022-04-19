@@ -1,14 +1,14 @@
-{ lib, pkgs, config, modulesPath, ... }:
+{ lib, pkgs, config, modulesPath, common, ... }:
 
 with lib;
 let
-  defaultUser = "nixos";
+  defaultUser = "dylanj";
   syschdemd = import ./syschdemd.nix { inherit lib pkgs config defaultUser; };
 in
 {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
-    ../../common/nixos/fonts.nix
+    common.fonts
   ];
 
   nix.package = pkgs.nixUnstable;

@@ -1,13 +1,11 @@
-{ config, pkgs, ... }:
-
-{
-  imports = [
-    ./apps.nix
-    ./fonts.nix
-    ./nix-config.nix
+{ common, ... }: {
+  imports = with common; [
+    ./homebrew.nix
     ./system-defaults.nix
     ./system-packages.nix
     ./touchID.nix
+    fonts
+    nix-config
   ];
 
   programs.zsh.enable = true; # default shell on catalina
