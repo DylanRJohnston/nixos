@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ common, config, pkgs, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -25,9 +25,9 @@
       ./persistence.nix
       ./sudo.nix
       ./tailscale.nix
-      ./user.nix
+      common.user
       ./xserver.nix
-      ../../../common/nixos/fonts.nix
+      common.fonts
     ];
 
   services.fstrim.enable = true;

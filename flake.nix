@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    hardware.url = "github:nixos/nixos-hardware";
+
+    flake-utils.url = "github:numtide/flake-utils";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,39 +17,45 @@
     };
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager }:
+  outputs = inputs@{ self, flake-utils, nixpkgs, darwin, home-manager, hardware }:
     let
       toPath = path: ./. + path;
 
-      mkSystem = { builder, home-manager }: name: system: builder {
+      home-manager-module = host-name: [{
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs.common = import ./common/home-manager;
+        home-manager.users.dylanj = import (toPath "/hosts/${host-name}/home-manager");
+      }];
+
+      host-modules = host-name: [ (toPath "/hosts/${host-name}/modules") ];
+
+      mkSystem = { builder, extra-modules }: host-name: system: builder {
         inherit system;
-        specialArgs.common = import ./common/nixos;
-        modules = [
-          home-manager
-          (toPath "/hosts/${name}/modules")
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs.common = import ./common/home-manager;
-            home-manager.users.dylanj = import (toPath "/hosts/${name}/home-manager");
-          }
-        ];
+
+        specialArgs = {
+          inherit inputs;
+          common = import ./common/nixos;
+        };
+
+        modules = extra-modules ++ (host-modules host-name) ++ (home-manager-module host-name);
       };
 
       mkDarwin = mkSystem {
         builder = darwin.lib.darwinSystem;
-        home-manager = home-manager.darwinModules.home-manager;
+        extra-modules = [ home-manager.darwinModules.home-manager ];
       };
 
       mkNixos = mkSystem {
         builder = nixpkgs.lib.nixosSystem;
-        home-manager = home-manager.nixosModules.home-manager;
+        extra-modules = [ home-manager.nixosModules.home-manager ];
       };
     in
     {
       nixosConfigurations = builtins.mapAttrs mkNixos {
         "work-dell" = "x86_64-linux";
         "desktop" = "x86_64-linux";
+        "ipad" = "aarch64-linux";
       };
 
       darwinConfigurations = builtins.mapAttrs mkDarwin {
