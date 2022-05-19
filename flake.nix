@@ -19,18 +19,9 @@
 
   outputs = { flake-utils, nixpkgs, darwin, home-manager, hardware, ... }:
     let
-      lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
-
       toPath = path: ./. + path;
 
-      home-manager-config = host-name: {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs.common = import ./common/home-manager;
-        home-manager.users.dylanj = import (toPath "/hosts/${host-name}/home-manager");
-      };
-
-      host-modules = host-name: (toPath "/hosts/${host-name}/modules");
+      lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
 
       mkSystem = { builder, home-manager }: host-name: system: builder {
         inherit system;
@@ -40,7 +31,16 @@
           common = import ./common/nixos;
         };
 
-        modules = [ home-manager (host-modules host-name) (home-manager-config host-name) ];
+        modules = [
+          home-manager
+          (toPath "/hosts/${host-name}/modules")
+          ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs.common = import (toPath "/common/home-manager");
+            home-manager.users.dylanj = import (toPath "/hosts/${host-name}/home-manager");
+          })
+        ];
       };
 
       mkDarwin = mkSystem {
