@@ -23,16 +23,16 @@
 
       toPath = path: ./. + path;
 
-      home-manager-module = host-name: [{
+      home-manager-config = host-name: {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs.common = import ./common/home-manager;
         home-manager.users.dylanj = import (toPath "/hosts/${host-name}/home-manager");
-      }];
+      };
 
-      host-modules = host-name: [ (toPath "/hosts/${host-name}/modules") ];
+      host-modules = host-name: (toPath "/hosts/${host-name}/modules");
 
-      mkSystem = { builder, extra-modules }: host-name: system: builder {
+      mkSystem = { builder, home-manager }: host-name: system: builder {
         inherit system;
 
         specialArgs = {
@@ -40,17 +40,17 @@
           common = import ./common/nixos;
         };
 
-        modules = extra-modules ++ (host-modules host-name) ++ (home-manager-module host-name);
+        modules = [ home-manager (host-modules host-name) (home-manager-config host-name) ];
       };
 
       mkDarwin = mkSystem {
         builder = darwin.lib.darwinSystem;
-        extra-modules = [ home-manager.darwinModules.home-manager ];
+        home-manager = home-manager.darwinModules.home-manager;
       };
 
       mkNixos = mkSystem {
         builder = nixpkgs.lib.nixosSystem;
-        extra-modules = [ home-manager.nixosModules.home-manager ];
+        home-manager = home-manager.nixosModules.home-manager;
       };
     in
     {
