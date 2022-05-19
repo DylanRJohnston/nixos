@@ -21,6 +21,7 @@ in
       enable = true;
       package = pkgs.vscode;
 
+      mutableExtensionsDir = false;
       extensions = with pkgs.vscode-extensions; [
         _4ops.terraform
         arrterian.nix-env-selector
