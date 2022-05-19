@@ -3,27 +3,12 @@
     alacritty
     direnv
     git
+    home-manager
+    packages
+    tmux
     vim
     vscode
     zsh
-    tmux
   ];
-
-  home.packages = with pkgs; [
-    fzf
-    git-town
-    htop
-    iftop
-    jq
-    killall
-    lsof
-    ngrok
-    nixpkgs-fmt
-    tmux
-  ];
-
-  programs.home-manager = {
-    enable = true;
-  };
 }
 
