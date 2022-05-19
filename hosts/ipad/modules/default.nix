@@ -1,6 +1,6 @@
 { common
 , config
-, inputs
+, hardware
 , modulesPath
 , pkgs
 , ...
@@ -9,7 +9,7 @@
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     common.nix-config
-    inputs.hardware.nixosModules.raspberry-pi-4
+    hardware.nixosModules.raspberry-pi-4
     common.user
   ];
 
