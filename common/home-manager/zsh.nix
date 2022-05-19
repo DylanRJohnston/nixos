@@ -30,7 +30,7 @@
     shellAliases = lib.mkMerge [
       ({
         gitlog = "git log --oneline --graph --all";
-        v = "vim $(fzf)" 
+        v = "vim $(fzf)";
       })
       (lib.optionalAttrs pkgs.stdenv.isLinux {
         "battery" = "cat /sys/class/power_supply/BAT0/capacity";
