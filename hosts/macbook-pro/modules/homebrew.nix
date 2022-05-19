@@ -7,6 +7,7 @@
     casks = [
       "1password"
       "alacritty"
+      "alfred"
       "docker"
       "firefox"
       "microsoft-teams"

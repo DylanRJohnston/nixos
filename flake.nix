@@ -17,8 +17,10 @@
     };
   };
 
-  outputs = inputs@{ self, flake-utils, nixpkgs, darwin, home-manager, hardware }:
+  outputs = { flake-utils, nixpkgs, darwin, home-manager, hardware, ... }:
     let
+      lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
+
       toPath = path: ./. + path;
 
       home-manager-module = host-name: [{
@@ -34,7 +36,7 @@
         inherit system;
 
         specialArgs = {
-          inherit inputs;
+          inherit lockfile hardware;
           common = import ./common/nixos;
         };
 

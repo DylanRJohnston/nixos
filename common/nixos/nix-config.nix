@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, lockfile, ... }: {
   nixpkgs.config.allowUnfree = true;
   nix = {
     package = pkgs.nixFlakes;
@@ -14,8 +14,8 @@
           owner = "NixOS";
           repo = "nixpkgs";
           type = "github";
-          rev = inputs.nixpkgs.rev;
-          narHash = inputs.nixpkgs.narHash;
+          rev = lockfile.nodes.nixpkgs.locked.rev;
+          narHash = lockfile.nodes.nixpkgs.locked.narHash;
         };
       };
       flake-util = {
@@ -27,8 +27,8 @@
           owner = "numtide";
           repo = "flake-utils";
           type = "github";
-          rev = inputs.flake-utils.rev;
-          narHash = inputs.flake-utils.narHash;
+          rev = lockfile.nodes.flake-utils.locked.rev;
+          narHash = lockfile.nodes.flake-utils.locked.narHash;
         };
       };
     };
