@@ -1,8 +1,8 @@
-{
-  imports = [
-    ./compton.nix
+{ common, ... }: {
+  imports = with common; [
+    compton
     ./gpg-agent.nix
-    ./i3.nix
+    i3
     ./xss-lock.nix
   ];
 

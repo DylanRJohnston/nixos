@@ -31,9 +31,13 @@
     "g_ether"
   ];
 
-  hardware.raspberry-pi."4".dwc2.enable = true;
+  hardware.raspberry-pi."4" = {
+    dwc2.enable = true;
+    fkms-3d.enable = true;
+  };
 
   programs.zsh.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
+  networking.networkmanager.enable = true;
 }

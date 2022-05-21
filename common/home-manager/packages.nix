@@ -13,7 +13,7 @@
     nixpkgs-fmt
     pv
     tmux
-    vim
+    # vim
     zstd
   ];
 }
