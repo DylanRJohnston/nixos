@@ -7,25 +7,10 @@
     vscode
     zsh
     tmux
+    home-manager
+    gpg-agent
+    packages
   ];
-
-  home.packages = with pkgs; [
-    cachix
-    fzf
-    git-town
-    htop
-    iftop
-    jq
-    killall
-    lsof
-    ngrok
-    nixpkgs-fmt
-    tmux
-  ];
-
-  programs.home-manager = {
-    enable = true;
-  };
-}
+ }
 
 

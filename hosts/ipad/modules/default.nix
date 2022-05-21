@@ -13,6 +13,7 @@
     common.user
     common.fonts
     common.xserver
+    common.console
   ];
 
   # Issue https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
