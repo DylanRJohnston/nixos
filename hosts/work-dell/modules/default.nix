@@ -26,7 +26,7 @@
       ./sudo.nix
       ./tailscale.nix
       common.user
-      ./xserver.nix
+      common.xserver
       common.fonts
     ];
 
