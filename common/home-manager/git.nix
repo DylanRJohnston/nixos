@@ -24,6 +24,7 @@ in
     extraConfig = {
       init.defaultBranch = "main";
       core.editor = "vim";
+      push.default = "current";
     };
   };
 }
