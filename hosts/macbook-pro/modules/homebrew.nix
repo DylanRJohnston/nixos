@@ -10,7 +10,6 @@
       "alfred"
       "docker"
       "firefox"
-      "microsoft-teams"
       "obsidian"
       "omnifocus"
       "rectangle"
