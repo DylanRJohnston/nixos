@@ -4,7 +4,7 @@
     ./system-defaults.nix
     ./system-packages.nix
     ./touchID.nix
-    fonts
+    ./fonts.nix
     nix-config
   ];
 

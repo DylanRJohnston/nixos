@@ -1,6 +1,6 @@
-{
+{ common, ... }: {
   services.screen-locker = {
     enable = true;
-    lockCmd = "${../scripts/i3lock.sh}";
+    lockCmd = "${common.scripts.i3lock}";
   };
 }

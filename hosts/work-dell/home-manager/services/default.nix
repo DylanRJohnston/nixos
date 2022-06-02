@@ -1,7 +1,7 @@
 { common, ... }: {
   imports = with common; [
     compton
-    ./gpg-agent.nix
+    gpg-agent
     i3
     ./xss-lock.nix
   ];

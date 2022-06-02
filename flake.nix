@@ -61,7 +61,7 @@
       };
 
       darwinConfigurations = builtins.mapAttrs mkDarwin {
-        "macbook-pro" = "aarch64-darwin";
+        "macbook-pro" = "x86_64-darwin";
       };
     };
 }

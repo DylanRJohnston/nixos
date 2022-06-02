@@ -35,7 +35,7 @@ in
         matklad.rust-analyzer
         pkief.material-icon-theme
         streetsidesoftware.code-spell-checker
-        ms-python.python
+        # ms-python.python
       ] ++ extraExtensions;
 
       keybindings = [
