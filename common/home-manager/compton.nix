@@ -20,7 +20,7 @@
     inactiveOpacity = "0.9";
     menuOpacity = "0.8";
 
-    backend = "glx";
+    backend = "xrender";
     vSync = true;
 
     extraOptions = ''

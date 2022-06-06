@@ -21,6 +21,16 @@
     (final: super: {
       makeModulesClosure = x:
         super.makeModulesClosure (x // { allowMissing = true; });
+      })
+    (self: super: {
+      alacritty = super.alacritty.overrideAttrs (_: {
+        src = super.fetchFromGitHub {
+          owner = "alacritty";
+          repo = "alacritty";
+          rev = "9f8c5c4f5659308ee1bb3a22e7d0ca2d04db8874";
+          sha256 = "";
+        };
+      });
     })
   ];
 
@@ -40,4 +50,5 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
   networking.networkmanager.enable = true;
-}
+  
+ }

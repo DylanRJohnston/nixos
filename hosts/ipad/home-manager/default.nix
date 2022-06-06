@@ -4,7 +4,7 @@
     direnv
     git
     i3
-    compton
+    # compton
     vim
     vscode
     zsh

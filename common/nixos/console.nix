@@ -1,4 +1,5 @@
 {
+  console.font = "Lat2-Terminus16";
   console.colors = [
     "#B657b83"
     "#A586e75"
