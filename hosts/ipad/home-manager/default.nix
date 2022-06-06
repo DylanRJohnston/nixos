@@ -18,4 +18,3 @@
   programs.firefox.enable = true;
   programs.rofi.enable = true;
 }
-
