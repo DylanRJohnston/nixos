@@ -3,7 +3,7 @@
 with lib;
 let
   defaultUser = "dylanj";
-  syschdemd = import ./syschdemd.nix { inherit lib pkgs config defaultUser; };
+  syschdemd = import common.syschdemd { inherit lib pkgs config defaultUser common; };
 in
 {
   imports = [

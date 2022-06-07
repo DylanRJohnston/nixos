@@ -5,6 +5,8 @@
   mosh = ./mosh.nix;
   openssh = ./openssh.nix;
   raspberry-pi = ./raspberry-pi.nix;
+  ssh-sudo = ./ssh-sudo.nix;
+  syschdemd = ./syschdemd.nix;
   user = ./user.nix;
   wifi = ./wifi.nix;
   xserver = ./xserver.nix;

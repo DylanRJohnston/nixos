@@ -28,17 +28,17 @@
 
         specialArgs = {
           inherit lockfile hardware;
-          common = (import ./common/shared) // common;
+          common = (import ./common/shared) // common // (import ./common/scripts);
         };
 
         modules = [
           home-manager
-          (toPath "/hosts/${host-name}/modules")
+          (toPath "/hosts/${host-name}/configuration.nix")
           ({
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs.common = import (toPath "/common/home-manager");
-            home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager");
+            home-manager.extraSpecialArgs.common = import (toPath "/common/home-manager") // (import ./common/scripts);
+            home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
           })
         ];
       };

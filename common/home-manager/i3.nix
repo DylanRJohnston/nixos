@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, common, ... }:
 let
   modifier = "Mod4";
   keybindings = {
@@ -8,8 +8,8 @@ let
       "${modifier}+Tab" = "exec ${pkgs.rofi}/bin/rofi -show window";
     };
     lockscreen = {
-      "${modifier}+L" = "exec ${./scripts/i3lock.sh}";
-      "${modifier}+Shift+L" = "exec ${./scripts/i3lock.sh} && systemctl suspend-then-hibernate";
+      "${modifier}+L" = "exec ${common.scripts.i3lock}";
+      "${modifier}+Shift+L" = "exec ${common.scripts.i3lock} && systemctl suspend-then-hibernate";
     };
     screenshot = {
       "${modifier}+Shift+s" = "exec flameshot gui";

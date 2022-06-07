@@ -1,8 +1,8 @@
-{ lib, pkgs, config, defaultUser, ... }:
+{ lib, pkgs, config, defaultUser, common, ... }:
 
 pkgs.substituteAll {
   name = "syschdemd";
-  src = ./syschdemd.sh;
+  src = common.scripts.syschdemd;
   dir = "bin";
   isExecutable = true;
 

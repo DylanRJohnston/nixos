@@ -9,11 +9,11 @@
     jq
     killall
     lsof
+    mosh
     ngrok
     nixpkgs-fmt
     pv
     tmux
-    # vim
     zstd
   ];
 }

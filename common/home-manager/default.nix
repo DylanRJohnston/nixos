@@ -13,5 +13,4 @@
   vscode = ./vscode.nix;
   wezterm = ./wezterm.nix;
   zsh = ./zsh.nix;
-  scripts = import ./scripts;
 }

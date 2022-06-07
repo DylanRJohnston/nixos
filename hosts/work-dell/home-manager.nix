@@ -1,8 +1,8 @@
 {
   imports = [
-    ./config
-    ./packages.nix
-    ./services
+    ./home-manager/config
+    ./home-manager/packages.nix
+    ./home-manager/services
   ];
 
   programs.home-manager = {

@@ -5,6 +5,7 @@
     git
     home-manager
     packages
+    ssh
     tmux
     vim
     vscode
