@@ -13,6 +13,7 @@
       "obsidian"
       "omnifocus"
       "rectangle"
+      "slack"
     ];
   };
 }

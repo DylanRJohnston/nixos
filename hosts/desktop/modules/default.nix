@@ -55,4 +55,6 @@ in
 
   environment.noXlibs = lib.mkForce false;
   environment.systemPackages = with pkgs; [ vim htop tmux git vscode wget nixpkgs-fmt ];
+
+  system.stateVersion = "22.05";
 }

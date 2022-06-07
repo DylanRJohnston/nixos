@@ -9,5 +9,9 @@
     nix-daemon
   ];
 
+  homebrew.casks = [
+    "lastpass"
+  ];
+
   system.stateVersion = 4;
 }

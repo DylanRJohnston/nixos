@@ -23,12 +23,12 @@
 
       lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
 
-      mkSystem = { builder, home-manager }: host-name: system: builder {
+      mkSystem = { builder, home-manager, common }: host-name: { system, user ? "dylanj" }: builder {
         inherit system;
 
         specialArgs = {
           inherit lockfile hardware;
-          common = import ./common/nixos;
+          common = (import ./common/shared) // common;
         };
 
         modules = [
@@ -38,7 +38,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs.common = import (toPath "/common/home-manager");
-            home-manager.users.dylanj = import (toPath "/hosts/${host-name}/home-manager");
+            home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager");
           })
         ];
       };
@@ -46,22 +46,25 @@
       mkDarwin = mkSystem {
         builder = darwin.lib.darwinSystem;
         home-manager = home-manager.darwinModules.home-manager;
+        common = import ./common/nix-darwin;
       };
 
       mkNixos = mkSystem {
         builder = nixpkgs.lib.nixosSystem;
         home-manager = home-manager.nixosModules.home-manager;
+        common = import ./common/nixos;
       };
     in
     {
       nixosConfigurations = builtins.mapAttrs mkNixos {
-        "work-dell" = "x86_64-linux";
-        "desktop" = "x86_64-linux";
-        "ipad" = "aarch64-linux";
+        "work-dell" = { system = "x86_64-linux"; };
+        "desktop" = { system = "x86_64-linux"; };
+        "ipad" = { system = "aarch64-linux"; };
       };
 
       darwinConfigurations = builtins.mapAttrs mkDarwin {
-        "macbook-pro" = "x86_64-darwin";
+        "macbook-pro" = { system = "x86_64-darwin"; };
+        "AU-L-0226" = { system = "aarch64-darwin"; user = "dylanjohnston"; };
       };
     };
 }

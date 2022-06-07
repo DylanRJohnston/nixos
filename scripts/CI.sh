@@ -1,6 +1,16 @@
-set -xeuo pipefail
+set -euo pipefail
 
-nix eval ".#nixosConfigurations.work-dell.config.system.build.toplevel.drvPath"
-nix eval ".#nixosConfigurations.desktop.config.system.build.toplevel.drvPath"
-nix eval ".#nixosConfigurations.ipad.config.system.build.toplevel.drvPath"
-nix eval ".#darwinConfigurations.macbook-pro.config.system.build.toplevel.drvPath"
+DARWIN=("macbook-pro" "AU-L-0226")
+LINUX=("work-dell" "desktop" "ipad")
+
+for HOSTNAME in "${DARWIN[@]}"; do
+  echo "Instantiating ${HOSTNAME}"
+  nix eval ".#darwinConfigurations.${HOSTNAME}.config.system.build.toplevel.drvPath"
+  echo "\n"
+done
+
+for HOSTNAME in "${LINUX[@]}"; do
+  echo "Instantiating ${HOSTNAME}"
+  nix eval ".#nixosConfigurations.${HOSTNAME}.config.system.build.toplevel.drvPath"
+  echo "\n"
+done
