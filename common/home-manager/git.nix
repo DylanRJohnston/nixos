@@ -25,6 +25,7 @@ in
       init.defaultBranch = "main";
       core.editor = "vim";
       push.default = "current";
+      merge.conflictstyle = "diff3";
     };
   };
 }
