@@ -4,8 +4,13 @@
     host = "10.55.0.1";
     user = "dylanj";
     auth = "none";
+<<<<<<< HEAD
+    extraArguments = [ "--disable-telemetry" "--user-data-dir" "~/.vscode" ];
+||||||| parent of 95e7903 (Change user)
+=======
     extraArguments = [ "--disable-telemetry" "--user-data-dir" "/home/dylanj/.vscode" ];
 
+>>>>>>> 95e7903 (Change user)
   };
 
   networking.firewall.allowedTCPPorts = [ 4444 ];
