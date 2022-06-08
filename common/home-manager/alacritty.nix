@@ -3,7 +3,7 @@
     enable = true;
 
     settings = {
-      window.directions = false;
+      window.decorations = false;
       font.normal.family = "FiraCode Nerd Font";
       colors = {
         primary = {
