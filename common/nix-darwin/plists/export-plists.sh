@@ -1,0 +1,1 @@
+defaults export com.apple.symbolichotkeys.plist - > symbolichotkeys.plist

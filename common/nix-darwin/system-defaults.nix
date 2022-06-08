@@ -2,7 +2,7 @@
   system.defaults = {
     dock = {
       show-recents = false;
-      autohide = false;
+      autohide = true;
     };
 
     NSGlobalDomain = {
@@ -14,6 +14,12 @@
 
       AppleShowAllExtensions = true;
       AppleInterfaceStyle = "Dark";
+      _HIHideMenuBar = true;
     };
   };
+
+  # Setup system hotkeys
+  system.activationScripts.userDefaults.text = ''
+    defaults import com.apple.symbolichotkeys ${./plists/symbolichotkeys.plist}
+  '';
 }
