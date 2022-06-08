@@ -68,8 +68,10 @@
       };
 
       templates = {
-        path = ./templates/basic;
-        description = "Basic dev env shell";
+        basic = {
+          path = ./templates/basic;
+          description = "Basic dev env shell";
+        };
       };
     };
 }
