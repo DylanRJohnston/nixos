@@ -1,6 +1,20 @@
 { pkgs, ... }:
 let
-  extraExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+  prepackagedExtensions = with pkgs.vscode-exteions; [
+    _4ops.terraform
+    dbaeumer.vscode-eslint
+    eamodio.gitlens
+    esbenp.prettier-vscode
+    github.github-vscode-theme
+    golang.go
+    hashicorp.terraform
+    jnoortheen.nix-ide
+    matklad.rust-analyzer
+    pkief.material-icon-theme
+    streetsidesoftware.code-spell-checker
+    # ms-python.python
+  ];
+  manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
       publisher = "rangav";
       name = "vscode-thunder-client";
@@ -13,6 +27,13 @@ let
       version = "0.6.4";
       sha256 = "Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
     }
+    {
+      # mkhl.direnv
+      publisher = "mkhl";
+      name = "direnv";
+      version = "0.6.1";
+      sha256 = "";
+    }
   ];
 in
 {
@@ -22,21 +43,7 @@ in
       package = pkgs.vscode;
 
       mutableExtensionsDir = false;
-      extensions = with pkgs.vscode-extensions; [
-        _4ops.terraform
-        arrterian.nix-env-selector
-        dbaeumer.vscode-eslint
-        eamodio.gitlens
-        esbenp.prettier-vscode
-        github.github-vscode-theme
-        golang.go
-        hashicorp.terraform
-        jnoortheen.nix-ide
-        matklad.rust-analyzer
-        pkief.material-icon-theme
-        streetsidesoftware.code-spell-checker
-        # ms-python.python
-      ] ++ extraExtensions;
+      extensions = prepackagedExtensions ++ manualExtensions;
 
       keybindings = [
         { key = "ctrl+e"; command = "cursorLineEnd"; }
@@ -62,7 +69,6 @@ in
             "terraform"
           ];
         };
-
 
         window.titlebarStyle = "custom";
         window.menuBarVisibility = "toggle";
