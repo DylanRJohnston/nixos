@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  prepackagedExtensions = with pkgs.vscode-exteions; [
+  prepackagedExtensions = with pkgs.vscode-extensions; [
     _4ops.terraform
     dbaeumer.vscode-eslint
     eamodio.gitlens
@@ -32,7 +32,7 @@ let
       publisher = "mkhl";
       name = "direnv";
       version = "0.6.1";
-      sha256 = "";
+      sha256 = "5/Tqpn/7byl+z2ATflgKV1+rhdqj+XMEZNbGwDmGwLQ=";
     }
   ];
 in
