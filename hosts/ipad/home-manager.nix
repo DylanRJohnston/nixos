@@ -1,18 +1,8 @@
 { pkgs, common, ... }: {
   imports = with common; [
-    alacritty
-    direnv
-    git
-    i3
-    # compton
-    vim
-    vscode
-    zsh
-    tmux
-    home-manager
+    base
     gpg-agent
-    packages
-    wezterm
+    i3
   ];
 
   programs.firefox.enable = true;

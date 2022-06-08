@@ -66,5 +66,10 @@
         "macbook-pro" = { system = "x86_64-darwin"; };
         "AU-L-0226" = { system = "aarch64-darwin"; user = "dylanjohnston"; };
       };
+
+      templates = {
+        path = ./templates/basic;
+        description = "Basic dev env shell";
+      };
     };
 }

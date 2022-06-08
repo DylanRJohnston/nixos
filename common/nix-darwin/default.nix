@@ -1,7 +1,8 @@
 {
-  touchID = ./touchID.nix;
+  base = ./base.nix;
   homebrew = ./homebrew.nix;
+  nix-daemon = ./nix-daemon.nix;
   system-defaults = ./system-defaults.nix;
   system-packages = ./system-packages.nix;
-  nix-daemon = ./nix-daemon.nix;
+  touchID = ./touchID.nix;
 }
