@@ -1,6 +1,7 @@
 {
   alacritty = ./alacritty.nix;
   compton = ./compton.nix;
+  base = ./base.nix;
   direnv = ./direnv.nix;
   git = ./git.nix;
   home-manager = ./home-manager.nix;
