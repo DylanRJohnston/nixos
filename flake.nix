@@ -49,14 +49,14 @@
         common = import ./common/nix-darwin;
       };
 
-      mkNixos = mkSystem {
+      mkNixOS = mkSystem {
         builder = nixpkgs.lib.nixosSystem;
         home-manager = home-manager.nixosModules.home-manager;
         common = import ./common/nixos;
       };
     in
     {
-      nixosConfigurations = builtins.mapAttrs mkNixos {
+      nixosConfigurations = builtins.mapAttrs mkNixOS {
         "work-dell" = { system = "x86_64-linux"; };
         "desktop" = { system = "x86_64-linux"; };
         "ipad" = { system = "aarch64-linux"; };

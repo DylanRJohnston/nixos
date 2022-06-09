@@ -4,6 +4,7 @@
     fzf
     git
     git-town
+    gnupg
     htop
     iftop
     jq

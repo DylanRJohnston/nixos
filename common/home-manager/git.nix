@@ -22,6 +22,7 @@ in
     userEmail = "dylan.r.johnston@gmail.com";
     aliases = git-town-aliases;
     extraConfig = {
+      commit.gpgsign = true;
       init.defaultBranch = "main";
       core.editor = "vim";
       push.default = "current";

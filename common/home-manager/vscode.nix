@@ -12,7 +12,6 @@ let
     matklad.rust-analyzer
     pkief.material-icon-theme
     streetsidesoftware.code-spell-checker
-    # ms-python.python
   ];
   manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     {
@@ -28,7 +27,6 @@ let
       sha256 = "Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
     }
     {
-      # mkhl.direnv
       publisher = "mkhl";
       name = "direnv";
       version = "0.6.1";
@@ -65,6 +63,7 @@ in
 
         cSpell = {
           enabled = true;
+          language = "en-GB";
           enableFiletypes = [
             "terraform"
           ];

@@ -3,8 +3,11 @@
     enable = true;
 
     settings = {
-      window.decorations = false;
-      font.normal.family = "FiraCode Nerd Font";
+      window.decorations = "None";
+      font = { 
+        normal.family = "FiraCode Nerd Font";
+        size = 16;
+      };
       colors = {
         primary = {
           background = "0x002b36";
