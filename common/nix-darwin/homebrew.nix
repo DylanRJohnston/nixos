@@ -8,6 +8,7 @@
       "1password"
       "alacritty"
       "alfred"
+      "discord"
       "docker"
       "firefox"
       "obsidian"

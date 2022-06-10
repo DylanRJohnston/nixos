@@ -15,13 +15,24 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { flake-utils, nixpkgs, darwin, home-manager, hardware, ... }:
+  outputs = { flake-utils, nixpkgs, darwin, home-manager, hardware, fenix, ... }:
     let
       toPath = path: ./. + path;
 
       lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
+
+      custom-packages-overlay = import ./packages/overlay.nix;
+
+      overlays = {
+        nixpkgs.overlays = [ fenix.overlay custom-packages-overlay ];
+      };
 
       mkSystem = { builder, home-manager, common }: host-name: { system, user ? "dylanj" }: builder {
         inherit system;
@@ -32,6 +43,7 @@
         };
 
         modules = [
+          overlays
           home-manager
           (toPath "/hosts/${host-name}/configuration.nix")
           ({

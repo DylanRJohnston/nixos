@@ -2,6 +2,7 @@
 let
   prepackagedExtensions = with pkgs.vscode-extensions; [
     _4ops.terraform
+    arrterian.nix-env-selector
     dbaeumer.vscode-eslint
     eamodio.gitlens
     esbenp.prettier-vscode
@@ -9,7 +10,7 @@ let
     golang.go
     hashicorp.terraform
     jnoortheen.nix-ide
-    matklad.rust-analyzer
+    matklad.rust-analyzer-nightly
     pkief.material-icon-theme
     streetsidesoftware.code-spell-checker
   ];
@@ -25,12 +26,6 @@ let
       name = "magic-racket";
       version = "0.6.4";
       sha256 = "Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
-    }
-    {
-      publisher = "mkhl";
-      name = "direnv";
-      version = "0.6.1";
-      sha256 = "5/Tqpn/7byl+z2ATflgKV1+rhdqj+XMEZNbGwDmGwLQ=";
     }
   ];
 in
