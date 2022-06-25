@@ -22,7 +22,7 @@
     };
   };
 
-  outputs = { flake-utils, nixpkgs, darwin, home-manager, hardware, fenix, ... }:
+  outputs = { self, flake-utils, nixpkgs, darwin, home-manager, hardware, fenix }:
     let
       toPath = path: ./. + path;
 
@@ -34,49 +34,62 @@
         nixpkgs.overlays = [ fenix.overlay custom-packages-overlay ];
       };
 
-      mkSystem = { builder, home-manager, common }: host-name: { system, user ? "dylanj" }: builder {
+      mkMerge = nixpkgs.lib.mkMerge;
+
+      home-manager-config = { host-name, user }: ({
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
+        home-manager.extraSpecialArgs.common = { }
+          // (import ./common/home-manager)
+          // (import ./common/scripts);
+      });
+
+      mkSystem = { system-builder, home-manager-module, common-modules }: host-name: { system, user ? "dylanj" }: system-builder {
         inherit system;
 
         specialArgs = {
           inherit lockfile hardware;
-          common = (import ./common/shared) // common // (import ./common/scripts);
+
+          common = { }
+            // common-modules
+            // (import ./common/shared)
+            // (import ./common/scripts);
         };
 
         modules = [
           overlays
-          home-manager
           (toPath "/hosts/${host-name}/configuration.nix")
-          ({
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs.common = import (toPath "/common/home-manager") // (import ./common/scripts);
-            home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
-          })
+          home-manager-module
+          (home-manager-config { inherit host-name user; })
         ];
       };
 
-      mkDarwin = mkSystem {
-        builder = darwin.lib.darwinSystem;
-        home-manager = home-manager.darwinModules.home-manager;
-        common = import ./common/nix-darwin;
-      };
+      mkDarwin = builtins.mapAttrs (mkSystem {
+        system-builder = darwin.lib.darwinSystem;
+        home-manager-module = home-manager.darwinModules.home-manager;
+        common-modules = import ./common/nix-darwin;
+      });
 
-      mkNixOS = mkSystem {
-        builder = nixpkgs.lib.nixosSystem;
-        home-manager = home-manager.nixosModules.home-manager;
-        common = import ./common/nixos;
-      };
+      mkNixOS = builtins.mapAttrs (mkSystem {
+        system-builder = nixpkgs.lib.nixosSystem;
+        home-manager-module = home-manager.nixosModules.home-manager;
+        common-modules = import ./common/nixos;
+      });
     in
     {
-      nixosConfigurations = builtins.mapAttrs mkNixOS {
-        "work-dell" = { system = "x86_64-linux"; };
-        "desktop" = { system = "x86_64-linux"; };
-        "ipad" = { system = "aarch64-linux"; };
+      nixosConfigurations = mkNixOS {
+        "work-dell".system = "x86_64-linux";
+        "desktop".system = "x86_64-linux";
+        "ipad".system = "aarch64-linux";
       };
 
-      darwinConfigurations = builtins.mapAttrs mkDarwin {
-        "macbook-pro" = { system = "x86_64-darwin"; };
-        "AU-L-0226" = { system = "aarch64-darwin"; user = "dylanjohnston"; };
+      darwinConfigurations = mkDarwin {
+        "macbook-pro".system = "x86_64-darwin";
+        "AU-L-0226" = {
+          system = "aarch64-darwin";
+          user = "dylanjohnston";
+        };
       };
 
       templates = {
