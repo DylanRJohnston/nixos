@@ -6,4 +6,6 @@
   homebrew.casks = [
     "lastpass"
   ];
+
+  nix.useSandbox = true;
 }
