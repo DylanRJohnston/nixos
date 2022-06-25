@@ -10,7 +10,9 @@ let
     golang.go
     hashicorp.terraform
     jnoortheen.nix-ide
+    marp-team.marp-vscode
     matklad.rust-analyzer-nightly
+    ms-azuretools.vscode-docker
     pkief.material-icon-theme
     streetsidesoftware.code-spell-checker
   ];
@@ -26,6 +28,12 @@ let
       name = "magic-racket";
       version = "0.6.4";
       sha256 = "Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
+    }
+    {
+      publisher = "be5invis";
+      name = "toml";
+      version = "0.6.0";
+      sha256 = "sha256-yk7buEyQIw6aiUizAm+sgalWxUibIuP9crhyBaOjC2E=";
     }
   ];
 in
