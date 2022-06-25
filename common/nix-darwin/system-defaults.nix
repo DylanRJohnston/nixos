@@ -14,12 +14,13 @@
 
       AppleShowAllExtensions = true;
       AppleInterfaceStyle = "Dark";
-      _HIHideMenuBar = true;
+      _HIHideMenuBar = false;
     };
   };
 
   # Setup system hotkeys
   system.activationScripts.userDefaults.text = ''
     defaults import com.apple.symbolichotkeys ${./plists/symbolichotkeys.plist}
+    sudo /usr/sbin/nvram StartupMute=%01
   '';
 }
