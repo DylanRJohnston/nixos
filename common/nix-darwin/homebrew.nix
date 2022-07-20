@@ -16,6 +16,7 @@
       "omnifocus"
       "postman"
       "rectangle"
+      "signal"
       "slack"
       "steam"
       "wezterm"
