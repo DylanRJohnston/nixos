@@ -1,8 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   prepackagedExtensions = with pkgs.vscode-extensions; [
     _4ops.terraform
-    arrterian.nix-env-selector
     dbaeumer.vscode-eslint
     eamodio.gitlens
     esbenp.prettier-vscode
@@ -15,27 +14,30 @@ let
     ms-azuretools.vscode-docker
     pkief.material-icon-theme
     streetsidesoftware.code-spell-checker
+    redhat.vscode-yaml
   ];
-  manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    {
-      publisher = "rangav";
-      name = "vscode-thunder-client";
-      version = "1.16.2";
-      sha256 = "mQwYvaMII+sG8OuCplk/P+3jMtlJbeNDJ/ItpnrIR/4=";
-    }
-    {
-      publisher = "evzen-wybitul";
-      name = "magic-racket";
-      version = "0.6.4";
-      sha256 = "Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
-    }
-    {
-      publisher = "be5invis";
-      name = "toml";
-      version = "0.6.0";
-      sha256 = "sha256-yk7buEyQIw6aiUizAm+sgalWxUibIuP9crhyBaOjC2E=";
-    }
-  ];
+
+  otherExtensions = lib.attrsets.mapAttrsToList (key: sha256:
+    let
+      data = builtins.elemAt (builtins.elemAt (builtins.split "(.+)\\.(.+)#(.+)" key) 1);
+      publisher = data 0;
+      name = data 1;
+      version = data 2;
+    in
+    { inherit name publisher version sha256; }
+  );
+
+  manualExtensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace (otherExtensions {
+    "akamud.vscode-theme-onedark#2.2.3" = "tfAhPTtOAYDU35UYMK6IRwWwh8r60DrAglBv1M81ztQ=";
+    "be5invis.toml#0.6.0" = "yk7buEyQIw6aiUizAm+sgalWxUibIuP9crhyBaOjC2E=";
+    "ethan-reesor.vscode-go-test-adapter#0.1.6" = "Aj5W2flMv0DVaNJAHBuPb1SQlTq5K+7QLKzDWpR2CY8=";
+    "evzen-wybitul.magic-racket#0.6.4" = "Hxa4VPm3QvJICzpDyfk94fGHu1hr+YN9szVBwDB8X4U=";
+    "hbenl.vscode-test-explorer#2.21.1" = "fHyePd8fYPt7zPHBGiVmd8fRx+IM3/cSBCyiI/C0VAg=";
+    "mkhl.direnv#0.6.1" = "5/Tqpn/7byl+z2ATflgKV1+rhdqj+XMEZNbGwDmGwLQ=";
+    "ms-vscode.live-server#0.2.12" = "4rNz8u7Ff5ZTkF+4+OcrhO/o9Aqi3wa5SdTKkGhgsEQ=";
+    "ms-vscode.test-adapter-converter#0.1.6" = "UC8tUe+JJ3r8nb9SsPlvVXw74W75JWjMifk39JClRF4=";
+    "ryanluker.vscode-coverage-gutters#2.10.1" = "xamJkgx8P4W/lB8Q2SBE0c6Iiurp8sO1uEEei1Zqc+s=";
+  });
 in
 {
   programs.vscode =
@@ -43,7 +45,6 @@ in
       enable = true;
       package = pkgs.vscode;
 
-      mutableExtensionsDir = false;
       extensions = prepackagedExtensions ++ manualExtensions;
 
       keybindings = [
