@@ -14,6 +14,7 @@
       "istat-menus"
       "obsidian"
       "omnifocus"
+      "postman"
       "rectangle"
       "slack"
       "steam"
