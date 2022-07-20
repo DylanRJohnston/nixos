@@ -11,6 +11,7 @@
       "discord"
       "docker"
       "firefox"
+      "istat-menus"
       "obsidian"
       "omnifocus"
       "rectangle"
