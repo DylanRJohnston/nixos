@@ -29,11 +29,7 @@
 
       lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
 
-      custom-packages-overlay = import ./packages/overlay.nix;
-
-      overlays = {
-        nixpkgs.overlays = [ fenix.overlay custom-packages-overlay ];
-      };
+      packages-overlays = import ./packages/overlay.nix;
 
       mkMerge = nixpkgs.lib.mkMerge;
 
@@ -59,7 +55,7 @@
         };
 
         modules = [
-          overlays
+          ({ nixpkgs.overlays = [ fenix.overlay packages-overlays ]; })
           (toPath "/hosts/${host-name}/configuration.nix")
           home-manager-module
           (home-manager-config { inherit host-name user; })
