@@ -6,7 +6,6 @@
     autoUpdate = true;
     casks = [
       "1password"
-      "alacritty"
       "alfred"
       "discord"
       "docker"
@@ -15,6 +14,8 @@
       "omnifocus"
       "rectangle"
       "slack"
+      "steam"
+      "wezterm"
     ];
   };
 }
