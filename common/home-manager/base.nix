@@ -9,6 +9,7 @@
     tmux
     vim
     vscode
+    wezterm
     zsh
   ];
 }
