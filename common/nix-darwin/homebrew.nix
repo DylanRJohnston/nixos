@@ -7,6 +7,7 @@
     casks = [
       "1password"
       "alfred"
+      "dbeaver-community"
       "discord"
       "docker"
       "firefox"
