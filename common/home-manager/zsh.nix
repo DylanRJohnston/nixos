@@ -35,7 +35,7 @@ in
     };
     initExtra = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
     plugins = plugins;
-    sessionVariables = {
+    localVariables = {
       LC_ALL = "en_US.UTF-8";
       LANG = "en_US.UTF-8";
       DEFAULT_USER = "dylanj";
@@ -44,6 +44,7 @@ in
       POWERLEVEL9K_SHORTEN_STRATEGY = "truncate_from_right";
       POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = [ "context" "dir" "vcs" ];
       POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = [ "status" "root_indicator" "background_jobs" "history" ];
+      ENHANCD_DOT_ARG = "back";
     };
     shellAliases = lib.mkMerge [
       aliases.shared
