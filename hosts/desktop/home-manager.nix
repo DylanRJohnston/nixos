@@ -1,6 +1,7 @@
 { pkgs, common, ... }: {
   imports = with common; [
     base
+    wsl
   ];
 }
 

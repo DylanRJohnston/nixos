@@ -10,7 +10,7 @@ let
     hashicorp.terraform
     jnoortheen.nix-ide
     marp-team.marp-vscode
-    matklad.rust-analyzer-nightly
+    matklad.rust-analyzer
     ms-azuretools.vscode-docker
     pkief.material-icon-theme
     streetsidesoftware.code-spell-checker

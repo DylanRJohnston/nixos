@@ -13,5 +13,6 @@
   vim = ./vim.nix;
   vscode = ./vscode.nix;
   wezterm = ./wezterm.nix;
+  wsl = ./wsl.nix;
   zsh = ./zsh.nix;
 }

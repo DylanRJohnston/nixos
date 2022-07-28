@@ -16,14 +16,9 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, flake-utils, nixpkgs, darwin, home-manager, hardware, fenix }:
+  outputs = { self, flake-utils, nixpkgs, darwin, home-manager, hardware }:
     let
       toPath = path: ./. + path;
 
@@ -55,7 +50,7 @@
         };
 
         modules = [
-          ({ nixpkgs.overlays = [ fenix.overlay packages-overlays ]; })
+          ({ nixpkgs.overlays = [ packages-overlays ]; })
           (toPath "/hosts/${host-name}/configuration.nix")
           home-manager-module
           (home-manager-config { inherit host-name user; })
