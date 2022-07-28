@@ -21,6 +21,7 @@
       "slack"
       "steam"
       "wezterm"
+      "wireshark"
     ];
   };
 }
