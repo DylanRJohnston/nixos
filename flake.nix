@@ -16,9 +16,15 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
-  outputs = { self, flake-utils, nixpkgs, darwin, home-manager, hardware }:
+  outputs = { self, darwin, flake-utils, hardware, home-manager, nixpkgs, wsl }:
     let
       toPath = path: ./. + path;
 
@@ -43,6 +49,8 @@
         specialArgs = {
           inherit lockfile hardware;
 
+          wsl = wsl.nixosModules.wsl;
+          
           common = { }
             // common-modules
             // (import ./common/shared)
@@ -50,10 +58,10 @@
         };
 
         modules = [
-          ({ nixpkgs.overlays = [ packages-overlays ]; })
-          (toPath "/hosts/${host-name}/configuration.nix")
           home-manager-module
+          ({ nixpkgs.overlays = [ packages-overlays ]; })
           (home-manager-config { inherit host-name user; })
+          (toPath "/hosts/${host-name}/configuration.nix")
         ];
       };
 

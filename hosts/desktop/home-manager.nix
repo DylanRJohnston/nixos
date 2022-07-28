@@ -1,7 +1,7 @@
 { pkgs, common, ... }: {
   imports = with common; [
     base
-    wsl
+    vscode-server-wsl
   ];
 }
 
