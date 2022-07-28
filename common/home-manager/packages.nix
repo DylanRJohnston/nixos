@@ -14,6 +14,7 @@
     ngrok
     nixpkgs-fmt
     pv
+    rnix-lsp
     tmux
     zstd
   ];

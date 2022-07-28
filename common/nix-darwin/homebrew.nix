@@ -22,6 +22,7 @@
       "steam"
       "wezterm"
       "wireshark"
+      "visual-studio-code"
     ];
   };
 }

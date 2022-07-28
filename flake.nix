@@ -50,7 +50,7 @@
           inherit lockfile hardware;
 
           wsl = wsl.nixosModules.wsl;
-          
+
           common = { }
             // common-modules
             // (import ./common/shared)

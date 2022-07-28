@@ -42,7 +42,8 @@ in
 {
   programs.vscode =
     {
-      enable = true;
+      # Use VSCode setting sync instead
+      enable = false;
       package = pkgs.vscode;
 
       extensions = prepackagedExtensions ++ manualExtensions;

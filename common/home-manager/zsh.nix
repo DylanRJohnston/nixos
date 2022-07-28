@@ -46,6 +46,7 @@ in
       POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = [ "status" "root_indicator" "background_jobs" "history" ];
       ENHANCD_DOT_ARG = "back";
       GOPATH = "$HOME/Workspace/go";
+      PATH = "$PATH:/opt/homebrew/bin";
     };
     shellAliases = lib.mkMerge [
       aliases.shared
