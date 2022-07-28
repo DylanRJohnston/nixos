@@ -28,12 +28,6 @@
     let
       toPath = path: ./. + path;
 
-      lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
-
-      packages-overlays = import ./packages/overlay.nix;
-
-      mkMerge = nixpkgs.lib.mkMerge;
-
       home-manager-config = { host-name, user }: ({
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
@@ -47,9 +41,11 @@
         inherit system;
 
         specialArgs = {
-          inherit lockfile hardware;
-
-          wsl = wsl.nixosModules.wsl;
+          lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
+          modules = {
+            hardware = hardware.nixosModules;
+            wsl = wsl.nixosModules.wsl;
+          };
 
           common = { }
             // common-modules
@@ -59,7 +55,7 @@
 
         modules = [
           home-manager-module
-          ({ nixpkgs.overlays = [ packages-overlays ]; })
+          ({ nixpkgs.overlays = [ (import ./packages/overlay.nix) ]; })
           (home-manager-config { inherit host-name user; })
           (toPath "/hosts/${host-name}/configuration.nix")
         ];

@@ -1,10 +1,10 @@
-{ lib, pkgs, config, modulesPath, common, wsl, ... }:
+{ pkgs, common, modules, ... }:
 {
   imports = [
     common.fonts
     common.nix-config
     common.user
-    wsl
+    modules.wsl
   ];
 
   networking.hostName = "desktop";

@@ -1,7 +1,7 @@
-{ hardware, modulesPath, lib, ... }: {
+{ modules, modulesPath, lib, ... }: {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
-    hardware.nixosModules.raspberry-pi-4
+    modules.hardware.raspberry-pi-4
   ];
 
   # Issue https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
