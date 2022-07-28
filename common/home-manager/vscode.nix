@@ -47,6 +47,8 @@ in
 
       extensions = prepackagedExtensions ++ manualExtensions;
 
+      mutableExtensionsDir = false;
+
       keybindings = [
         { key = "ctrl+e"; command = "cursorLineEnd"; }
         { key = "ctrl+a"; command = "cursorLineStart"; }

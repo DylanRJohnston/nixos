@@ -1,3 +1,3 @@
 self: super: {
-  pam_reattach = super.callPackage ./pam_reattach.nix { };
+  pam_reattach = self.callPackage ./pam_reattach.nix { };
 }

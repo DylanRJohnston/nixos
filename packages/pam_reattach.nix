@@ -1,5 +1,11 @@
 { fetchgit, stdenv, lib, darwin, cmake, ... }:
 
+let
+  sdk =
+    if stdenv.isAarch64
+    then darwin.apple_sdk.MacOSX-SDK
+    else darwin.apple_sdk.sdk;
+in
 stdenv.mkDerivation rec {
   name = "pam-reattach";
   version = "1.2";
@@ -10,10 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "5y/Wf8Yu4Y/AkiwRk1bxjqwrhHxUHQ7Kyo+3r3Gf58w=";
   };
 
-  buildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.MacOSX-SDK;
+  buildInputs = [ cmake sdk ];
 
   configurePhase = ''
-    CMAKE_LIBRARY_PATH="${darwin.apple_sdk.MacOSX-SDK}/usr/lib" cmake \
+    CMAKE_LIBRARY_PATH="${sdk}/usr/lib" cmake \
       -DCMAKE_INSTALL_PREFIX=$out \
       -DCMAKE_BUILD_TYPE=Release \
       -DENABLE_PAM=true \
