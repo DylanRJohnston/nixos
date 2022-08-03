@@ -31,7 +31,7 @@ in
     enableSyntaxHighlighting = true;
     oh-my-zsh = {
       enable = true;
-      plugins = ["docker" "docker-compose"];
+      plugins = [ "docker" "docker-compose" ];
     };
     initExtra = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
     plugins = plugins;

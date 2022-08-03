@@ -4,7 +4,7 @@
 
     settings = {
       window.decorations = "None";
-      font = { 
+      font = {
         normal.family = "FiraCode Nerd Font";
         size = 16;
       };
