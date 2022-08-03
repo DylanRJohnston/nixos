@@ -3,7 +3,7 @@ let
   aliases = {
     shared = {
       gitlog = "git log --oneline --graph --all";
-      v = "vim $(fzf)";
+      v = "vim $(fd --type f | fzf)";
     };
     linux = {
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";

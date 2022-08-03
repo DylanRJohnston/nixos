@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     cachix
+    fd
     fzf
     git
     git-town
