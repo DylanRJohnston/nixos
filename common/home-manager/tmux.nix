@@ -38,6 +38,10 @@
 
       set-window-option -g window-status-current-format "#[fg=colour0, bg=colour4]#[fg=colour0, bg=colour4] #I #{?window_zoomed_flag,#[fg=colour4 bg=colour255]#[fg=colour0 bg=colour4]#[fg=colour255 bg=colour4]#[fg=colour0 bg=colour4],} #W #[fg=colour4, bg=colour0]"
       set-window-option -g window-status-format "#[fg=colour0, bg=colour245] #I  #W #[fg=colour245, bg=0]"
+
+      set-option -g status-interval 5
+      set-option -g automatic-rename on
+      set-option -g automatic-rename-format '#{b:pane_current_path}'
     '';
   };
 }
