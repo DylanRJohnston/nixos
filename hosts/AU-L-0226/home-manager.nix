@@ -5,7 +5,7 @@
 
   programs.git.extraConfig.commit.gpgsign = true;
   programs.git.userEmail = lib.mkForce "dylan.johnston@familyzone.com";
-  programs.git.extraConfig.user.signingkey = "83B0853C309E5B1A88229F7060A49FA3602E67CE";
+  programs.git.extraConfig.user.signingkey = "4BC9D5079C1C27983F0E51022CC94E7BF2C3D171";
 }
 
 

@@ -6,7 +6,7 @@
     home-manager = {
       url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
+      # inputs.utils.follows = "flake-utils";
     };
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -29,7 +29,8 @@
         home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
         home-manager.extraSpecialArgs.common = { }
           // (import ./common/home-manager)
-          // (import ./common/scripts);
+          // (import ./common/scripts)
+          // (import ./common/shared);
       });
 
       overlays-module = ({
@@ -91,10 +92,7 @@
 
       darwinConfigurations = mkDarwin {
         "macbook-pro".system = "x86_64-darwin";
-        "AU-L-0226" = {
-          system = "aarch64-darwin";
-          user = "dylanjohnston";
-        };
+        "AU-L-0226".system = "aarch64-darwin";
       };
 
       templates = {

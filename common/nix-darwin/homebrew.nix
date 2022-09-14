@@ -1,9 +1,11 @@
 {
   homebrew = {
     enable = true;
-    cleanup = "zap";
+    onActivation = {
+      cleanup = "zap";
+      autoUpdate = true;
+    };
     taps = [ "homebrew/cask" ];
-    autoUpdate = true;
     casks = [
       "1password"
       "alfred"
