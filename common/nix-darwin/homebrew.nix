@@ -12,6 +12,7 @@
       "docker"
       "firefox"
       "google-chrome"
+      "gimp"
       "istat-menus"
       "obsidian"
       "omnifocus"
@@ -23,6 +24,7 @@
       "wezterm"
       "wireshark"
       "visual-studio-code"
+      "vlc"
     ];
   };
 }

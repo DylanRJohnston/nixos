@@ -17,6 +17,18 @@
         user = "dylanj";
         forwardAgent = true;
       };
+      "nix-build-slave-arm64" = {
+        hostname = "127.0.0.1";
+        identityFile = "~/.nixpkgs/dockerfiles/buildhosts/nix-build-slave.key";
+        port = 3022;
+        user = "root";
+      };
+      "nix-build-slave-amd64" = {
+        hostname = "127.0.0.1";
+        identityFile = "~/.nixpkgs/dockerfiles/buildhosts/nix-build-slave.key";
+        port = 4022;
+        user = "root";
+      };
     };
   };
 }

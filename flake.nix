@@ -1,22 +1,17 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
+    nixpkgs.url = "github:nixos/nixpkgs/release-22.05";
     hardware.url = "github:nixos/nixos-hardware";
-
     flake-utils.url = "github:numtide/flake-utils";
-
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
-
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +32,12 @@
           // (import ./common/scripts);
       });
 
+      overlays-module = ({
+        nixpkgs.overlays = [
+          (import ./packages)
+        ];
+      });
+
       mkSystem = { system-builder, home-manager-module, common-modules }: host-name: { system, user ? "dylanj" }: system-builder {
         inherit system;
 
@@ -55,7 +56,7 @@
 
         modules = [
           home-manager-module
-          ({ nixpkgs.overlays = [ (import ./packages/overlay.nix) ]; })
+          overlays-module
           (home-manager-config { inherit host-name user; })
           (toPath "/hosts/${host-name}/configuration.nix")
         ];
@@ -72,6 +73,14 @@
         home-manager-module = home-manager.nixosModules.home-manager;
         common-modules = import ./common/nixos;
       });
+
+      pkgs = import nixpkgs {
+        system = "aarch64-darwin";
+        overlays = [
+          (import ./packages)
+          (import ./fixes)
+        ];
+      };
     in
     {
       nixosConfigurations = mkNixOS {
