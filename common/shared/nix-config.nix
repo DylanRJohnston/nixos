@@ -4,6 +4,10 @@
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
 
+    settings = {
+      substituters = [ "https://aseipp-nix-cache.freetls.fastly.net" ];
+    };
+
     registry = {
       nixpkgs = {
         from = {
