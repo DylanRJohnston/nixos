@@ -7,6 +7,7 @@
     git
     git-town
     gnupg
+    google-cloud-sdk
     htop
     iftop
     jq
