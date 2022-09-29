@@ -26,6 +26,7 @@ in
       core.editor = "vim";
       push.default = "current";
       merge.conflictstyle = "diff3";
+      blame.ignorerevsfile = ".git-blame-ignore-revs";
     };
   };
 }
