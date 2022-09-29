@@ -18,6 +18,7 @@
     nixpkgs-fmt
     pv
     rnix-lsp
+    sops
     tmux
     zstd
   ];

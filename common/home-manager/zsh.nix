@@ -4,6 +4,8 @@ let
     shared = {
       gitlog = "git log --oneline --graph --all";
       v = "vim $(fd --type f | fzf)";
+      fz-tunnel-cockroach-us-central = "$(sops -d --extract '[\"cockroach\"][\"production\"][\"us-central\"]' ${../../secrets/tunnels.yaml})";
+      fz-tunnel-cockroach-staging    = "$(sops -d --extract '[\"cockroach\"][\"staging\"]'                    ${../../secrets/tunnels.yaml})"; 
     };
     linux = {
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";
@@ -35,6 +37,7 @@ in
     };
     plugins = plugins;
     localVariables = {
+      EDITOR = "code --wait";
       LC_ALL = "en_US.UTF-8";
       LANG = "en_US.UTF-8";
       DEFAULT_USER = "dylanj";
