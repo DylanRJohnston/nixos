@@ -14,7 +14,7 @@
     killall
     lsof
     mosh
-    # ngrok
+    ngrok
     nixpkgs-fmt
     pv
     rnix-lsp
