@@ -4,8 +4,8 @@ let
     shared = {
       gitlog = "git log --oneline --graph --all";
       v = "vim $(fd --type f | fzf)";
-      fz-tunnel-cockroach-us-central = "$(sops -d --extract '[\"cockroach\"][\"production\"][\"us-central\"]' ${../../secrets/tunnels.yaml})";
-      fz-tunnel-cockroach-staging    = "$(sops -d --extract '[\"cockroach\"][\"staging\"]'                    ${../../secrets/tunnels.yaml})"; 
+      fz-tunnel-cockroach-us-central = "$(sops -d --extract '[\"ums\"][\"production\"][\"us-central\"]' ${../../secrets/tunnels.yaml})";
+      fz-tunnel-cockroach-staging = "$(sops -d --extract '[\"ums\"][\"staging\"]' ${../../secrets/tunnels.yaml})";
     };
     linux = {
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";
@@ -21,7 +21,7 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "b4b4r07";
       repo = "enhancd";
-      rev = "v2.2.4";
+      rev = "c6967f7f70f18991a5f9148996afffc0d3ae76e4";
       sha256 = "1smskx9vkx78yhwspjq2c5r5swh9fc5xxa40ib4753f00wk4dwpp";
     };
   }];
@@ -33,7 +33,7 @@ in
     enableSyntaxHighlighting = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "docker" "docker-compose" ];
+      plugins = [ "docker" "docker-compose" "fzf" ];
     };
     plugins = plugins;
     localVariables = {

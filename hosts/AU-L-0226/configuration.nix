@@ -23,4 +23,6 @@
   #     maxJobs = 8;
   #   }
   # ];
+
+  users.users.dylanj.home = "/Users/dylanj";
 }

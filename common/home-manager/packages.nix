@@ -20,6 +20,7 @@
     rnix-lsp
     sops
     tmux
+    wget
     zstd
   ];
 }

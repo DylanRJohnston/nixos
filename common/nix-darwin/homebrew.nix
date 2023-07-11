@@ -25,6 +25,7 @@
       "steam"
       "wezterm"
       "wireshark"
+      "transmission"
       "visual-studio-code"
       "vlc"
     ];

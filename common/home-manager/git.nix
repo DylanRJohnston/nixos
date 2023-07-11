@@ -27,6 +27,7 @@ in
       push.default = "current";
       merge.conflictstyle = "diff3";
       blame.ignorerevsfile = ".git-blame-ignore-revs";
+      url."ssh://git@github.com".insteadOf = "https://github.com";
     };
   };
 }
