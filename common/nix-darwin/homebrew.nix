@@ -9,12 +9,13 @@
     casks = [
       "1password"
       "alfred"
+      "cyberduck"
       "dbeaver-community"
       "discord"
       "docker"
       "firefox"
-      "google-chrome"
       "gimp"
+      "google-chrome"
       "istat-menus"
       "obsidian"
       "omnifocus"
@@ -23,11 +24,11 @@
       "signal"
       "slack"
       "steam"
-      "wezterm"
-      "wireshark"
       "transmission"
       "visual-studio-code"
       "vlc"
+      "wezterm"
+      "wireshark"
     ];
   };
 }

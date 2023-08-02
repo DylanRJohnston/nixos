@@ -8,7 +8,7 @@
 }: {
 
   imports = with common; [
-    code-server
+    #  code-server
     fonts
     g-ether
     mosh
@@ -23,5 +23,5 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.05";
 }
