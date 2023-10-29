@@ -1,6 +1,5 @@
 { common, ... }: {
   imports = with common; [
-    alacritty
     direnv
     git
     home-manager

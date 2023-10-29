@@ -4,5 +4,6 @@
     [
       vim
       git
+      nil
     ];
 }

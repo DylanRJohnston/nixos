@@ -17,51 +17,53 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, darwin, flake-utils, hardware, home-manager, nixpkgs, wsl }:
+  outputs = { self, darwin, hardware, home-manager, nixpkgs, wsl, jovian, ... }:
     let
       toPath = path: ./. + path;
 
       home-manager-config = { host-name, user }: ({
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
+        home-manager.users.${user} =
+          import (toPath "/hosts/${host-name}/home-manager.nix");
         home-manager.extraSpecialArgs.common = { }
-          // (import ./common/home-manager)
-          // (import ./common/scripts)
+          // (import ./common/home-manager) // (import ./common/scripts)
           // (import ./common/shared);
       });
 
-      overlays-module = ({
-        nixpkgs.overlays = [
-          (import ./packages)
-        ];
-      });
+      overlays-module = ({ nixpkgs.overlays = [ (import ./packages) ]; });
 
-      mkSystem = { system-builder, home-manager-module, common-modules }: host-name: { system, user ? "dylanj" }: system-builder {
-        inherit system;
+      mkSystem = { system-builder, home-manager-module, common-modules }:
+        host-name:
+        { system, user ? "dylanj" }:
+        system-builder {
+          inherit system;
 
-        specialArgs = {
-          lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
-          modules = {
-            hardware = hardware.nixosModules;
-            wsl = wsl.nixosModules.wsl;
+          specialArgs = {
+            lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
+            modules = {
+              hardware = hardware.nixosModules;
+              wsl = wsl.nixosModules.wsl;
+            };
+
+            common = { } // common-modules // (import ./common/shared)
+              // (import ./common/scripts);
           };
 
-          common = { }
-            // common-modules
-            // (import ./common/shared)
-            // (import ./common/scripts);
+          modules = [
+            home-manager-module
+            overlays-module
+            jovian.nixosModules.jovian
+            (home-manager-config { inherit host-name user; })
+            (toPath "/hosts/${host-name}/configuration.nix")
+          ];
         };
-
-        modules = [
-          home-manager-module
-          overlays-module
-          (home-manager-config { inherit host-name user; })
-          (toPath "/hosts/${host-name}/configuration.nix")
-        ];
-      };
 
       mkDarwin = builtins.mapAttrs (mkSystem {
         system-builder = darwin.lib.darwinSystem;
@@ -77,17 +79,14 @@
 
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
-        overlays = [
-          (import ./packages)
-          (import ./fixes)
-        ];
+        overlays = [ (import ./packages) (import ./fixes) ];
       };
-    in
-    {
+    in {
       nixosConfigurations = mkNixOS {
         "work-dell".system = "x86_64-linux";
         "desktop".system = "x86_64-linux";
         "ipad".system = "aarch64-linux";
+        "steamdeck".system = "x86_64-linux";
       };
 
       darwinConfigurations = mkDarwin {
