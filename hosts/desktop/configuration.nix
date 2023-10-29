@@ -13,7 +13,6 @@
   wsl = {
     enable = true;
     defaultUser = "dylanj";
-    docker-native.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
