@@ -4,7 +4,7 @@
     hardware.url = "github:nixos/nixos-hardware";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       # inputs.utils.follows = "flake-utils";
     };
@@ -50,6 +50,7 @@
             modules = {
               hardware = hardware.nixosModules;
               wsl = wsl.nixosModules.wsl;
+              jovian = jovian.nixosModules.jovian;
             };
 
             common = { } // common-modules // (import ./common/shared)
@@ -59,7 +60,6 @@
           modules = [
             home-manager-module
             overlays-module
-            jovian.nixosModules.jovian
             (home-manager-config { inherit host-name user; })
             (toPath "/hosts/${host-name}/configuration.nix")
           ];
@@ -86,7 +86,7 @@
         "work-dell".system = "x86_64-linux";
         "desktop".system = "x86_64-linux";
         "ipad".system = "aarch64-linux";
-        "steamdeck".system = "x86_64-linux";
+        # "steamdeck".system = "x86_64-linux";
       };
 
       darwinConfigurations = mkDarwin {

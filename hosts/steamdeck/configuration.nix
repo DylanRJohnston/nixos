@@ -1,6 +1,7 @@
-{ common, pkgs, ... }: {
+{ common, pkgs, modules, ... }: {
   imports = with common; [
     user
+    modules.jovian
   ];
 
   jovian = {
