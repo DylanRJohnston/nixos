@@ -31,6 +31,7 @@
     gnomeExtensions.dash-to-dock
     jupiter-dock-updater-bin
     steamdeck-firmware
+    jupiter-hw-support
     git
     vim
   ];
