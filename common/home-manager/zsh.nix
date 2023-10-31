@@ -21,8 +21,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "b4b4r07";
       repo = "enhancd";
-      rev = "c6967f7f70f18991a5f9148996afffc0d3ae76e4";
-      sha256 = "1smskx9vkx78yhwspjq2c5r5swh9fc5xxa40ib4753f00wk4dwpp";
+      rev = "230695f8da8463b18121f58d748851a67be19a00";
+      hash = "sha256-XJl0XVtfi/NTysRMWant84uh8+zShTRwd7t2cxUk+qU=";
     };
   }];
 in
