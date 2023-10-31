@@ -8,7 +8,7 @@
   ];
 
   networking.hostName = "desktop";
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 
   wsl = {
     enable = true;
@@ -24,4 +24,11 @@
     vscode
     wget
   ];
+
+
+  virtualisation.docker.enable = true;
+
+  services.openssh.enable = true;
+  services.openssh.ports = [ 2022 ];
+  services.cachix-agent.enable = true;
 }

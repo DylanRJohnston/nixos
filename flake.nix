@@ -4,9 +4,8 @@
     hardware.url = "github:nixos/nixos-hardware";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager";
+     url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.utils.follows = "flake-utils";
     };
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -86,7 +85,7 @@
         "work-dell".system = "x86_64-linux";
         "desktop".system = "x86_64-linux";
         "ipad".system = "aarch64-linux";
-        # "steamdeck".system = "x86_64-linux";
+        "steamdeck".system = "x86_64-linux";
       };
 
       darwinConfigurations = mkDarwin {

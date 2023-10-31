@@ -2,3 +2,4 @@ result
 *.img
 *.img.zst
 *.swp
+nixos-wsl

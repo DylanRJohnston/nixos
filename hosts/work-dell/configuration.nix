@@ -33,6 +33,6 @@
   services.fstrim.enable = true;
 
   time.timeZone = "Australia/Perth";
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }
 
