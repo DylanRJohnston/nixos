@@ -20,11 +20,13 @@
       "steamdeck" = {
         hostname = "192.168.1.110";
         user = "dylanj";
+        port = 2022;
         forwardAgent = true;
       };
       "macbook-pro" = {
         hostname = "192.168.1.104";
         user = "dylanj";
+        port = 2022;
         forwardAgent = true;
       };
       "nix-build-slave-arm64" = {
