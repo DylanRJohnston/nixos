@@ -30,7 +30,7 @@ in
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
       plugins = [ "docker" "docker-compose" "fzf" ];
