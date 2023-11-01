@@ -3,8 +3,8 @@
   services.openssh = {
     enable = true;
     ports = [ 2022 ];
-    settings.passwordAuthentication = false;
-    settings.permitRootLogin = "no";
+    settings.PasswordAuthentication = false;
+    settings.PermitRootLogin = "no";
   };
 
   security.pam.enableSSHAgentAuth = true;
