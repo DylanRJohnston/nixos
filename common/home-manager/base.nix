@@ -3,7 +3,6 @@
     direnv
     git
     home-manager
-    gpg-agent
     packages
     ssh
     tmux
