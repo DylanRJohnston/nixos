@@ -8,6 +8,7 @@
   ssh-sudo = ./ssh-sudo.nix;
   syschdemd = ./syschdemd.nix;
   user = ./user.nix;
+  vscode-server = ./vscode-server.nix;
   wifi = ./wifi.nix;
   xserver = ./xserver.nix;
   zsh = ./zsh.nix;

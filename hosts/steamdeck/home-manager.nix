@@ -1,4 +1,4 @@
-{ pkgs, common, ... }: {
+{ common, ... }: {
   imports = with common; [
     base
   ];

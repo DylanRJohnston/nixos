@@ -20,9 +20,14 @@
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
-  outputs = { self, darwin, hardware, home-manager, nixpkgs, wsl, jovian, ... }:
+  outputs = { darwin, hardware, home-manager, nixpkgs, wsl, jovian, vscode-server, ... }:
     let
       toPath = path: ./. + path;
 
@@ -50,6 +55,7 @@
               hardware = hardware.nixosModules;
               wsl = wsl.nixosModules.wsl;
               jovian = jovian.nixosModules.jovian;
+              vscode-server = vscode-server.nixosModules.default;
             };
 
             common = { } // common-modules // (import ./common/shared)

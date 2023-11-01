@@ -6,6 +6,8 @@
     fonts
     nix-config
     zsh
+    vscode-server
+    openssh
     ./hardware-configuration.nix
   ];
 
@@ -13,8 +15,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
-  services.openssh.enable = true;
-  services.openssh.ports = [ 2022 ];
 
   services.xserver.desktopManager.gnome.enable = true;
   hardware.pulseaudio.enable = lib.mkForce false;
