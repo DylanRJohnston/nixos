@@ -1,4 +1,7 @@
-{
+let keys = [
+  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICX6q5M2rAKRjKckyxL31RCxUFDvAZ5gYWbfxnA3rUaz dylanj@macbook-pro.lan"
+];
+in {
   programs.mosh.enable = true;
   services.openssh = {
     enable = true;
@@ -9,8 +12,6 @@
 
   security.pam.enableSSHAgentAuth = true;
 
-  users.users.dylanj.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICX6q5M2rAKRjKckyxL31RCxUFDvAZ5gYWbfxnA3rUaz dylanj@macbook-pro.lan"
-  ];
-
+  users.users.dylanj.openssh.authorizedKeys.keys = keys;
+  users.users.root.openssh.authorizedKeys.keys = keys;
 }

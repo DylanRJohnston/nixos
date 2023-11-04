@@ -25,6 +25,7 @@
     steam.user = "dylanj";
     steam.desktopSession = "gnome-wayland"; 
     devices.steamdeck.enable = true;
+    decky-loader.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -34,6 +35,7 @@
     jupiter-hw-support
     git
     vim
+    moonlight-qt
   ];
 
   programs.steam.enable = true;
