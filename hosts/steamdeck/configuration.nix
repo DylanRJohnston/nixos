@@ -63,4 +63,7 @@
   programs.steam.enable = true;
 
   system.stateVersion = "23.11";
+  hardware.steam-hardware.enable = true;
+  services.joycond.enable = true;
+  # boot.blacklistedKernelModules = [ "hid-nintendo" ];
 }
