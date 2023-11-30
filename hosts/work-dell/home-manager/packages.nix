@@ -11,7 +11,7 @@ let
     vscode
   ];
   clis = with pkgs; [
-    awscli2
+    # awscli2
     brightnessctl
     docker-compose
     fzf

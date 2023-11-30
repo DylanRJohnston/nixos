@@ -38,7 +38,7 @@
       enable = true;
       autoStart = true;
       user = "dylanj";
-      desktopSession = "gnome-wayland";
+      desktopSession = "gnome";
     };
     
     devices.steamdeck.enable = true;
