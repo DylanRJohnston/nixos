@@ -18,7 +18,7 @@
         forwardAgent = true;
       };
       "steamdeck" = {
-        hostname = "192.168.1.110";
+        hostname = "192.168.1.148";
         user = "dylanj";
         port = 2022;
         forwardAgent = true;
