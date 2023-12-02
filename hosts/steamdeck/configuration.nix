@@ -1,15 +1,18 @@
 { common, pkgs, modules, lib, ... }: {
-  imports = with common; [
-    ./hardware-configuration.nix
-    fonts
+  imports = [
     modules.jovian
-    nix-build
-    nix-config
-    openssh
-    user
-    vscode-server
-    wifi
-    zsh
+    modules.steam-compat
+
+    common.fonts
+    common.nix-build
+    common.nix-config
+    common.openssh
+    common.user
+    common.vscode-server
+    common.wifi
+    common.zsh
+
+    ./hardware-configuration.nix
   ];
 
   nixpkgs.overlays = [(
@@ -61,7 +64,12 @@
     python3
   ];
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true; 
+    extraCompatPackages = [
+      pkgs.proton-ge
+    ];
+  };
 
   system.stateVersion = "23.11";
   hardware.steam-hardware.enable = true;
