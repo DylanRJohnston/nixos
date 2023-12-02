@@ -1,14 +1,15 @@
 { common, pkgs, modules, lib, ... }: {
   imports = with common; [
-    user
-    modules.jovian
-    wifi
-    fonts
-    nix-config
-    zsh
-    vscode-server
-    openssh
     ./hardware-configuration.nix
+    fonts
+    modules.jovian
+    nix-build
+    nix-config
+    openssh
+    user
+    vscode-server
+    wifi
+    zsh
   ];
 
   nixpkgs.overlays = [(
