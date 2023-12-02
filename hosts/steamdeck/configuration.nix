@@ -4,7 +4,7 @@
     modules.steam-compat
 
     common.fonts
-    common.nix-build
+    # common.nix-build
     common.nix-config
     common.openssh
     common.user
