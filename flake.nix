@@ -39,7 +39,7 @@
     };
   };
 
-  outputs = { self, darwin, hardware, home-manager, nixpkgs, nix-gaming, wsl, jovian, vscode-server }:
+  outputs = { self, darwin, hardware, home-manager, nixpkgs, nix-gaming, wsl, jovian, vscode-server, ... }:
     let
       toPath = path: ./. + path;
 
@@ -110,14 +110,18 @@
       };
 
       darwinConfigurations = mkDarwin {
-        "macbook-pro".system = "x86_64-darwin";
-        "AU-L-0226".system = "aarch64-darwin";
+        "macbook-pro".system = "aarch64-darwin";
       };
 
       templates = {
         basic = {
           path = ./templates/basic;
           description = "Basic dev env shell";
+        };
+
+        rust = {
+          path = ./tempaltes/rust;
+          description = "basic rust shell";
         };
       };
     };
