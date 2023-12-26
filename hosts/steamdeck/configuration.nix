@@ -18,13 +18,7 @@
   nixpkgs.overlays = [(
     next: prev: {
       decky-loader = prev.decky-loader.overrideAttrs (old: {
-        src = prev.fetchFromGitHub {
-          owner = "DylanRJohnston-FZ";
-          repo = "decky-loader";
-          rev = "e65efa8326e99b21c5e55e709bf65f6708b61d92";
-          hash = "sha256-h7v3DTpAtyZGNrJqcthrlLKJFyfZIVvbckj8mMNMwnE=";
-        };
-        patches = [];
+        patches = old.patches ++ [ ../../patches/decky-debug.patch ];
       });
     }
   )];
