@@ -1,4 +1,4 @@
-self: prev: {
+next: prev: {
   pam_reattach = prev.callPackage ./pam_reattach.nix { };
   # awscli2 = prev.callPackage ./awscli2.nix { };
   # bluez = prev.bluez.overrideAttrs (old: {
@@ -9,4 +9,12 @@ self: prev: {
   #    })
   #  ];
   #});
+
+  steamPackages = prev.steamPackages.overrideScope (scopeNext: scopePrev: {
+    steam-fhsenv = scopePrev.steam-fhsenv.override {
+      buildFHSEnv = prev.buildFHSEnv.override {
+        pkgs = prev // { python3 = prev.python3Full; };
+      };
+    };
+  });
 }

@@ -15,13 +15,13 @@
     ./hardware-configuration.nix
   ];
 
-  nixpkgs.overlays = [(
-    next: prev: {
+  nixpkgs.overlays = [
+    (next: prev: {
       decky-loader = prev.decky-loader.overrideAttrs (old: {
         patches = old.patches ++ [ ../../patches/decky-debug.patch ];
       });
-    }
-  )];
+    })
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -38,9 +38,9 @@
       user = "dylanj";
       desktopSession = "gnome";
     };
-    
+
     devices.steamdeck.enable = true;
-    
+
     decky-loader = {
       enable = true;
       user = "dylanj";
@@ -59,10 +59,8 @@
   ];
 
   programs.steam = {
-    enable = true; 
-    extraCompatPackages = [
-      pkgs.proton-ge
-    ];
+    enable = true;
+    extraCompatPackages = [ pkgs.proton-ge ];
   };
 
   system.stateVersion = "23.11";
