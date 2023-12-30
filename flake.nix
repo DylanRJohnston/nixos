@@ -5,41 +5,42 @@
     hardware.url = "github:nixos/nixos-hardware";
 
     flake-utils.url = "github:numtide/flake-utils";
-    
+
     home-manager = {
-     url = "github:nix-community/home-manager/master";
-     inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    
+
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    
+
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, darwin, hardware, home-manager, nixpkgs, nix-gaming, wsl, jovian, vscode-server, ... }:
+  outputs = { self, darwin, hardware, home-manager, nixpkgs, nix-gaming, wsl
+    , jovian, vscode-server, ... }:
     let
       toPath = path: ./. + path;
 
@@ -109,9 +110,8 @@
         "steamdeck".system = "x86_64-linux";
       };
 
-      darwinConfigurations = mkDarwin {
-        "macbook-pro".system = "aarch64-darwin";
-      };
+      darwinConfigurations =
+        mkDarwin { "macbook-pro".system = "aarch64-darwin"; };
 
       templates = {
         basic = {
