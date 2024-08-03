@@ -5,10 +5,13 @@
       cleanup = "zap";
       autoUpdate = true;
     };
-    taps = [ "homebrew/cask" ];
+    # taps = [ "homebrew/cask" ];
     casks = [
       "1password"
       "alfred"
+      "audacity"
+      "backblaze"
+      "caffeine"
       "cyberduck"
       "dbeaver-community"
       "discord"
@@ -17,8 +20,10 @@
       "gimp"
       "google-chrome"
       "istat-menus"
+      "jellyfin"
       "obsidian"
       "omnifocus"
+      "openmtp"
       "postman"
       "rectangle"
       "signal"

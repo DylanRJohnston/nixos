@@ -10,11 +10,6 @@ next: prev: {
   #  ];
   #});
 
-  steamPackages = prev.steamPackages.overrideScope (scopeNext: scopePrev: {
-    steam-fhsenv = scopePrev.steam-fhsenv.override {
-      buildFHSEnv = prev.buildFHSEnv.override {
-        pkgs = prev // { python3 = prev.python3Full; };
-      };
-    };
-  });
+  # steamPackages = prev.steamPackages.overrideScope
+  #   (scopeNext: scopePrev: { python3 = scopeNext.python3Full; });
 }

@@ -2,6 +2,10 @@
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "~/.ssh/id_ed25519";
+      };
       "personal.github.com" = {
         hostname = "github.com";
         user = "git";
@@ -15,6 +19,7 @@
       "pi" = {
         hostname = "10.55.0.1";
         user = "dylanj";
+        port = 2022;
         forwardAgent = true;
       };
       "steamdeck" = {

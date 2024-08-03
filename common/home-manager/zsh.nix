@@ -4,14 +4,21 @@ let
     shared = {
       gitlog = "git log --oneline --graph --all";
       v = "vim $(fd --type f | fzf)";
-      fz-tunnel-cockroach-us-central = "$(sops -d --extract '[\"ums\"][\"production\"][\"us-central\"]' ${../../secrets/tunnels.yaml})";
-      fz-tunnel-cockroach-staging = "$(sops -d --extract '[\"ums\"][\"staging\"]' ${../../secrets/tunnels.yaml})";
+      fz-tunnel-cockroach-us-central = ''
+        $(sops -d --extract '["ums"]["production"]["us-central"]' ${
+          ../../secrets/tunnels.yaml
+        })'';
+      fz-tunnel-cockroach-staging = ''
+        $(sops -d --extract '["ums"]["staging"]' ${
+          ../../secrets/tunnels.yaml
+        })'';
     };
     linux = {
       "battery" = "cat /sys/class/power_supply/BAT0/capacity";
       "pbcopy" = "xclip -i -selection clipboard";
       "pbpaste" = "xclip -o -selection clipboard";
-      "headphones" = "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
+      "headphones" =
+        "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
     };
     darwin = { };
   };
@@ -25,11 +32,10 @@ let
       hash = "sha256-XJl0XVtfi/NTysRMWant84uh8+zShTRwd7t2cxUk+qU=";
     };
   }];
-in
-{
+in {
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
@@ -45,7 +51,8 @@ in
       POWERLEVEL9K_SHORTEN_DELIMITER = "";
       POWERLEVEL9K_SHORTEN_STRATEGY = "truncate_from_right";
       POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = [ "dir" "vcs" ];
-      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = [ "status" "root_indicator" "background_jobs" "history" ];
+      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS =
+        [ "status" "root_indicator" "background_jobs" "history" ];
       ENHANCD_DOT_ARG = "back";
       GOPATH = "$HOME/Workspace/go";
       PATH = "$PATH:/opt/homebrew/bin";

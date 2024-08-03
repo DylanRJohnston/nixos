@@ -16,10 +16,10 @@
     lsof
     mosh
     ngrok
+    nil
     nixfmt
     nixpkgs-fmt
     pv
-    rnix-lsp
     sops
     tmux
     tree
