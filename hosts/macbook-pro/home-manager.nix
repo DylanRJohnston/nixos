@@ -1,7 +1,5 @@
 { pkgs, common, lib, ... }: {
-  imports = with common; [
-    base
-  ];
+  imports = with common; [ base ];
 
   # programs.git.extraConfig.commit.gpgsign = true;
   # programs.git.userEmail = lib.mkForce "dylan.johnston@familyzone.com";
@@ -15,6 +13,16 @@
       user = "dylanj";
     };
   };
-}
 
+  home.packages = with pkgs; [
+    awscli2
+    binaryen
+    ffmpeg
+    inkscape
+    kubectl
+    kubectx
+    nmap
+    openvpn
+  ];
+}
 
