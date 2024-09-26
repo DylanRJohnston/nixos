@@ -11,10 +11,10 @@
         user = "git";
         identityFile = "~/.ssh/personal";
       };
-      "familyzone.github.com" = {
-        hostname = "github.com";
+      "hypersec.gitlab.com" = {
+        hostname = "gitlab.com";
         user = "git";
-        identityFile = "~/.ssh/familyzone";
+        identityFile = "~/.ssh/hypersec";
       };
       "pi" = {
         hostname = "10.55.0.1";
