@@ -17,7 +17,7 @@
     mosh
     ngrok
     nil
-    nixfmt
+    nixfmt-rfc-style
     nixpkgs-fmt
     pv
     sops
