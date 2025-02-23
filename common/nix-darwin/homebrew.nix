@@ -30,6 +30,7 @@
       "rectangle"
       "signal"
       "slack"
+      "spotify"
       "steam"
       "transmission"
       "visual-studio-code"
