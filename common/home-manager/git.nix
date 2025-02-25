@@ -3,7 +3,7 @@ let
   git-town-aliases = lib.genAttrs [
     "append"
     "hack"
-    "kill"
+    "delete"
     "new-pull-request"
     "prepend"
     "append"
@@ -12,7 +12,8 @@ let
     "ship"
     "sync"
   ] (name: "town ${name}");
-in {
+in
+{
   programs.git = {
     enable = true;
     userName = "Dylan R. Johnston";
