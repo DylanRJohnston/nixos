@@ -1,14 +1,8 @@
-{ pkgs, common, modules, ... }:
-{
-  imports = [
-    common.fonts
-    common.nix-config
-    common.user
-    modules.wsl
-  ];
+{ pkgs, common, modules, ... }: {
+  imports = [ common.fonts common.nix-config common.user modules.wsl ];
 
   networking.hostName = "desktop";
-  system.stateVersion = "23.11";
+  system.stateVersion = "25.05";
 
   wsl = {
     enable = true;
@@ -24,7 +18,6 @@
     vscode
     wget
   ];
-
 
   virtualisation.docker.enable = true;
 
