@@ -1,4 +1,5 @@
-{ common, ... }: {
+{ common, ... }:
+{
   imports = with common; [
     system-defaults
     system-packages

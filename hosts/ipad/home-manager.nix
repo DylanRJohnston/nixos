@@ -1,4 +1,5 @@
-{ pkgs, common, ... }: {
+{ pkgs, common, ... }:
+{
   imports = with common; [
     base
     gpg-agent

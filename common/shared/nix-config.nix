@@ -1,4 +1,5 @@
-{ pkgs, lockfile, ... }: {
+{ pkgs, lockfile, ... }:
+{
   nixpkgs.config.allowUnfree = true;
   nix = {
     package = pkgs.nixVersions.stable;

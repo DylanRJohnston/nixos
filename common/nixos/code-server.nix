@@ -4,7 +4,11 @@
     host = "10.55.0.1";
     user = "dylanj";
     auth = "none";
-    extraArguments = [ "--disable-telemetry" "--user-data-dir" "/home/dylanj/.config/Code" ];
+    extraArguments = [
+      "--disable-telemetry"
+      "--user-data-dir"
+      "/home/dylanj/.config/Code"
+    ];
 
   };
 

@@ -1,10 +1,33 @@
 { lib, ... }:
 let
-  laptop = { "eDP-1" = "*8a"; };
-  work = { "DP-1-2" = "*d5"; };
-  boardroom = { "DP-3" = "*ca"; };
-  home = { "DP-1" = "*3e"; };
-  allOff = lib.genAttrs [ "DP-1" "DP-2" "DP-3" "DP-1-1" "DP-1-2" "DP-1-3" "HDMI-1" "HDMI-2" "eDP-1" ] (_: { enable = false; });
+  laptop = {
+    "eDP-1" = "*8a";
+  };
+  work = {
+    "DP-1-2" = "*d5";
+  };
+  boardroom = {
+    "DP-3" = "*ca";
+  };
+  home = {
+    "DP-1" = "*3e";
+  };
+  allOff =
+    lib.genAttrs
+      [
+        "DP-1"
+        "DP-2"
+        "DP-3"
+        "DP-1-1"
+        "DP-1-2"
+        "DP-1-3"
+        "HDMI-1"
+        "HDMI-2"
+        "eDP-1"
+      ]
+      (_: {
+        enable = false;
+      });
 in
 {
   programs.autorandr = {

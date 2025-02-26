@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.autorandr.enable = true;
 
   services.xserver = {

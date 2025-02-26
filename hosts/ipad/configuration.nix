@@ -1,4 +1,13 @@
-{ common, config, hardware, lib, modulesPath, pkgs, ... }: {
+{
+  common,
+  config,
+  hardware,
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
+{
 
   imports = with common; [
     #  code-server

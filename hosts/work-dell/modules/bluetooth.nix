@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   sound.enable = true;
 
   # High quality BT calls

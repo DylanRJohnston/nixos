@@ -1,4 +1,10 @@
-{ pkgs, common, lib, ... }: {
+{
+  pkgs,
+  common,
+  lib,
+  ...
+}:
+{
   imports = with common; [ base ];
 
   # programs.git.extraConfig.commit.gpgsign = true;
@@ -25,4 +31,3 @@
     openvpn
   ];
 }
-

@@ -1,11 +1,17 @@
-{ fetchgit, stdenv, lib, darwin, cmake, openpam, ... }:
+{
+  fetchgit,
+  stdenv,
+  lib,
+  darwin,
+  cmake,
+  openpam,
+  ...
+}:
 
 let
-  sdk = if stdenv.isAarch64 then
-    darwin.apple_sdk.MacOSX-SDK
-  else
-    darwin.apple_sdk.sdk;
-in stdenv.mkDerivation rec {
+  sdk = if stdenv.isAarch64 then darwin.apple_sdk.MacOSX-SDK else darwin.apple_sdk.sdk;
+in
+stdenv.mkDerivation rec {
   name = "pam-reattach";
   version = "1.2";
 
@@ -15,7 +21,11 @@ in stdenv.mkDerivation rec {
     sha256 = "5y/Wf8Yu4Y/AkiwRk1bxjqwrhHxUHQ7Kyo+3r3Gf58w=";
   };
 
-  buildInputs = [ cmake sdk openpam ];
+  buildInputs = [
+    cmake
+    sdk
+    openpam
+  ];
 
   configurePhase = ''
     CMAKE_LIBRARY_PATH="${sdk}/usr/lib" cmake \
@@ -27,11 +37,13 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Reattach to the user's GUI session on macOS during authentication (for Touch ID support in tmux)";
+    description = "Reattach to the user's GUI session on macOS during authentication (for Touch ID support in tmux)";
     homepage = "https://github.com/fabianishere/pam_reattach";
     licenses = licenses.mit;
     maintainers = with maintainers; [ congee ];
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }

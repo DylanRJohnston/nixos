@@ -4,7 +4,8 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDmYQdCCtCy0xwlPdYIxF/0N7bP2XzH7WgTFAxL5Jwo/ nixos@DYLAN-DESKTOP"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGGm9bXqjKjMATEaJ0mcRIxVJ0bzJ3plmd3RZvvgwtPl dylanj@Dylans-MacBook-Pro.local"
   ];
-in {
+in
+{
   programs.mosh.enable = true;
   services.openssh = {
     enable = true;

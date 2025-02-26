@@ -1,4 +1,9 @@
-{ pkgs, lib, common, ... }:
+{
+  pkgs,
+  lib,
+  common,
+  ...
+}:
 let
   modifier = "Mod4";
   keybindings = {
@@ -41,7 +46,7 @@ in
 
       extraConfig = ''
         exec_always autorandr --change
-        
+
         set $mode_gaps Toggle gaps: (1) on (2) off
         bindsym ${modifier}+g mode "$mode_gaps"
         mode "$mode_gaps" {
@@ -54,10 +59,10 @@ in
         for_window [class="flappy"] floating enable
       '';
 
-      config =
-        {
-          modifier = modifier;
-          bars = [{
+      config = {
+        modifier = modifier;
+        bars = [
+          {
             fonts = {
               names = [ "Iosevka, Iosevka Nerd Font" ];
               size = 14.0;
@@ -67,24 +72,27 @@ in
             position = "top";
             statusCommand = "i3status";
             extraConfig = "modifier none";
-          }];
-          terminal = "alacritty";
+          }
+        ];
+        terminal = "alacritty";
 
-          window.border = 0;
+        window.border = 0;
 
-          gaps = {
-            inner = 0;
-            outer = 0;
-            smartBorders = "on";
-            smartGaps = true;
-          };
+        gaps = {
+          inner = 0;
+          outer = 0;
+          smartBorders = "on";
+          smartGaps = true;
+        };
 
-          keybindings = with lib; pipe keybindings [
+        keybindings =
+          with lib;
+          pipe keybindings [
             attrValues
             (foldl mergeAttrs { })
             mkOptionDefault
           ];
-        };
+      };
     };
   };
 }

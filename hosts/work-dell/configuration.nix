@@ -1,4 +1,9 @@
-{ common, config, pkgs, ... }:
+{
+  common,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -34,4 +39,3 @@
   time.timeZone = "Australia/Perth";
   system.stateVersion = "25.05";
 }
-

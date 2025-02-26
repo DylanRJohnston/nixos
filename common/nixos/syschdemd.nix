@@ -1,4 +1,11 @@
-{ lib, pkgs, config, defaultUser, common, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  defaultUser,
+  common,
+  ...
+}:
 
 pkgs.substituteAll {
   name = "syschdemd";

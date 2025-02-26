@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   # Enable Multicast DNS and publish the host.
   services.avahi = {
     enable = true;

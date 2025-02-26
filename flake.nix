@@ -38,20 +38,31 @@
     };
   };
 
-  outputs = { self, darwin, hardware, home-manager, nixpkgs, nix-gaming, wsl
-    , jovian, vscode-server, ... }:
+  outputs =
+    {
+      self,
+      darwin,
+      hardware,
+      home-manager,
+      nixpkgs,
+      nix-gaming,
+      wsl,
+      jovian,
+      vscode-server,
+      ...
+    }:
     let
       toPath = path: ./. + path;
 
-      home-manager-config = { host-name, user }: ({
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.${user} =
-          import (toPath "/hosts/${host-name}/home-manager.nix");
-        home-manager.extraSpecialArgs.common = { }
-          // (import ./common/home-manager) // (import ./common/scripts)
-          // (import ./common/shared);
-      });
+      home-manager-config =
+        { host-name, user }:
+        ({
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
+          home-manager.extraSpecialArgs.common =
+            { } // (import ./common/home-manager) // (import ./common/scripts) // (import ./common/shared);
+        });
 
       overlays-module = ({
         nixpkgs.overlays = [
@@ -62,9 +73,17 @@
         ];
       });
 
-      mkSystem = { system-builder, home-manager-module, common-modules }:
+      mkSystem =
+        {
+          system-builder,
+          home-manager-module,
+          common-modules,
+        }:
         host-name:
-        { system, user ? "dylanj" }:
+        {
+          system,
+          user ? "dylanj",
+        }:
         system-builder {
           inherit system;
 
@@ -78,8 +97,7 @@
               steam-compat = nix-gaming.nixosModules.steamCompat;
             };
 
-            common = { } // common-modules // (import ./common/shared)
-              // (import ./common/scripts);
+            common = { } // common-modules // (import ./common/shared) // (import ./common/scripts);
           };
 
           modules = [
@@ -101,7 +119,8 @@
         home-manager-module = home-manager.nixosModules.home-manager;
         common-modules = import ./common/nixos;
       });
-    in {
+    in
+    {
       nixosConfigurations = mkNixOS {
         "work-dell".system = "x86_64-linux";
         "desktop".system = "x86_64-linux";
@@ -109,8 +128,7 @@
         "steamdeck".system = "x86_64-linux";
       };
 
-      darwinConfigurations =
-        mkDarwin { "macbook-pro".system = "aarch64-darwin"; };
+      darwinConfigurations = mkDarwin { "macbook-pro".system = "aarch64-darwin"; };
 
       templates = {
         basic = {

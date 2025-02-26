@@ -11,7 +11,10 @@
     fade = false;
 
     shadow = true;
-    shadowOffsets = [ (-7) (-7) ];
+    shadowOffsets = [
+      (-7)
+      (-7)
+    ];
     shadowOpacity = 0.7;
     shadowExclude = [ "window_type *= 'normal' && ! name ~= ''" ];
 
@@ -25,12 +28,11 @@
     settings = {
       frame-opacity = 0.7;
       mark-overdir-focused = true;
-      blur =
-        {
-          method = "gaussian";
-          size = 10;
-          deviation = 10.0;
-        };
+      blur = {
+        method = "gaussian";
+        size = 10;
+        deviation = 10.0;
+      };
     };
   };
 }

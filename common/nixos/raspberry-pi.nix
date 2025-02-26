@@ -1,4 +1,10 @@
-{ modules, modulesPath, lib, ... }: {
+{
+  modules,
+  modulesPath,
+  lib,
+  ...
+}:
+{
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     modules.hardware.raspberry-pi-4
@@ -7,8 +13,7 @@
   # Issue https://github.com/NixOS/nixpkgs/issues/126755#issuecomment-869149243
   nixpkgs.overlays = [
     (final: super: {
-      makeModulesClosure = x:
-        super.makeModulesClosure (x // { allowMissing = true; });
+      makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
     })
   ];
 

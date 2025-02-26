@@ -1,7 +1,10 @@
 {
   hardware.raspberry-pi."4".dwc2.enable = true;
 
-  boot.kernelModules = [ "dwc2" "g_ether" ];
+  boot.kernelModules = [
+    "dwc2"
+    "g_ether"
+  ];
 
   networking.networkmanager.unmanaged = [ "usb0" ];
 
@@ -29,9 +32,11 @@
   };
 
   networking.interfaces.usb0 = {
-    ipv4.addresses = [{
-      address = "10.55.0.1";
-      prefixLength = 24;
-    }];
+    ipv4.addresses = [
+      {
+        address = "10.55.0.1";
+        prefixLength = 24;
+      }
+    ];
   };
 }

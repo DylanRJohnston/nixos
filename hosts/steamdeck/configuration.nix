@@ -1,4 +1,11 @@
-{ common, pkgs, modules, lib, ... }: {
+{
+  common,
+  pkgs,
+  modules,
+  lib,
+  ...
+}:
+{
   imports = [
     modules.jovian
     modules.steam-compat

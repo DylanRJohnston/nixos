@@ -1,4 +1,5 @@
-{ common, ... }: {
+{ common, ... }:
+{
   imports = [
     common.base
     ./autorandr.nix

@@ -1,4 +1,5 @@
-{ common, ... }: {
+{ common, ... }:
+{
   imports = [
     common.base
   ];
@@ -6,7 +7,6 @@
   homebrew.casks = [
     "lastpass"
   ];
-
 
   nix.distributedBuilds = true;
   # nix.buildMachines = [

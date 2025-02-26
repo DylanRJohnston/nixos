@@ -1,14 +1,19 @@
-{ lib
-, python3
-, groff
-, less
-, fetchFromGitHub
+{
+  lib,
+  python3,
+  groff,
+  less,
+  fetchFromGitHub,
 }:
 let
-  pypkgs = python3.pkgs.overrideScope
-    (self: prev: {
-      pyopenssl = prev.pyopenssl.overrideAttrs (_: { meta.broken = false; });
-      twisted = prev.twisted.overridePythonAttrs (_: { doCheck = false; });
+  pypkgs = python3.pkgs.overrideScope (
+    self: prev: {
+      pyopenssl = prev.pyopenssl.overrideAttrs (_: {
+        meta.broken = false;
+      });
+      twisted = prev.twisted.overridePythonAttrs (_: {
+        doCheck = false;
+      });
       awscrt = prev.awscrt.overridePythonAttrs (oldAttrs: rec {
         version = "0.13.11";
         src = self.fetchPypi {
@@ -17,10 +22,12 @@ let
           sha256 = "sha256-Yx3I3RD57Nx6Cvm4moc5zmMbdsHeYiMghDfbQUor38E=";
         };
       });
-    });
+    }
+  );
 
 in
-with pypkgs; buildPythonApplication rec {
+with pypkgs;
+buildPythonApplication rec {
   pname = "awscli2";
   version = "2.7.20"; # N.B: if you change this, check if overrides are still up-to-date
 
@@ -95,6 +102,11 @@ with pypkgs; buildPythonApplication rec {
     changelog = "https://github.com/aws/aws-cli/blob/${version}/CHANGELOG.rst";
     description = "Unified tool to manage your AWS services";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bhipple davegallant bryanasdev000 devusb ];
+    maintainers = with maintainers; [
+      bhipple
+      davegallant
+      bryanasdev000
+      devusb
+    ];
   };
 }
