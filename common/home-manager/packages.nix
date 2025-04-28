@@ -4,6 +4,8 @@
     # awscli2
     (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
     cachix
+    claude-code
+    commitizen
     fd
     fzf
     git
