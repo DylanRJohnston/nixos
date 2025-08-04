@@ -36,7 +36,8 @@
       "visual-studio-code"
       "vlc"
       "wezterm"
-      "wireshark"
+      "wireshark-app"
+      "zed"
     ];
   };
 }
