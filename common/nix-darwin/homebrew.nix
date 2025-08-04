@@ -15,7 +15,7 @@
       "cyberduck"
       "dbeaver-community"
       "discord"
-      "docker"
+      "docker-desktop"
       "firefox"
       "gimp"
       "google-chrome"
