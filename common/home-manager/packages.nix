@@ -19,6 +19,7 @@
     mosh
     ngrok
     nil
+    nixd
     nixfmt-rfc-style
     nixpkgs-fmt
     pv
