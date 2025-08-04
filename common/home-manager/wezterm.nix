@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   home.file.".config/wezterm/wezterm.lua".text = ''
     local wezterm = require 'wezterm';

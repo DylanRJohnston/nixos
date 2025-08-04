@@ -7,7 +7,6 @@
     fonts
     nix-config
     touchID
-    nix-daemon
   ];
 
   system.stateVersion = 5;

@@ -17,7 +17,7 @@
     killall
     lsof
     mosh
-    ngrok
+    # ngrok
     nil
     nixd
     nixfmt-rfc-style
