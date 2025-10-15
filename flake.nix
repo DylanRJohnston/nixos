@@ -83,10 +83,11 @@
           home-manager-module,
           common-modules,
           homeFormat,
+          defaultSystem,
         }:
         host-name:
         {
-          system,
+          system ? defaultSystem,
           user ? "dylanj",
         }:
         system-builder {
@@ -118,6 +119,7 @@
         home-manager-module = home-manager.darwinModules.home-manager;
         common-modules = import ./common/nix-darwin;
         homeFormat = user: "/Users/${user}";
+        defaultSystem = "aarch64-darwin";
       });
 
       mkNixOS = builtins.mapAttrs (mkSystem {
@@ -125,6 +127,7 @@
         home-manager-module = home-manager.nixosModules.home-manager;
         common-modules = import ./common/nixos;
         homeFormat = user: "/home/${user}";
+        defaultSystem = "x86_64-linux";
       });
     in
     {
@@ -137,10 +140,7 @@
 
       darwinConfigurations = mkDarwin {
         "macbook-pro".system = "aarch64-darwin";
-        "MNM-L4G3HW02WK" = {
-          system = "aarch64-darwin";
-          user = "dylan.johnston";
-        };
+        "MNM-L4G3HW02WK".user = "dylan.johnston";
       };
 
       templates = {
