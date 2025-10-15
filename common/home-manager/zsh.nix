@@ -70,7 +70,7 @@ in
       (lib.optionalAttrs pkgs.stdenv.isLinux aliases.linux)
       (lib.optionalAttrs pkgs.stdenv.isDarwin aliases.darwin)
     ];
-    initExtra = ''
+    initContent = ''
       source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme
       if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
         tmux attach -t default || tmux new -s default

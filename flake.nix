@@ -40,7 +40,6 @@
 
   outputs =
     {
-      self,
       darwin,
       hardware,
       home-manager,
@@ -55,29 +54,35 @@
       toPath = path: ./. + path;
 
       home-manager-config =
-        { host-name, user }:
-        ({
+        {
+          host-name,
+          user,
+          homeFormat,
+        }:
+        {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
+          users.users.${user}.home = homeFormat user;
           home-manager.extraSpecialArgs.common =
             { } // (import ./common/home-manager) // (import ./common/scripts) // (import ./common/shared);
-        });
+        };
 
-      overlays-module = ({
+      overlays-module = {
         nixpkgs.overlays = [
           (import ./packages)
           (next: prev: {
             proton-ge = nix-gaming.packages.${prev.system}.proton-ge;
           })
         ];
-      });
+      };
 
       mkSystem =
         {
           system-builder,
           home-manager-module,
           common-modules,
+          homeFormat,
         }:
         host-name:
         {
@@ -103,7 +108,7 @@
           modules = [
             home-manager-module
             overlays-module
-            (home-manager-config { inherit host-name user; })
+            (home-manager-config { inherit host-name user homeFormat; })
             (toPath "/hosts/${host-name}/configuration.nix")
           ];
         };
@@ -112,12 +117,14 @@
         system-builder = darwin.lib.darwinSystem;
         home-manager-module = home-manager.darwinModules.home-manager;
         common-modules = import ./common/nix-darwin;
+        homeFormat = user: "/Users/${user}";
       });
 
       mkNixOS = builtins.mapAttrs (mkSystem {
         system-builder = nixpkgs.lib.nixosSystem;
         home-manager-module = home-manager.nixosModules.home-manager;
         common-modules = import ./common/nixos;
+        homeFormat = user: "/home/${user}";
       });
     in
     {
@@ -128,7 +135,13 @@
         "steamdeck".system = "x86_64-linux";
       };
 
-      darwinConfigurations = mkDarwin { "macbook-pro".system = "aarch64-darwin"; };
+      darwinConfigurations = mkDarwin {
+        "macbook-pro".system = "aarch64-darwin";
+        "MNM-L4G3HW02WK" = {
+          system = "aarch64-darwin";
+          user = "dylan.johnston";
+        };
+      };
 
       templates = {
         basic = {
