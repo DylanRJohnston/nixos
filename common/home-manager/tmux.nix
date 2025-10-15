@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 {
   options.custom.modules.tmux.enable = lib.mkEnableOption "Enable tmux configuration";
 

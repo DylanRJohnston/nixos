@@ -122,19 +122,20 @@
               // (import ./common/scripts);
           };
 
-          modules = [
-            home-manager-module
-            overlays-module
-            (home-manager-config {
-              inherit
-                user
-                homeFormat
-                homeManagerModules
-                ;
-            })
-          ]
-          ++ systemModules
-          ++ [ (additionalModules user) ];
+          modules =
+            [
+              home-manager-module
+              overlays-module
+              (home-manager-config {
+                inherit
+                  user
+                  homeFormat
+                  homeManagerModules
+                  ;
+              })
+            ]
+            ++ systemModules
+            ++ [ (additionalModules user) ];
         };
 
       mkDarwin = builtins.mapAttrs (mkSystem {

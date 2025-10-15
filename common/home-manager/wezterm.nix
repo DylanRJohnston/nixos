@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 {
   options.custom.modules.wezterm.enable = lib.mkEnableOption "Enable wezterm configuration";
 
