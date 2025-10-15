@@ -29,5 +29,13 @@
         UseKeychain = "true";
       };
     };
+    "personal.github.com" = {
+      hostname = lib.mkForce "ssh.github.com";
+      port = 443;
+      extraOptions = {
+        AddKeysToAgent = "true";
+        UseKeychain = "true";
+      };
+    };
   };
 }
