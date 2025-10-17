@@ -14,5 +14,6 @@
   vscode = ./vscode.nix;
   vscode-server-wsl = ./vscode-server-wsl.nix;
   wezterm = ./wezterm.nix;
+  zed = ./zed.nix;
   zsh = ./zsh.nix;
 }
