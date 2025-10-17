@@ -68,14 +68,17 @@
             { } // (import ./common/home-manager) // (import ./common/scripts) // (import ./common/shared);
         };
 
-      overlays-module = {
-        nixpkgs.overlays = [
-          (import ./packages)
-          (next: prev: {
-            proton-ge = nix-gaming.packages.${prev.system}.proton-ge;
-          })
-        ];
-      };
+      overlays-module =
+        let
+          package-overlay = import ./packages;
+          proton-ge = final: prev: { proton-ge = nix-gaming.packages.${prev.system}.proton-ge; };
+        in
+        {
+          nixpkgs.overlays = [
+            package-overlay
+            proton-ge
+          ];
+        };
 
       mkSystem =
         {

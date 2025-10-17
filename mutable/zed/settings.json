@@ -24,7 +24,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Macchiato"
   },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "languages": {
@@ -45,5 +45,6 @@
         }
       }
     }
-  }
+  },
+  "proxy": "http://localhost:3128"
 }

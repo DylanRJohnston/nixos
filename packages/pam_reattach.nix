@@ -11,9 +11,9 @@
 let
   sdk = if stdenv.isAarch64 then darwin.apple_sdk.MacOSX-SDK else darwin.apple_sdk.sdk;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   name = "pam-reattach";
-  version = "1.2";
+  version = "1.3";
 
   src = fetchgit {
     url = "https://github.com/fabianishere/pam_reattach";
