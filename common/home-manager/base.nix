@@ -10,6 +10,7 @@
     vim
     vscode
     wezterm
+    zed
     zsh
   ];
 }
