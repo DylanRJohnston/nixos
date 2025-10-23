@@ -64,6 +64,7 @@ in
       ENHANCD_DOT_ARG = "back";
       GOPATH = "$HOME/Workspace/go";
       PATH = "$PATH:/opt/homebrew/bin";
+      APPLE_SSH_ADD_BEHAVIOR = "macos";
     };
     shellAliases = lib.mkMerge [
       aliases.shared
