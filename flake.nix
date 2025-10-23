@@ -55,17 +55,20 @@
 
       home-manager-config =
         {
-          host-name,
           user,
           homeFormat,
+          homeManagerPath,
         }:
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${user} = import (toPath "/hosts/${host-name}/home-manager.nix");
+          home-manager.users.${user} = import homeManagerPath;
           users.users.${user}.home = homeFormat user;
           home-manager.extraSpecialArgs.common =
-            { } // (import ./common/home-manager) // (import ./common/scripts) // (import ./common/shared);
+            { } # nix-fmt
+            // (import ./common/home-manager)
+            // (import ./common/scripts)
+            // (import ./common/shared);
         };
 
       overlays-module =
@@ -87,17 +90,21 @@
           common-modules,
           homeFormat,
           defaultSystem,
+          additionalModules ? (user: { }),
         }:
         host-name:
         {
           system ? defaultSystem,
           user ? "dylanj",
+          homeManagerPath ? (toPath "/hosts/${host-name}/home-manager.nix"),
+          systemModulesPath ? (toPath "/hosts/${host-name}/configuration.nix"),
         }:
         system-builder {
           inherit system;
 
           specialArgs = {
             lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
+
             modules = {
               hardware = hardware.nixosModules;
               wsl = wsl.nixosModules.wsl;
@@ -106,14 +113,25 @@
               steam-compat = nix-gaming.nixosModules.steamCompat;
             };
 
-            common = { } // common-modules // (import ./common/shared) // (import ./common/scripts);
+            common =
+              { } # nix-fmt
+              // common-modules
+              // (import ./common/shared)
+              // (import ./common/scripts);
           };
 
           modules = [
             home-manager-module
             overlays-module
-            (home-manager-config { inherit host-name user homeFormat; })
-            (toPath "/hosts/${host-name}/configuration.nix")
+            (home-manager-config {
+              inherit
+                user
+                homeFormat
+                homeManagerPath
+                ;
+            })
+            systemModulesPath
+            (additionalModules user)
           ];
         };
 
@@ -123,6 +141,7 @@
         common-modules = import ./common/nix-darwin;
         homeFormat = user: "/Users/${user}";
         defaultSystem = "aarch64-darwin";
+        additionalModules = user: { system.primaryUser = user; };
       });
 
       mkNixOS = builtins.mapAttrs (mkSystem {
@@ -134,6 +153,8 @@
       });
     in
     {
+      inherit mkNixOS mkDarwin;
+
       nixosConfigurations = mkNixOS {
         "work-dell".system = "x86_64-linux";
         "desktop".system = "x86_64-linux";

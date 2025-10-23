@@ -1,4 +1,5 @@
 set -euo pipefail
+set -x
 
 DARWIN=("macbook-pro")
 LINUX=("desktop" "ipad")

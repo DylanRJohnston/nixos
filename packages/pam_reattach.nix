@@ -2,15 +2,11 @@
   fetchgit,
   stdenv,
   lib,
-  darwin,
   cmake,
   openpam,
   ...
 }:
 
-let
-  sdk = if stdenv.isAarch64 then darwin.apple_sdk.MacOSX-SDK else darwin.apple_sdk.sdk;
-in
 stdenv.mkDerivation {
   name = "pam-reattach";
   version = "1.3";
@@ -23,17 +19,16 @@ stdenv.mkDerivation {
 
   buildInputs = [
     cmake
-    sdk
     openpam
   ];
 
   configurePhase = ''
-    CMAKE_LIBRARY_PATH="${sdk}/usr/lib" cmake \
-      -DCMAKE_INSTALL_PREFIX=$out \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DENABLE_PAM=true \
-      -DENABLE_CLI=true \
-      .
+    cmake \
+    -DCMAKE_INSTALL_PREFIX=$out \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_PAM=true \
+    -DENABLE_CLI=true \
+    .
   '';
 
   meta = with lib; {

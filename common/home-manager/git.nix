@@ -16,10 +16,12 @@ in
 {
   programs.git = {
     enable = true;
-    userName = "Dylan R. Johnston";
-    userEmail = "dylan.r.johnston@gmail.com";
-    aliases = git-town-aliases;
-    extraConfig = {
+    settings = {
+      user.name = "Dylan R. Johnston";
+      user.email = "dylan.r.johnston@gmail.com";
+
+      aliases = git-town-aliases;
+
       init.defaultBranch = "main";
       core.editor = "vim";
       push.default = "current";

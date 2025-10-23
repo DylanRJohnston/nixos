@@ -5,6 +5,7 @@
       cleanup = "zap";
       autoUpdate = true;
     };
+
     # taps = [ "homebrew/cask" ];
     casks = [
       "1password"
