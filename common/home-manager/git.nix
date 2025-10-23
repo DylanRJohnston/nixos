@@ -20,7 +20,7 @@ in
       user.name = "Dylan R. Johnston";
       user.email = "dylan.r.johnston@gmail.com";
 
-      aliases = git-town-aliases;
+      alias = git-town-aliases;
 
       init.defaultBranch = "main";
       core.editor = "vim";
