@@ -1,11 +1,12 @@
 { common, ... }:
 {
   imports = with common; [
+    fonts
+    homebrew
+    nix-config
+    nix-daemon
     system-defaults
     system-packages
-    homebrew
-    fonts
-    nix-config
     touchID
   ];
 

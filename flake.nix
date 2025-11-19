@@ -57,12 +57,14 @@
         {
           user,
           homeFormat,
-          homeManagerPath,
+          homeManagerModules,
         }:
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${user} = import homeManagerPath;
+          home-manager.users.${user} = {
+            imports = homeManagerModules;
+          };
           users.users.${user}.home = homeFormat user;
           home-manager.extraSpecialArgs.common =
             { } # nix-fmt
@@ -96,8 +98,8 @@
         {
           system ? defaultSystem,
           user ? "dylanj",
-          homeManagerPath ? (toPath "/hosts/${host-name}/home-manager.nix"),
-          systemModulesPath ? (toPath "/hosts/${host-name}/configuration.nix"),
+          homeManagerModules ? (import (toPath "/hosts/${host-name}/home-manager.nix")),
+          systemModules ? (import (toPath "/hosts/${host-name}/configuration.nix")),
         }:
         system-builder {
           inherit system;
@@ -127,10 +129,10 @@
               inherit
                 user
                 homeFormat
-                homeManagerPath
+                homeManagerModules
                 ;
             })
-            systemModulesPath
+            systemModules
             (additionalModules user)
           ];
         };
