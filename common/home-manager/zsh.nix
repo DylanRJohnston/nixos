@@ -43,8 +43,8 @@ in
       ];
     };
     plugins = plugins;
-    localVariables = {
-      EDITOR = "code --wait";
+    sessionVariables = {
+      EDITOR = "zed --wait";
       LC_ALL = "en_US.UTF-8";
       LANG = "en_US.UTF-8";
       DEFAULT_USER = "dylanj";
