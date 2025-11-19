@@ -98,8 +98,8 @@
         {
           system ? defaultSystem,
           user ? "dylanj",
-          homeManagerModules ? (import (toPath "/hosts/${host-name}/home-manager.nix")),
-          systemModules ? (import (toPath "/hosts/${host-name}/configuration.nix")),
+          homeManagerModules ? [ (import (toPath "/hosts/${host-name}/home-manager.nix")) ],
+          systemModules ? [ (import (toPath "/hosts/${host-name}/configuration.nix")) ],
         }:
         system-builder {
           inherit system;
@@ -132,9 +132,9 @@
                 homeManagerModules
                 ;
             })
-            systemModules
-            (additionalModules user)
-          ];
+          ]
+          ++ systemModules
+          ++ [ (additionalModules user) ];
         };
 
       mkDarwin = builtins.mapAttrs (mkSystem {
