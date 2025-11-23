@@ -24,6 +24,7 @@
       "com.apple.sound.beep.feedback" = 0;
 
       AppleShowAllExtensions = true;
+      AppleShowAllFiles = true;
       AppleInterfaceStyle = "Dark";
       _HIHideMenuBar = false;
     };
