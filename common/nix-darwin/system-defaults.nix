@@ -3,6 +3,17 @@
     dock = {
       show-recents = false;
       autohide = true;
+      persistent-apps = [ ];
+      persistent-others = [ ];
+      static-only = true;
+    };
+
+    finder = {
+      ShowPathbar = true;
+    };
+
+    universalaccess = {
+      closeViewScrollWheelToggle = true;
     };
 
     NSGlobalDomain = {
@@ -15,6 +26,16 @@
       AppleShowAllExtensions = true;
       AppleInterfaceStyle = "Dark";
       _HIHideMenuBar = false;
+    };
+
+    WindowManager = {
+      EnableStandardClickToShowDesktop = false;
+      StandardHideDesktopIcons = true;
+      StandardHideWidgets = true;
+    };
+
+    controlcenter = {
+      BatteryShowPercentage = true;
     };
   };
 
