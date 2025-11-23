@@ -51,16 +51,8 @@ in
       POWERLEVEL9K_SHORTEN_DIR_LENGTH = 1;
       POWERLEVEL9K_SHORTEN_DELIMITER = "";
       POWERLEVEL9K_SHORTEN_STRATEGY = "truncate_from_right";
-      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = [
-        "dir"
-        "vcs"
-      ];
-      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = [
-        "status"
-        "root_indicator"
-        "background_jobs"
-        "history"
-      ];
+      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = "dir vcs";
+      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = "status root_indicator background_jobs history";
       ENHANCD_DOT_ARG = "back";
       GOPATH = "$HOME/Workspace/go";
       PATH = "$PATH:/opt/homebrew/bin";
