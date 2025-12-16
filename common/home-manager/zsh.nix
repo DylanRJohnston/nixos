@@ -30,16 +30,11 @@ let
   ];
 in
 {
-  programs.powerlevel10k = {
+  programs.starship = {
     enable = true;
-    settings = {
-      POWERLEVEL9K_SHORTEN_DIR_LENGTH = 1;
-      POWERLEVEL9K_SHORTEN_DELIMITER = "";
-      POWERLEVEL9K_SHORTEN_STRATEGY = "truncate_from_right";
-      POWERLEVEL9K_LEFT_PROMPT_ELEMENTS = "dir vcs";
-      POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS = "status root_indicator background_jobs history";
-    };
+    enableZshIntegration = true;
   };
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -69,7 +64,6 @@ in
       (lib.optionalAttrs pkgs.stdenv.isDarwin aliases.darwin)
     ];
     initContent = ''
-      source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme
       if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
         tmux attach -t default || tmux new -s default
       fi
