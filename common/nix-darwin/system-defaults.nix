@@ -3,8 +3,8 @@
     dock = {
       show-recents = false;
       autohide = true;
-      persistent-apps = [ ];
-      persistent-others = [ ];
+      # persistent-apps = [ ];
+      # persistent-others = [ ];
       static-only = true;
     };
 
