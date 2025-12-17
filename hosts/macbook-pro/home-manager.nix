@@ -1,11 +1,8 @@
 {
   pkgs,
-  common,
   ...
 }:
 {
-  imports = with common; [ base ];
-
   programs.ssh.enable = true;
   programs.ssh.matchBlocks = {
     "desktop" = {

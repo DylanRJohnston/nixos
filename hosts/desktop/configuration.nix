@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    common.roles
     common.fonts
     common.nix-config
     common.user
