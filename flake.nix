@@ -63,12 +63,12 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.${user} = {
-            imports = homeManagerModules;
+            imports = homeManagerModules ++ [ ./common/home-manager ];
+            home.stateVersion = "25.11";
           };
           users.users.${user}.home = homeFormat user;
           home-manager.extraSpecialArgs.common =
             { } # nix-fmt
-            // (import ./common/home-manager)
             // (import ./common/scripts)
             // (import ./common/shared);
         };

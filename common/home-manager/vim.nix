@@ -1,6 +1,13 @@
-{ pkgs, ... }:
 {
-  programs.vim = {
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
+  options.custom.modules.vim.enable = lib.mkEnableOption "Enable vim configuration";
+
+  config.programs.vim = lib.mkIf config.custom.modules.vim.enable {
     enable = true;
 
     settings = {

@@ -5,6 +5,7 @@
     homebrew
     nix-config
     nix-daemon
+    roles
     system-defaults
     system-packages
     touchID

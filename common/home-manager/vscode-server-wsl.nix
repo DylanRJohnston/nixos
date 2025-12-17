@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  options,
+  lib,
+  ...
+}:
 let
   patch = pkgs.fetchFromGitHub {
     # https://github.com/sonowz/vscode-remote-wsl-nixos

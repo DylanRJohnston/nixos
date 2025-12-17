@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   prepackagedExtensions = with pkgs.vscode-extensions; [
     _4ops.terraform
@@ -48,7 +53,10 @@ let
   });
 in
 {
-  programs.vscode = {
+
+  options.custom.modules.vscode.enable = lib.mkEnableOption "Enable vscode configuration";
+
+  config.programs.vscode = lib.mkIf config.custom.modules.vscode.enable {
     # Use VSCode setting sync instead
     enable = false;
     package = pkgs.vscode;

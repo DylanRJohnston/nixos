@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let
   git-town-aliases = lib.genAttrs [
     "append"
@@ -14,7 +14,11 @@ let
   ] (name: "town ${name}");
 in
 {
-  programs.git = {
+  options = {
+    custom.modules.git.enable = lib.mkEnableOption "Enable git";
+  };
+
+  config.programs.git = lib.mkIf config.custom.modules.git.enable {
     enable = true;
     settings = {
       user.name = "Dylan R. Johnston";

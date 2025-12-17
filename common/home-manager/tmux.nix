@@ -1,5 +1,8 @@
+{ config, lib, ... }:
 {
-  programs.tmux = {
+  options.custom.modules.tmux.enable = lib.mkEnableOption "Enable tmux configuration";
+
+  config.programs.tmux = lib.mkIf config.custom.modules.tmux.enable {
     enable = true;
     extraConfig = ''
       set-window-option -g mouse on

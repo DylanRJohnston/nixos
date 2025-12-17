@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   aliases = {
     shared = {
@@ -30,43 +35,47 @@ let
   ];
 in
 {
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+  options.custom.modules.zsh.enable = lib.mkEnableOption "Enable Zsh module";
 
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    oh-my-zsh = {
+  config = {
+    programs.starship = lib.mkIf config.custom.modules.zsh.enable {
       enable = true;
-      plugins = [
-        "docker"
-        "docker-compose"
-        "fzf"
+      enableZshIntegration = true;
+    };
+
+    programs.zsh = lib.mkIf config.custom.modules.zsh.enable {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      oh-my-zsh = {
+        enable = true;
+        plugins = [
+          "docker"
+          "docker-compose"
+          "fzf"
+        ];
+      };
+      plugins = plugins;
+      sessionVariables = {
+        EDITOR = "zed --wait";
+        LC_ALL = "en_US.UTF-8";
+        LANG = "en_US.UTF-8";
+        DEFAULT_USER = "dylanj";
+        ENHANCD_DOT_ARG = "back";
+        GOPATH = "$HOME/Workspace/go";
+        PATH = "$PATH:/opt/homebrew/bin";
+        APPLE_SSH_ADD_BEHAVIOR = "macos";
+      };
+      shellAliases = lib.mkMerge [
+        aliases.shared
+        (lib.optionalAttrs pkgs.stdenv.isLinux aliases.linux)
+        (lib.optionalAttrs pkgs.stdenv.isDarwin aliases.darwin)
       ];
+      initContent = ''
+        if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+          tmux attach -t default || tmux new -s default
+        fi
+      '';
     };
-    plugins = plugins;
-    sessionVariables = {
-      EDITOR = "zed --wait";
-      LC_ALL = "en_US.UTF-8";
-      LANG = "en_US.UTF-8";
-      DEFAULT_USER = "dylanj";
-      ENHANCD_DOT_ARG = "back";
-      GOPATH = "$HOME/Workspace/go";
-      PATH = "$PATH:/opt/homebrew/bin";
-      APPLE_SSH_ADD_BEHAVIOR = "macos";
-    };
-    shellAliases = lib.mkMerge [
-      aliases.shared
-      (lib.optionalAttrs pkgs.stdenv.isLinux aliases.linux)
-      (lib.optionalAttrs pkgs.stdenv.isDarwin aliases.darwin)
-    ];
-    initContent = ''
-      if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-        tmux attach -t default || tmux new -s default
-      fi
-    '';
   };
 }

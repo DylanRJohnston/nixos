@@ -1,19 +1,20 @@
 {
-  alacritty = ./alacritty.nix;
-  base = ./base.nix;
-  compton = ./compton.nix;
-  direnv = ./direnv.nix;
-  git = ./git.nix;
-  gpg-agent = ./gpg-agent.nix;
-  home-manager = ./home-manager.nix;
-  i3 = ./i3.nix;
-  packages = ./packages.nix;
-  ssh = ./ssh.nix;
-  tmux = ./tmux.nix;
-  vim = ./vim.nix;
-  vscode = ./vscode.nix;
-  vscode-server-wsl = ./vscode-server-wsl.nix;
-  wezterm = ./wezterm.nix;
-  zed = ./zed.nix;
-  zsh = ./zsh.nix;
+  imports = [
+    ./alacritty.nix
+    ./compton.nix
+    ./direnv.nix
+    ./git.nix
+    ./gpg-agent.nix
+    ./i3.nix
+    ./nushell.nix
+    ./packages.nix
+    ./roles
+    ./ssh.nix
+    ./tmux.nix
+    ./vim.nix
+    ./vscode.nix
+    ./wezterm.nix
+    ./zed.nix
+    ./zsh.nix
+  ];
 }

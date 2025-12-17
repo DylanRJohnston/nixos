@@ -1,8 +1,15 @@
 # credits: @LightDiscord who helped me to update to picom
-{ pkgs, ... }:
-
 {
-  services.picom = {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
+
+  options.custom.modules.compton.enable = lib.mkEnableOption "Enable compton";
+
+  config.services.picom = lib.mkIf config.custom.modules.compton.enable {
     enable = true;
 
     # blur = true;

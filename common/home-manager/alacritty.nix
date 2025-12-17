@@ -1,5 +1,10 @@
+{ lib, config, ... }:
 {
-  programs.alacritty = {
+  options = {
+    custom.modules.alacritty.enable = lib.mkEnableOption "Enable alacritty";
+  };
+
+  config.programs.alacritty = lib.mkIf config.custom.modules.alacritty.enable {
     enable = true;
 
     settings = {

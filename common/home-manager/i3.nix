@@ -2,6 +2,7 @@
   pkgs,
   lib,
   common,
+  config,
   ...
 }:
 let
@@ -38,7 +39,9 @@ let
   };
 in
 {
-  xsession = {
+  options.custom.modules.i3.enable = lib.mkEnableOption "Enable i3 module";
+
+  config.xsession = lib.mkIf config.custom.modules.i3.enable {
     enable = true;
     windowManager.i3 = {
       enable = true;

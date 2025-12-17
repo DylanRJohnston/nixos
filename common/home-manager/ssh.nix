@@ -1,5 +1,8 @@
+{ config, lib, ... }:
 {
-  programs.ssh = {
+  options.custom.modules.ssh.enable = lib.mkEnableOption "Enable SSH configuration";
+
+  config.programs.ssh = lib.mkIf config.custom.modules.ssh.enable {
     enable = true;
     enableDefaultConfig = false;
     matchBlocks = {
