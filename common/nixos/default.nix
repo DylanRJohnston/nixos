@@ -1,4 +1,5 @@
 {
+  base = ./base.nix;
   code-server = ./code-server.nix;
   console = ./console.nix;
   g-ether = ./g-ether.nix;
