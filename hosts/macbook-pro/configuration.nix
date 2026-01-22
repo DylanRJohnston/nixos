@@ -5,20 +5,13 @@
     common.nix-daemon
   ];
 
+  custom.roles = [
+    "development"
+    "entertainment"
+    "gaming"
+  ];
+
   homebrew.casks = [
-   "audacity"
-   "backblaze"
-   "cyberduck"
-   "discord"
-   "gimp"
-   "jellyfin"
-   "openmtp"
-   "openvpn-connect"
-   "signal"
-   "slack"
-   "steam"
-   "transmission"
-   "visual-studio-code"
-   "vlc"
+    "backblaze"
   ];
 }

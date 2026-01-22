@@ -1,4 +1,8 @@
 {
+  imports = [
+    ./roles
+  ];
+
   base = ./base.nix;
   determinate = ./determinate.nix;
   homebrew = ./homebrew.nix;

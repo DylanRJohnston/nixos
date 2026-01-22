@@ -21,7 +21,6 @@
       "omnifocus"
       "postman"
       "rectangle"
-      "spotify"
       "wezterm"
       "wireshark-app"
       "zed"

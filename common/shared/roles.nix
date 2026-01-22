@@ -6,6 +6,7 @@
         "base"
         "development"
         "gaming"
+        "entertainment"
         "work"
       ]
     );
