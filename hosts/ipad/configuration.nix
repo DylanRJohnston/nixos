@@ -1,28 +1,9 @@
 {
-  common,
-  config,
-  hardware,
-  lib,
-  modulesPath,
-  pkgs,
   ...
 }:
 {
 
-  imports = with common; [
-    #  code-server
-    fonts
-    g-ether
-    mosh
-    nix-config
-    openssh
-    raspberry-pi
-    roles
-    ssh-sudo
-    user
-    wifi
-    zsh
-  ];
+  custom.roles = [ "development" ];
 
   i18n.defaultLocale = "en_US.UTF-8";
 

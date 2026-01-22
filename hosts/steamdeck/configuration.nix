@@ -1,5 +1,4 @@
 {
-  common,
   pkgs,
   modules,
   lib,
@@ -9,15 +8,6 @@
   imports = [
     modules.jovian
     modules.steam-compat
-
-    common.fonts
-    # common.nix-build
-    common.nix-config
-    common.openssh
-    common.user
-    common.vscode-server
-    common.wifi
-    common.zsh
 
     ./hardware-configuration.nix
   ];

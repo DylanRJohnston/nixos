@@ -1,10 +1,5 @@
-{ common, ... }:
+{ ... }:
 {
-  imports = [
-    common.base
-    common.nix-daemon
-  ];
-
   custom.roles = [
     "development"
     "entertainment"

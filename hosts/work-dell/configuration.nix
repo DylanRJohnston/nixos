@@ -1,5 +1,4 @@
 {
-  common,
   config,
   pkgs,
   ...
@@ -29,9 +28,6 @@
     ./modules/persistence.nix
     ./modules/sudo.nix
     ./modules/tailscale.nix
-    common.fonts
-    common.user
-    common.xserver
   ];
 
   services.fstrim.enable = true;

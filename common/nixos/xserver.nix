@@ -4,7 +4,7 @@
 
   services.xserver = {
     enable = true;
-    layout = "us";
+    layout = "au";
     xkbOptions = "eurosign:e";
 
     libinput = {
