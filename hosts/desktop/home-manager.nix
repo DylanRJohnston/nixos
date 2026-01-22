@@ -1,3 +1,3 @@
-{ pkgs, common, ... }:
+{ pkgs, ... }:
 {
 }

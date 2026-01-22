@@ -2,7 +2,7 @@ set -euo pipefail
 set -x
 
 DARWIN=("macbook-pro")
-LINUX=("desktop" "ipad")
+LINUX=("desktop")
 
 for HOSTNAME in "${DARWIN[@]}"; do
   echo "################# Instantiating ${HOSTNAME} #################"

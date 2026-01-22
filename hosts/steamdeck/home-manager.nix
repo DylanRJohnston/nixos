@@ -1,4 +1,4 @@
-{ common, ... }:
+{ ... }:
 {
   programs.firefox.enable = true;
 

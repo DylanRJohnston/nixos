@@ -1,6 +1,6 @@
-{ pkgs, common, ... }:
+{ pkgs, ... }:
 {
-  custom.modules = {
+  custom = {
     gpg-agent.enable = true;
     i3.enable = true;
   };

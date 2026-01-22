@@ -53,26 +53,6 @@
     let
       toPath = path: ./. + path;
 
-      home-manager-config =
-        {
-          user,
-          homeFormat,
-          homeManagerModules,
-        }:
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.${user} = {
-            imports = homeManagerModules ++ [ ./common/home-manager ];
-            home.stateVersion = "25.11";
-          };
-          users.users.${user}.home = homeFormat user;
-          home-manager.extraSpecialArgs.common =
-            { } # nix-fmt
-            // (import ./common/scripts)
-            // (import ./common/shared);
-        };
-
       overlays-module =
         let
           package-overlay = import ./packages;
@@ -89,20 +69,31 @@
         {
           system-builder,
           home-manager-module,
-          common-modules,
-          homeFormat,
+          platform-modules,
+          homePrefix,
           defaultSystem,
-          additionalModules ? (user: { }),
         }:
         host-name:
         {
           system ? defaultSystem,
-          user ? "dylanj",
-          homeManagerModules ? [ (import (toPath "/hosts/${host-name}/home-manager.nix")) ],
-          systemModules ? [ (import (toPath "/hosts/${host-name}/configuration.nix")) ],
+          primaryUser ? "dylanj",
+          system-modules ? [ (import (toPath "/hosts/${host-name}/configuration.nix")) ],
+          user-modules ? [ (import (toPath "/hosts/${host-name}/home-manager.nix")) ],
         }:
         system-builder {
           inherit system;
+
+          modules = system-modules ++ [
+            home-manager-module
+            overlays-module
+            platform-modules
+            (import ./modules/shared)
+            {
+              custom.primaryUser = primaryUser;
+              custom.homePrefix = homePrefix;
+              custom.userModules = user-modules;
+            }
+          ];
 
           specialArgs = {
             lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
@@ -114,44 +105,23 @@
               vscode-server = vscode-server.nixosModules.default;
               steam-compat = nix-gaming.nixosModules.steamCompat;
             };
-
-            common =
-              { } # nix-fmt
-              // common-modules
-              // (import ./common/shared)
-              // (import ./common/scripts);
           };
 
-          modules =
-            [
-              home-manager-module
-              overlays-module
-              (home-manager-config {
-                inherit
-                  user
-                  homeFormat
-                  homeManagerModules
-                  ;
-              })
-            ]
-            ++ systemModules
-            ++ [ (additionalModules user) ];
         };
 
       mkDarwin = builtins.mapAttrs (mkSystem {
         system-builder = darwin.lib.darwinSystem;
         home-manager-module = home-manager.darwinModules.home-manager;
-        common-modules = import ./common/nix-darwin;
-        homeFormat = user: "/Users/${user}";
+        platform-modules = import ./modules/nix-darwin;
+        homePrefix = "/Users";
         defaultSystem = "aarch64-darwin";
-        additionalModules = user: { system.primaryUser = user; };
       });
 
       mkNixOS = builtins.mapAttrs (mkSystem {
         system-builder = nixpkgs.lib.nixosSystem;
         home-manager-module = home-manager.nixosModules.home-manager;
-        common-modules = import ./common/nixos;
-        homeFormat = user: "/home/${user}";
+        platform-modules = import ./modules/nixos;
+        homePrefix = "/home";
         defaultSystem = "x86_64-linux";
       });
     in
@@ -167,19 +137,6 @@
 
       darwinConfigurations = mkDarwin {
         "macbook-pro".system = "aarch64-darwin";
-        "MNM-L4G3HW02WK".user = "dylan.johnston";
-      };
-
-      templates = {
-        basic = {
-          path = ./templates/basic;
-          description = "Basic dev env shell";
-        };
-
-        rust = {
-          path = ./tempaltes/rust;
-          description = "basic rust shell";
-        };
       };
     };
 }

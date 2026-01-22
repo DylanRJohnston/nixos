@@ -1,16 +1,17 @@
 {
   pkgs,
-  common,
   modules,
   ...
 }:
 {
   imports = [
-    common.roles
-    common.fonts
-    common.nix-config
-    common.user
     modules.wsl
+  ];
+
+  custom.roles = [
+    "development"
+    "entertainment"
+    "gaming"
   ];
 
   networking.hostName = "desktop";
