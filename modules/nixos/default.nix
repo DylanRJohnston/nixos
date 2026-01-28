@@ -1,7 +1,13 @@
 {
   imports = [
-    ./roles
+    ./bootloader.nix
     ./console.nix
-    # ./g-ether.nix
+    ./desktop.nix
+    ./localisation.nix
+    ./nvidia.nix
+    ./roles
+    ./steam.nix
+    ./system-packages.nix
+    ./users.nix
   ];
 }

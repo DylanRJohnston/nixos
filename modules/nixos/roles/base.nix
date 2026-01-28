@@ -5,11 +5,21 @@
 }:
 {
   config = lib.mkIf (builtins.elem "base" config.custom.roles) {
-    programs.zsh.enable = true;
+    custom = {
+      bootloader.enable = true;
+      console.enable = true;
+      desktop.enable = true;
+      fonts.enable = true;
+      localisation.enable = true;
+      nix-config.enable = true;
+      system-packages.enable = true;
+      users.enable = true;
+    };
+
+    programs.ssh.startAgent = true;
     networking.networkmanager.enable = true;
 
-    custom.fonts.enable = true;
-    custom.nix-config.enable = true;
-    custom.console.enable = true;
+    networking.hostName = "desktop";
+    system.stateVersion = "25.11";
   };
 }
