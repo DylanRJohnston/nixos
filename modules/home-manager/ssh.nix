@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   options.custom.ssh.enable = lib.mkEnableOption "Enable SSH configuration";
 
@@ -7,7 +7,7 @@
     enableDefaultConfig = false;
     matchBlocks = {
       "*" = {
-        extraOptions = {
+        extraOptions = lib.optionalAttrs pkgs.stdenv.isDarwin {
           "UseKeychain" = "yes";
         };
       };
