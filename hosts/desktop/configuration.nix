@@ -1,35 +1,5 @@
-<<<<<<< HEAD
+{ modules, pkgs, ... }:
 {
-  pkgs,
-  modules,
-  ...
-}:
-{
-  imports = [
-    modules.wsl
-  ];
-||||||| parent of 2183fbc (squash me)
-{
-  pkgs,
-  common,
-  modules,
-  ...
-}:
-{
-  imports = [
-    common.roles
-    common.fonts
-    common.nix-config
-    common.user
-    modules.wsl
-  ];
-=======
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
->>>>>>> 2183fbc (squash me)
-
-<<<<<<< HEAD
   custom.roles = [
     "development"
     "entertainment"
@@ -37,29 +7,16 @@
   ];
 
   networking.hostName = "desktop";
-  system.stateVersion = "25.05";
-||||||| parent of 2183fbc (squash me)
-  networking.hostName = "desktop";
-  system.stateVersion = "25.05";
-=======
->>>>>>> 2183fbc (squash me)
+  system.stateVersion = "25.11";
 
-{ config, pkgs, common, modules, ... }:
-
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      common.base
-      common.nix-config
-      common.fonts
-      modules.jovian
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    modules.jovian
+  ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "desktop"; # Define your hostname.
 
   networking.networkmanager.enable = true;
   # Set your time zone.
@@ -89,60 +46,80 @@
   users.users.dylanj = {
     isNormalUser = true;
     description = "Dylan Johnston";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.zsh;
   };
 
+  environment.systemPackages = with pkgs; [
+    vim
+    gamescope-wsi
+    git
+    # For gaming
+    mangohud
+  ];
+
+  programs.ssh.startAgent = true;
   programs.zsh.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  programs.sway.enable = true;
-  jovian.steam.enable = true;
-  jovian.steam.autoStart = true;
-  jovian.steam.user = "dylanj";
-  jovian.steam.desktopSession = "sway";
+  #
+  #  Graphics
+  #
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
-  hardware.graphics.enable = true;
+  # This also works for wayland
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
   hardware.nvidia.modesetting.enable = true;
-  hardware.bluetooth.enable = true;
-  services.getty.autologinUser = "dylanj";
 
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    gamescope-wsi
-    git
-  #  wget
-  ];
+  #
+  #  Desktop
+  #
+  services.dbus.enable = true;
+  programs.sway.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+  };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  services.greetd = let
+    # Small wrapper so greetd launches a predictable environment and logs crashes.
+    swayRun = pkgs.writeShellScriptBin "sway-run" ''
+      set -euo pipefail
 
-  # List services that you want to enable:
+      # Log to the journal (view with: journalctl -t sway-run -b)
+      exec 1> >(systemd-cat -t sway-run) 2>&1
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+      export XDG_SESSION_TYPE=wayland
+      export XDG_CURRENT_DESKTOP=sway
+      export XDG_CURRENT_DESKTOP=sway
+      export SDL_VIDEODRIVER=wayland
+      export MOZ_ENABLE_WAYLAND=1
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+      # If you use a specific terminal/launcher, set it here if you want:
+      # export TERMINAL=foot
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+      exec ${pkgs.sway}/bin/sway
+    '';
+  in {
+    enable = true;
+    settings = {
+      default_session = {
+        user = "dylanj"; command = "${swayRun}/bin/sway";
+      };
+    };
+  };
 
+  #
+  # Gaming
+  #
+  programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  programs.gamemode.enable = true;
 }
