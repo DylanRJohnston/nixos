@@ -7,7 +7,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 
   fileSystems."/mnt/external" = {
     device = "/dev/disk/by-uuid/2ac2b713-dc25-4f75-b00f-2ec6c937bfa3";

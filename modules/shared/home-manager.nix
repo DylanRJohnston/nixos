@@ -16,7 +16,7 @@
     home-manager.useUserPackages = true;
     home-manager.users.${config.custom.primaryUser} = {
       imports = config.custom.userModules ++ [ ../home-manager ];
-      home.stateVersion = "25.11";
+      home.stateVersion = "26.05";
     };
 
   };

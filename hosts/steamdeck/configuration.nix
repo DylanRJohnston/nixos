@@ -60,7 +60,7 @@
     extraCompatPackages = [ pkgs.proton-ge ];
   };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
   hardware.steam-hardware.enable = true;
   services.joycond.enable = true;
   # boot.blacklistedKernelModules = [ "hid-nintendo" ];
