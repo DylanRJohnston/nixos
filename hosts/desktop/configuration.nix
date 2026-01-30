@@ -57,26 +57,27 @@
     vim
     gamescope-wsi
     git
-    # For gaming
-    mangohud
   ];
 
   programs.ssh.startAgent = true;
   programs.zsh.enable = true;
   nixpkgs.config.allowUnfree = true;
+  programs.nix-ld.enable = true;
 
   #
   #  Graphics
   #
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
   # This also works for wayland
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true;
+  };
 
   #
   #  Desktop
@@ -105,21 +106,14 @@
       # If you use a specific terminal/launcher, set it here if you want:
       # export TERMINAL=foot
 
-      exec ${pkgs.sway}/bin/sway
+      exec ${pkgs.sway}/bin/sway --unsupported-gpu
     '';
   in {
     enable = true;
     settings = {
       default_session = {
-        user = "dylanj"; command = "${swayRun}/bin/sway";
+        user = "dylanj"; command = "${swayRun}/bin/sway-run";
       };
     };
   };
-
-  #
-  # Gaming
-  #
-  programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
-  programs.gamemode.enable = true;
 }
