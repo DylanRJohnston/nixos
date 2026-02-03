@@ -36,7 +36,7 @@ in
           # If you use a specific terminal/launcher, set it here if you want:
           # export TERMINAL=foot
 
-          exec ${pkgs.sway}/bin/sway
+          exec ${pkgs.sway}/bin/sway --unsupported-gpu
         '';
       in
       {
@@ -44,7 +44,7 @@ in
         settings = {
           default_session = {
             user = "dylanj";
-            command = "${swayRun}/bin/sway";
+            command = "${swayRun}/bin/sway-run";
           };
         };
       };
