@@ -1,32 +1,19 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "context_servers": {
-    "CBA": {
-      "enabled": true,
-      "url": "https://ceb.cba/mcp/",
-    },
-  },
   "agent": {
-    "profiles": {
-      "ask": {
-        "name": "Ask",
-        "tools": {},
-        "enable_all_context_servers": true,
-        "context_servers": {
-          "CBA": {
-            "tools": {
-              "ask_questions": true,
-              "DHP_KnowledgeBase": true,
-            },
-          },
-        },
-      },
-    },
     "always_allow_tool_actions": true,
     "default_profile": "ask",
     "model_parameters": [],
     "default_model": {
       "provider": "zed.dev",
-      "model": "gpt-5.2",
+      "model": "claude-sonnet-4",
     },
   },
   "features": {
@@ -37,7 +24,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Macchiato",
+    "dark": "Catppuccin Mocha",
   },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "languages": {
@@ -58,11 +45,5 @@
         },
       },
     },
-  },
-  "proxy": "http://localhost:3128",
-  "auto_install_extensions": {
-    "nix": true,
-    "rust": true,
-    "toml": true,
   },
 }

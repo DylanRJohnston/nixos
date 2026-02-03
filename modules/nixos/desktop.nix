@@ -44,7 +44,7 @@ in
         settings = {
           default_session = {
             user = "dylanj";
-            command = "${swayRun}/bin/sway";
+            command = "${swayRun}/bin/sway-run";
           };
         };
       };

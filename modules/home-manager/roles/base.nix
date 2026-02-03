@@ -1,6 +1,9 @@
 { lib, osConfig, ... }:
 {
   config = lib.mkIf (builtins.elem "base" osConfig.custom.roles) {
+    targets.darwin.copyApps.enable = false;
+    targets.darwin.copyApps.enableChecks = false;
+
     custom = {
       direnv.enable = true;
       git.enable = true;
