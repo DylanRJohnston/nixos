@@ -16,29 +16,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/3.15.2";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -48,10 +28,6 @@
       hardware,
       home-manager,
       nixpkgs,
-      nix-gaming,
-      wsl,
-      jovian,
-      vscode-server,
       determinate,
       ...
     }:
@@ -59,12 +35,10 @@
       overlays-module =
         let
           package-overlay = import ./packages;
-          proton-ge = final: prev: { proton-ge = nix-gaming.packages.${prev.system}.proton-ge; };
         in
         {
           nixpkgs.overlays = [
             package-overlay
-            proton-ge
           ];
         };
 
@@ -111,10 +85,6 @@
 
             modules = {
               hardware = hardware.nixosModules;
-              wsl = wsl.nixosModules.wsl;
-              jovian = jovian.nixosModules.jovian;
-              vscode-server = vscode-server.nixosModules.default;
-              steam-compat = nix-gaming.nixosModules.steamCompat;
             };
           };
 
