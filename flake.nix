@@ -36,6 +36,10 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3.15.2";
+    };
   };
 
   outputs =
@@ -48,11 +52,10 @@
       wsl,
       jovian,
       vscode-server,
+      determinate,
       ...
     }:
     let
-      toPath = path: ./. + path;
-
       overlays-module =
         let
           package-overlay = import ./packages;
@@ -65,11 +68,15 @@
           ];
         };
 
+      sharedModules = [
+        overlays-module
+        (import ./modules/shared)
+      ];
+
       mkSystem =
         {
           system-builder,
-          home-manager-module,
-          platform-modules,
+          platformSpecificSystemModules,
           homePrefix,
           defaultSystem,
         }:
@@ -77,23 +84,27 @@
         {
           system ? defaultSystem,
           primaryUser ? "dylanj",
-          system-modules ? [ (import (toPath "/hosts/${host-name}/configuration.nix")) ],
-          user-modules ? [ (import (toPath "/hosts/${host-name}/home-manager.nix")) ],
+          system-modules ? [ (import (./. + "/hosts/${host-name}/configuration.nix")) ],
+          user-modules ? [ (import (./. + "/hosts/${host-name}/home-manager.nix")) ],
         }:
-        system-builder {
-          inherit system;
-
-          modules = system-modules ++ [
-            home-manager-module
-            overlays-module
-            platform-modules
-            (import ./modules/shared)
+        let
+          machineSpecificSystemModules = system-modules;
+          userSpecificHomeManagerModules = [
             {
               custom.primaryUser = primaryUser;
               custom.homePrefix = homePrefix;
               custom.userModules = user-modules;
             }
           ];
+        in
+        system-builder {
+          inherit system;
+
+          modules =
+            platformSpecificSystemModules
+            ++ machineSpecificSystemModules
+            ++ userSpecificHomeManagerModules
+            ++ sharedModules;
 
           specialArgs = {
             lockfile = builtins.fromJSON (builtins.readFile ./flake.lock);
@@ -111,18 +122,24 @@
 
       mkDarwin = builtins.mapAttrs (mkSystem {
         system-builder = darwin.lib.darwinSystem;
-        home-manager-module = home-manager.darwinModules.home-manager;
-        platform-modules = import ./modules/nix-darwin;
-        homePrefix = "/Users";
         defaultSystem = "aarch64-darwin";
+        homePrefix = "/Users";
+        platformSpecificSystemModules = [
+          determinate.darwinModules.default
+          home-manager.darwinModules.home-manager
+          (import ./modules/nix-darwin)
+        ];
       });
 
       mkNixOS = builtins.mapAttrs (mkSystem {
         system-builder = nixpkgs.lib.nixosSystem;
-        home-manager-module = home-manager.nixosModules.home-manager;
-        platform-modules = import ./modules/nixos;
-        homePrefix = "/home";
         defaultSystem = "x86_64-linux";
+        homePrefix = "/home";
+        platformSpecificSystemModules = [
+          determinate.nixosModules.default
+          home-manager.nixosModules.home-manager
+          (import ./modules/nixos)
+        ];
       });
     in
     {

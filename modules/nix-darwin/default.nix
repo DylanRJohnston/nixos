@@ -1,5 +1,6 @@
 {
   imports = [
+    ./determinate.nix
     ./roles
     ./touchID.nix
     ./homebrew.nix

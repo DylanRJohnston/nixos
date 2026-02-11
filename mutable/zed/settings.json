@@ -7,6 +7,16 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "context_servers": {
+    "CBA": {
+      "enabled": true,
+      "url": "https://ceb.cba/mcp/",
+    },
+    "context7": {
+      "enabled": true,
+      "url": "https://mcp.context7.com/mcp",
+    },
+  },
   "agent": {
     "always_allow_tool_actions": true,
     "default_profile": "ask",
