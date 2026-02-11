@@ -29,7 +29,7 @@
       # ngrok
       nil
       nixd
-      nixfmt-rfc-style
+      nixfmt
       nixpkgs-fmt
       pv
       sops
