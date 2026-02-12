@@ -15,11 +15,6 @@
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/3.15.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -28,7 +23,6 @@
       hardware,
       home-manager,
       nixpkgs,
-      determinate,
       ...
     }:
     let
@@ -95,7 +89,6 @@
         defaultSystem = "aarch64-darwin";
         homePrefix = "/Users";
         platformSpecificSystemModules = [
-          determinate.darwinModules.default
           home-manager.darwinModules.home-manager
           (import ./modules/nix-darwin)
         ];
@@ -106,7 +99,6 @@
         defaultSystem = "x86_64-linux";
         homePrefix = "/home";
         platformSpecificSystemModules = [
-          determinate.nixosModules.default
           home-manager.nixosModules.home-manager
           (import ./modules/nixos)
         ];
