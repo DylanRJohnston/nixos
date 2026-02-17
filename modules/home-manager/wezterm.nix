@@ -16,7 +16,7 @@
         enable_tab_bar = false,
         font = wezterm.font('FiraCode Nerd Font Mono', { weight = 'Bold' }),
         font_size = 16,
-        window_decorations = "RESIZE",
+        window_decorations = "NONE",
         native_macos_fullscreen_mode = true,
         keys = {
           { key = 'f', mods = 'CMD|CTRL', action = wezterm.action.ToggleFullScreen },

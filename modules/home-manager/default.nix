@@ -9,6 +9,7 @@
     ./nushell.nix
     ./packages.nix
     ./roles
+    ./sway.nix
     ./ssh.nix
     ./tmux.nix
     ./vim.nix
