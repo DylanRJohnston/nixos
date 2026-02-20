@@ -1,8 +1,8 @@
 {
   imports = [
-    ./roles
-    ./touchID.nix
     ./homebrew.nix
+    ./roles
     ./system-defaults.nix
+    ./touchID.nix
   ];
 }

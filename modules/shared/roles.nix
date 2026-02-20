@@ -5,8 +5,9 @@
       lib.types.enum [
         "base"
         "development"
-        "gaming"
         "entertainment"
+        "gaming"
+        "home-automation"
         "work"
       ]
     );

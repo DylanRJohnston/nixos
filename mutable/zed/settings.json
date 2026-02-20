@@ -1,21 +1,13 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
   "context_servers": {
     "CBA": {
       "enabled": true,
-      "url": "https://ceb.cba/mcp/",
+      "url": "https://ceb.cba/mcp/"
     },
     "context7": {
       "enabled": true,
-      "url": "https://mcp.context7.com/mcp",
-    },
+      "url": "https://mcp.context7.com/mcp"
+    }
   },
   "agent": {
     "always_allow_tool_actions": true,
@@ -23,38 +15,43 @@
     "model_parameters": [],
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-sonnet-4",
-    },
+      "model": "claude-sonnet-4"
+    }
   },
   "features": {
-    "edit_prediction_provider": "zed",
+    "edit_prediction_provider": "zed"
   },
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
   },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "languages": {
     "Nix": {
-      "language_servers": ["nixd", "!nil"],
+      "language_servers": [
+        "nixd",
+        "!nil"
+      ]
     },
     "TypeScript": {
       "code_actions_on_format": {
-        "source.fixAll.eslint": true,
-      },
-    },
+        "source.fixAll.eslint": true
+      }
+    }
   },
   "lsp": {
     "nixd": {
       "initialization_options": {
         "formatting": {
-          "command": ["nixfmt"],
-        },
-      },
-    },
+          "command": [
+            "nixfmt"
+          ]
+        }
+      }
+    }
   },
   "auto_install_extensions": {
     "nix": true,
