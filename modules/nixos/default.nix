@@ -8,7 +8,6 @@
     ./homebridge.nix
     ./localisation.nix
     ./nvidia.nix
-    ./roles
     ./steam.nix
     ./sunshine.nix
     ./system-packages.nix

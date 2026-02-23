@@ -1,49 +1,52 @@
 {
   pkgs,
-  lockfile,
   lib,
   ...
 }:
 {
   options.custom.nix-config.enable = lib.mkEnableOption "Enable nix-config";
 
-  config = {
-    nixpkgs.config.allowUnfree = true;
-    nix = {
-      extraOptions = "experimental-features = nix-command flakes";
+  config =
+    let
+      lockfile = builtins.fromJSON (builtins.readFile ../../flake.lock);
+    in
+    {
+      nixpkgs.config.allowUnfree = true;
+      nix = {
+        extraOptions = "experimental-features = nix-command flakes pipe-operators";
 
-      settings = {
-        substituters = [ "https://aseipp-nix-cache.freetls.fastly.net" ];
-      };
-
-      registry = {
-        nixpkgs = {
-          from = {
-            id = "nixpkgs";
-            type = "indirect";
-          };
-          to = {
-            owner = "NixOS";
-            repo = "nixpkgs";
-            type = "github";
-            rev = lockfile.nodes.nixpkgs.locked.rev;
-            narHash = lockfile.nodes.nixpkgs.locked.narHash;
-          };
+        settings = {
+          substituters = [ "https://aseipp-nix-cache.freetls.fastly.net" ];
         };
-        flake-util = {
-          from = {
-            id = "flake-utils";
-            type = "indirect";
+
+        registry = {
+          nixpkgs = {
+            from = {
+              id = "nixpkgs";
+              type = "indirect";
+            };
+            to = {
+              owner = "NixOS";
+              repo = "nixpkgs";
+              type = "github";
+              rev = lockfile.nodes.nixpkgs.locked.rev;
+              narHash = lockfile.nodes.nixpkgs.locked.narHash;
+            };
           };
-          to = {
-            owner = "numtide";
-            repo = "flake-utils";
-            type = "github";
-            rev = lockfile.nodes.flake-utils.locked.rev;
-            narHash = lockfile.nodes.flake-utils.locked.narHash;
+          flake-util = {
+            from = {
+              id = "flake-utils";
+              type = "indirect";
+            };
+            to = {
+              owner = "numtide";
+              repo = "flake-utils";
+              type = "github";
+              rev = lockfile.nodes.flake-utils.locked.rev;
+              narHash = lockfile.nodes.flake-utils.locked.narHash;
+            };
           };
         };
       };
     };
-  };
 }

@@ -1,10 +1,5 @@
 {
-  lib,
-  config,
-  ...
-}:
-{
-  config = lib.mkIf (builtins.elem "entertainment" config.custom.roles) {
+  flake.modules.darwin.entertainment = {
     homebrew.casks = [
       "audacity"
       "gimp"

@@ -8,7 +8,6 @@
     ./i3.nix
     ./nushell.nix
     ./packages.nix
-    ./roles
     ./sway.nix
     ./ssh.nix
     ./tmux.nix
