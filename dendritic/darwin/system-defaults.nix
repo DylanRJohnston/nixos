@@ -1,14 +1,9 @@
-{ lib, config, ... }:
 {
-  options.custom.system-defaults.enable = lib.mkEnableOption "Enable system defaults";
-
-  config = lib.mkIf config.custom.system-defaults.enable {
+  flake.modules.darwin.base = {
     system.defaults = {
       dock = {
         show-recents = false;
         autohide = true;
-        # persistent-apps = [ ];
-        # persistent-others = [ ];
         static-only = true;
       };
 

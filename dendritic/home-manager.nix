@@ -15,14 +15,15 @@
   flake.modules.generic.base =
     { config, ... }:
     {
-      options.custom.homeModule = lib.mkOption {
-        type = lib.types.listOf lib.types.deferredModule;
+      options.home = lib.mkOption {
+        type = lib.types.deferredModule;
       };
+
       config = {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.users.${config.custom.primaryUser} = {
-          imports = config.custom.homeModule;
+        home-manager.users.${config.system.primaryUser} = {
+          imports = [ config.home ];
           home.stateVersion = "26.05";
         };
       };

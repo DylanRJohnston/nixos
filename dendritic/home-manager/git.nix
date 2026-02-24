@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 let
   git-town-aliases = lib.genAttrs [
     "append"
@@ -14,11 +14,7 @@ let
   ] (name: "town ${name}");
 in
 {
-  options = {
-    custom.git.enable = lib.mkEnableOption "Enable git";
-  };
-
-  config.programs.git = lib.mkIf config.custom.git.enable {
+  flake.modules.homeManager.base.programs.git = {
     enable = true;
     settings = {
       user.name = "Dylan R. Johnston";

@@ -1,6 +1,8 @@
 {
-  configurations.nixos.desktop = {
-    system = "x86_64-linux";
+  flake.machines.desktop = {
+    platform = "nixos";
+    architecture = "x86_64";
+
     roles = [
       "base"
       "development"
@@ -12,6 +14,8 @@
     module =
       { pkgs, ... }:
       {
+        networking.hostName = "desktop";
+
         services.fstrim.enable = true;
 
         boot = {

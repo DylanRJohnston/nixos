@@ -27,7 +27,6 @@
       lsof
       mosh
       # ngrok
-      nil
       nixd
       nixfmt
       nixpkgs-fmt

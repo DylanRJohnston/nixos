@@ -1,10 +1,5 @@
 {
   imports = [
-    ./alacritty.nix
-    ./compton.nix
-    ./direnv.nix
-    ./git.nix
-    ./gpg-agent.nix
     ./i3.nix
     ./nushell.nix
     ./packages.nix

@@ -1,18 +1,12 @@
 {
-  pkgs,
-  lib,
-  ...
-}:
-{
-  options.custom.nix-config.enable = lib.mkEnableOption "Enable nix-config";
-
-  config =
+  config.flake.modules.generic.base =
     let
       lockfile = builtins.fromJSON (builtins.readFile ../../flake.lock);
     in
     {
       nixpkgs.config.allowUnfree = true;
       nix = {
+        enable = true;
         extraOptions = "experimental-features = nix-command flakes pipe-operators";
 
         settings = {

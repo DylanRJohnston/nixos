@@ -1,8 +1,5 @@
-{ lib, config, ... }:
 {
-  options.custom.homebrew.enable = lib.mkEnableOption "Enable Homebrew Config";
-
-  config = lib.mkIf config.custom.homebrew.enable {
+  flake.modules.darwin.base = {
     homebrew = {
       enable = true;
       onActivation = {
@@ -10,7 +7,6 @@
         autoUpdate = true;
       };
 
-      # taps = [ "homebrew/cask" ];
       casks = [
         "1password"
         "alfred"

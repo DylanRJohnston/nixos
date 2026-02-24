@@ -1,5 +1,5 @@
 {
-  configurations.nixos.desktop.homeManager =
+  flake.machines.desktop.module.home =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
