@@ -1,4 +1,4 @@
 { lib, config, ... }:
 {
-  flake.lib.perMachine = fn: config.flake.machines |> lib.mapAttrs (_: fn);
+  flake.lib.perMachine = fn: config.machines |> lib.mapAttrs (_: fn);
 }

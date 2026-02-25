@@ -2,7 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  flake.machines.desktop.module =
+  machines.desktop.module =
     {
       config,
       lib,

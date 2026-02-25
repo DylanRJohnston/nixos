@@ -8,11 +8,10 @@
 { lib, config, ... }:
 let
   inherit (lib) types mkOption;
-  inherit (config.flake) machines;
-
+  inherit (config) machines;
 in
 {
-  options.flake.mergeTargets = mkOption {
+  options.mergeTargets = mkOption {
     type = types.lazyAttrsOf (
       types.submodule {
         options = {
@@ -35,7 +34,7 @@ in
   };
 
   # This creates the "initial" merge targets from the machine definitions
-  config.flake.mergeTargets =
+  config.mergeTargets =
     machines
     |> lib.mapAttrs (
       _: machine: {

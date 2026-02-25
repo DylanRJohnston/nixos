@@ -6,7 +6,7 @@ let
   inherit (lib) mkOption types;
 in
 {
-  options.flake.machines = mkOption {
+  options.machines = mkOption {
     type = types.lazyAttrsOf (
       types.submodule {
         options = {

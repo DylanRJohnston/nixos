@@ -1,5 +1,5 @@
 {
-  flake.machines.macbook-pro = {
+  machines.macbook-pro = {
     platform = "darwin";
     architecture = "aarch64";
 

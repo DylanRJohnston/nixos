@@ -1,5 +1,5 @@
 {
-  flake.machines.desktop = {
+  machines.desktop = {
     platform = "nixos";
     architecture = "x86_64";
 

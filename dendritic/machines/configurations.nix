@@ -7,7 +7,7 @@
 let
   inherit (inputs.darwin.lib) darwinSystem;
   inherit (inputs.nixpkgs.lib) nixosSystem;
-  inherit (config.flake) mergeTargets;
+  inherit (config) mergeTargets;
 
   mkSystem = platform: if platform == "darwin" then darwinSystem else nixosSystem;
 

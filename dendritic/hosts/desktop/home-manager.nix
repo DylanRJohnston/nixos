@@ -1,5 +1,5 @@
 {
-  flake.machines.desktop.module.home =
+  machines.desktop.module.home =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

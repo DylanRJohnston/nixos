@@ -25,5 +25,12 @@
   };
 
   outputs =
-    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./dendritic);
+    inputs:
+    let
+      modules = inputs.import-tree ./dendritic;
+    in
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ modules ];
+      flake.flakeModules.default = modules;
+    };
 }
