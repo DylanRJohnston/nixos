@@ -18,6 +18,7 @@
 
         services.fstrim.enable = true;
 
+        systemd.services.systemd-vconsole-setup.enable = false;
         boot = {
           plymouth =
             let
@@ -43,7 +44,6 @@
             "systemd.show_status=auto"
             "vt.global_cursor_default=0"
           ];
-          systemd.services.systemd-vconsole-setup.enable = false;
           # Hide the OS choice for bootloaders.
           # It's still possible to open the bootloader list by pressing any key
           # It will just not appear on screen unless a key is pressed
