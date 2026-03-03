@@ -5,7 +5,6 @@
     custom = {
       bootloader.enable = true;
       console.enable = true;
-      desktop.enable = true;
       localisation.enable = true;
       system-packages.enable = true;
       users.enable = true;
@@ -20,16 +19,5 @@
   flake.modules.homeManager.base = {
     targets.darwin.copyApps.enable = false;
     targets.darwin.copyApps.enableChecks = false;
-
-    custom = {
-      packages.enable = true;
-      ssh.enable = true;
-      tmux.enable = true;
-      vim.enable = true;
-      vscode.enable = true;
-      wezterm.enable = true;
-      zed.enable = true;
-      zsh.enable = true;
-    };
   };
 }

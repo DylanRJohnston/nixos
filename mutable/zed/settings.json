@@ -24,9 +24,9 @@
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Catppuccin Mocha"
+    "mode": "light",
+    "light": "Ayu Light",
+    "dark": "Catppuccin Frappé"
   },
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "languages": {

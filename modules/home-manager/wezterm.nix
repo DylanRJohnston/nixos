@@ -1,13 +1,5 @@
 {
-  pkgs,
-  config,
-  lib,
-  ...
-}:
-{
-  options.custom.wezterm.enable = lib.mkEnableOption "Enable wezterm configuration";
-
-  config = lib.mkIf config.custom.wezterm.enable {
+  flake.modules.homeManager.base = {
     home.file.".config/wezterm/wezterm.lua".text = ''
       local wezterm = require 'wezterm';
 

@@ -21,7 +21,7 @@ jobs:
 
       - uses: cachix/install-nix-action@v14
         with:
-          extra_nix_config: experimental-features = nix-command flakes
+          extra_nix_config: experimental-features = nix-command flakes pipe-operators
 
       - name: Instantiate NixOS
         run: .github/workflows/CI.sh
