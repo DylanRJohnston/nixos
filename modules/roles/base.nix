@@ -3,6 +3,7 @@
 
   flake.modules.nixos.base = {
     custom = {
+      desktop.enable = true;
       bootloader.enable = true;
       console.enable = true;
       localisation.enable = true;
