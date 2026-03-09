@@ -1,35 +1,25 @@
 {
-  inputs = {
-    darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  inputs.darwin.url = "github:lnl7/nix-darwin/master";
+  inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
-    flake-utils.url = "github:numtide/flake-utils";
+  inputs.hardware.url = "github:nixos/nixos-hardware";
 
-    hardware.url = "github:nixos/nixos-hardware";
+  inputs.home-manager.url = "github:nix-community/home-manager/master";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  inputs.import-tree.url = "github:vic/import-tree";
 
-    import-tree.url = "github:vic/import-tree";
-
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  };
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
   outputs =
-    inputs@{ import-tree, flake-parts, ... }:
-    [
-      ./modules
-      ./hosts
-    ]
-    |> import-tree
-    |> flake-parts.lib.mkFlake { inherit inputs; };
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      inputs.import-tree [
+        ./modules
+        ./hosts
+      ]
+    );
 }

@@ -15,6 +15,7 @@
 
         registry = {
           nixpkgs = {
+            exact = false;
             from = {
               id = "nixpkgs";
               type = "indirect";
@@ -25,19 +26,6 @@
               type = "github";
               rev = lockfile.nodes.nixpkgs.locked.rev;
               narHash = lockfile.nodes.nixpkgs.locked.narHash;
-            };
-          };
-          flake-util = {
-            from = {
-              id = "flake-utils";
-              type = "indirect";
-            };
-            to = {
-              owner = "numtide";
-              repo = "flake-utils";
-              type = "github";
-              rev = lockfile.nodes.flake-utils.locked.rev;
-              narHash = lockfile.nodes.flake-utils.locked.narHash;
             };
           };
         };
