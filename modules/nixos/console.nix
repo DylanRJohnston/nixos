@@ -1,7 +1,5 @@
-{ lib, config, ... }:
 {
-  options.custom.console.enable = lib.mkEnableOption "Enable custom console";
-  config = lib.mkIf config.custom.console.enable {
+  flake.modules.nixos.base = {
     console.font = "Lat2-Terminus16";
     console.colors = [
       "073642"

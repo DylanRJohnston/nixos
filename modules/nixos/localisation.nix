@@ -1,15 +1,5 @@
 {
-  lib,
-  config,
-  ...
-}:
-let
-  cfg = config.custom.localisation;
-in
-{
-  options.custom.localisation.enable = lib.mkEnableOption "Enable localisation";
-
-  config = lib.mkIf cfg.enable {
+  flake.modules.nixos.base = {
     i18n.extraLocaleSettings = {
       LC_ADDRESS = "en_AU.UTF-8";
       LC_IDENTIFICATION = "en_AU.UTF-8";

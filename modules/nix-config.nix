@@ -1,7 +1,7 @@
 {
   config.flake.modules.generic.base =
     let
-      lockfile = builtins.fromJSON (builtins.readFile ../../flake.lock);
+      lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
     in
     {
       nixpkgs.config.allowUnfree = true;

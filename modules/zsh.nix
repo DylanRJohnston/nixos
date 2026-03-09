@@ -1,10 +1,13 @@
 {
-  flake.modules.homeManager.base =
+  flake.modules.generic.base =
+    { config, pkgs, ... }:
     {
-      pkgs,
-      lib,
-      ...
-    }:
+      users.users.${config.system.primaryUser}.shell = pkgs.zsh;
+      programs.zsh.enable = true;
+    };
+
+  flake.modules.homeManager.base =
+    { pkgs, lib, ... }:
     let
       aliases = {
         shared = {
