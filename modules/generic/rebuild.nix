@@ -1,21 +1,9 @@
 {
-  flake.modules.generic.base =
-    {
-      pkgs,
-      ...
-    }:
-    let
-      rebuild =
-        if pkgs.stdenv.isLinux then
-          "/run/current-system/sw/bin/nixos-rebuild"
-        else if pkgs.stdenv.isDarwin then
-          "/run/current-system/sw/bin/darwin-rebuild"
-        else
-          throw "Unsupported platform, isLinux and isDarwin are both false";
-    in
-    {
-      security.sudo.extraConfig = ''
-        ALL ALL=NOPASSWD: ${rebuild}
-      '';
-    };
+  flake.modules.darwin.base.security.sudo.extraConfig = ''
+    ALL ALL=NOPASSWD: /run/current-system/sw/bin/darwin-rebuild
+  '';
+
+  flake.modules.nixos.base.security.sudo.extraConfig = ''
+    ALL ALL=NOPASSWD: /run/current-system/sw/bin/nixos-rebuild
+  '';
 }
