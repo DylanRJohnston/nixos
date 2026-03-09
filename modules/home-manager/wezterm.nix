@@ -6,9 +6,9 @@
       return {
         color_scheme = "Solarized Dark Higher Contrast",
         enable_tab_bar = false,
-        font = wezterm.font('FiraCode Nerd Font Mono', { weight = 'Bold' }),
+        font = wezterm.font('FiraCode Nerd Font Mono'),
         font_size = 16,
-        window_decorations = "NONE",
+        window_decorations = "RESIZE",
         native_macos_fullscreen_mode = true,
         keys = {
           { key = 'f', mods = 'CMD|CTRL', action = wezterm.action.ToggleFullScreen },
