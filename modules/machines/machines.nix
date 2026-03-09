@@ -38,6 +38,7 @@ in
 
           module = mkOption {
             type = types.deferredModule;
+            default = { };
           };
         };
       }
