@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.gaming =
+  den.aspects.gaming.nixos =
     {
       pkgs,
       ...

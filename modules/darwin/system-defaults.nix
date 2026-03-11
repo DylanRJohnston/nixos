@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.base = {
+  den.aspects.base.darwin = {
     system.defaults = {
       dock = {
         show-recents = false;

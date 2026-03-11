@@ -1,5 +1,5 @@
 {
-  machines.desktop.module.home =
+  den.aspects.desktop.homeManager =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.base =
+  den.aspects.base.homeManager =
     { config, lib, ... }:
     {
       options.custom.zed.config = lib.mkOption {

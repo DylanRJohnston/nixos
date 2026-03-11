@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base = {
+  den.aspects.base.nixos = {
     console.font = "Lat2-Terminus16";
     console.colors = [
       "073642"

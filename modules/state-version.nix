@@ -1,4 +1,7 @@
 {
-  flake.modules.darwin.base.system.stateVersion = 5;
-  flake.modules.nixos.base.system.stateVersion = "26.05";
+  den.aspects.base = {
+    darwin.system.stateVersion = 5;
+    nixos.system.stateVersion = "26.05";
+  };
+
 }

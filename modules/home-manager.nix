@@ -4,28 +4,25 @@
   ...
 }:
 {
-  flake.modules.nixos.base = {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
-  };
+  den.schema.user.classes = lib.mkDefault [ "homeManager" ];
+  den.default.homeManager.home.stateVersion = "26.05";
 
-  flake.modules.darwin.base = {
-    imports = [ inputs.home-manager.darwinModules.home-manager ];
-  };
+  den.aspects.base = {
+    nixos.imports = [ inputs.home-manager.nixosModules.home-manager ];
+    darwin.imports = [ inputs.home-manager.darwinModules.home-manager ];
 
-  flake.modules.generic.base =
-    { config, ... }:
-    {
-      options.home = lib.mkOption {
-        type = lib.types.deferredModule;
-      };
+    os =
+      { config, ... }:
+      {
+        options.homeManager = lib.mkOption {
+          type = lib.types.deferredModule;
+        };
 
-      config = {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.${config.system.primaryUser} = {
-          imports = [ config.home ];
-          home.stateVersion = "26.05";
+        config = {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${config.system.primaryUser}.imports = [ config.homeManager ];
         };
       };
-    };
+  };
 }

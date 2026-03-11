@@ -21,6 +21,36 @@
         "type": "github"
       }
     },
+    "den": {
+      "locked": {
+        "lastModified": 1773115927,
+        "narHash": "sha256-NnxqGDeh2pIjZsLGyWvupBQW9P2RkUUBxqQo+B7Z7wI=",
+        "owner": "vic",
+        "repo": "den",
+        "rev": "5b23235c14ffe0c8ad1a3695b760d3959a313e8f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "den",
+        "type": "github"
+      }
+    },
+    "flake-aspects": {
+      "locked": {
+        "lastModified": 1772999207,
+        "narHash": "sha256-dzZpKU1wS/9oMsgK9dqCD+wblBMj1EAhInQtvY2dLUI=",
+        "owner": "vic",
+        "repo": "flake-aspects",
+        "rev": "778d8d7c1352c3b173cdcb9fd0f65acbaf4744a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vic",
+        "repo": "flake-aspects",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -111,6 +141,8 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
+        "den": "den",
+        "flake-aspects": "flake-aspects",
         "flake-parts": "flake-parts",
         "hardware": "hardware",
         "home-manager": "home-manager",

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base.hardware.bluetooth = {
+  den.aspects.base.nixos.hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
 
@@ -10,7 +10,7 @@
       };
       Policy = {
         AutoEnable = true;
-      }; 
+      };
     };
   };
 }

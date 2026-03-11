@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base =
+  den.aspects.base.nixos =
     {
       lib,
       config,
@@ -136,7 +136,7 @@
             };
           };
 
-        home =
+        homeManager =
           { config, ... }:
           {
             home.file.".config/sway/config".source =

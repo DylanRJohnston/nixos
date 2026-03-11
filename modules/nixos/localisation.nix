@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base = {
+  den.aspects.base.nixos = {
     i18n.extraLocaleSettings = {
       LC_ADDRESS = "en_AU.UTF-8";
       LC_IDENTIFICATION = "en_AU.UTF-8";

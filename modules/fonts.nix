@@ -1,5 +1,5 @@
 {
-  flake.modules.generic.base =
+  den.aspects.base.os =
     { pkgs, ... }:
     {
       fonts = {

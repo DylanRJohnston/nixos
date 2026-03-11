@@ -1,7 +1,6 @@
 {
-  flake.modules.darwin.gaming.homebrew.casks = [
-    "discord"
-  ];
-
-  flake.modules.nixos.gaming.home.programs.discord.enable = true;
+  den.aspects.gaming = {
+    darwin.homebrew.casks = [ "discord" ];
+    nixos.homeManager.programs.discord.enable = true;
+  };
 }

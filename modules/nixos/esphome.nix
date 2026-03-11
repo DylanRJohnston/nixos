@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.home-automation =
+  den.aspects.home-automation.nixos =
     {
       pkgs,
       lib,

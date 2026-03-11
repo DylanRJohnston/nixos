@@ -1,9 +1,6 @@
 {
-  flake.modules.homeManager.base =
-    {
-      pkgs,
-      ...
-    }:
+  den.aspects.base.homeManager =
+    { pkgs, ... }:
     {
       programs.vim = {
         enable = true;

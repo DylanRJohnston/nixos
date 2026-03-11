@@ -1,7 +1,6 @@
 {
-  machines.macbook-pro = {
-    platform = "darwin";
-    architecture = "aarch64";
+  den.hosts.aarch64-darwin.macbook-pro = {
+    users.dylanj = { };
 
     roles = [
       "base"
@@ -9,34 +8,11 @@
       "entertainment"
       "gaming"
     ];
+  };
 
-    module = {
-      homebrew.casks = [
-        "backblaze"
-      ];
-
-      home =
-        { pkgs, ... }:
-        {
-          programs.ssh.enable = true;
-          programs.ssh.matchBlocks = {
-            "desktop" = {
-              hostname = "dylan-desktop.local";
-              user = "dylanj";
-            };
-          };
-
-          home.packages = with pkgs; [
-            awscli2
-            binaryen
-            ffmpeg
-            inkscape
-            kubectl
-            kubectx
-            nmap
-            openvpn
-          ];
-        };
-    };
+  den.aspects.macbook-pro.darwin = {
+    homebrew.casks = [
+      "backblaze"
+    ];
   };
 }

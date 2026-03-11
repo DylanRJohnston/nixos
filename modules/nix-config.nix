@@ -1,5 +1,5 @@
 {
-  config.flake.modules.generic.base =
+  config.den.aspects.base.os =
     let
       lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
     in

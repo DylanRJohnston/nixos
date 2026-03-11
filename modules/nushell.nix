@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.development = {
+  den.aspects.development.homeManager = {
     programs.carapace = {
       enable = true;
       enableNushellIntegration = true;

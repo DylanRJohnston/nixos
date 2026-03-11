@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.base = {
+  den.aspects.base.darwin = {
     homebrew = {
       enable = true;
       onActivation = {

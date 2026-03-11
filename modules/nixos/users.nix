@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base =
+  den.aspects.base.nixos =
     { config, ... }:
     {
       users.users.${config.system.primaryUser} = {

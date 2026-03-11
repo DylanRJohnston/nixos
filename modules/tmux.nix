@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.base = {
+  den.aspects.base.homeManager = {
     programs.tmux = {
       enable = true;
       extraConfig = ''

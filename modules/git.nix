@@ -14,7 +14,7 @@ let
   ] (name: "town ${name}");
 in
 {
-  flake.modules.homeManager.base.programs.git = {
+  den.aspects.base.homeManager.programs.git = {
     enable = true;
     settings = {
       user.name = "Dylan R. Johnston";

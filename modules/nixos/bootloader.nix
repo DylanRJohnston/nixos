@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.base = {
+  den.aspects.base.nixos = {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
   };

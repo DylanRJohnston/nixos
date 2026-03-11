@@ -2,7 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  machines.desktop.module =
+  den.aspects.desktop.nixos =
     {
       config,
       lib,
