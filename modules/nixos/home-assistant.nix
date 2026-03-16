@@ -10,6 +10,20 @@
         "homekit"
       ];
 
+      extraPackages =
+        python3Packages: with python3Packages; [
+          aiohomekit
+          aiohue
+          getmac
+          gtts
+          pyatv
+          pychromecast
+          python-otbr-api
+          samsungctl
+          samsungtvws
+          yalexs-ble
+        ];
+
       config.default_config = { };
     };
 
