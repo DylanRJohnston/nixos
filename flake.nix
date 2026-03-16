@@ -2,12 +2,9 @@
   inputs.darwin.url = "github:lnl7/nix-darwin/master";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.den.url = "github:vic/den";
+  inputs.den.url = "github:vic/den/v0.12.0";
 
-  inputs.flake-aspects.url = "github:vic/flake-aspects";
-
-  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
-  inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+  inputs.flake-aspects.url = "github:vic/flake-aspects/v0.7.0";
 
   inputs.hardware.url = "github:nixos/nixos-hardware";
 
@@ -20,10 +17,13 @@
 
   outputs =
     inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      inputs.import-tree [
-        ./modules
-        ./hosts
-      ]
-    );
+    (inputs.nixpkgs.lib.evalModules {
+      modules = [
+        (inputs.import-tree [
+          ./modules
+          ./hosts
+        ])
+      ];
+      specialArgs = { inherit inputs; };
+    }).config.flake;
 }

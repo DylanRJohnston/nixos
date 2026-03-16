@@ -5,7 +5,7 @@
       { host }:
       { class, ... }:
       den.provides.forward {
-        each = host.roles;
+        each = host.roles or [ ];
         fromClass = _: class;
         intoClass = _: class;
         intoPath = _: [ ];
@@ -18,7 +18,7 @@
     (
       { host, user }:
       den.provides.forward {
-        each = host.roles;
+        each = host.roles or [ ];
         fromClass = _: "homeManager";
         intoClass = _: host.class;
         intoPath = _: [

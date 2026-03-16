@@ -23,51 +23,33 @@
     },
     "den": {
       "locked": {
-        "lastModified": 1773115927,
-        "narHash": "sha256-NnxqGDeh2pIjZsLGyWvupBQW9P2RkUUBxqQo+B7Z7wI=",
+        "lastModified": 1773344028,
+        "narHash": "sha256-11LNYUxMqV1X/AwNURpGpJWnKYNiwQGnFSQof/pZ8S8=",
         "owner": "vic",
         "repo": "den",
-        "rev": "5b23235c14ffe0c8ad1a3695b760d3959a313e8f",
+        "rev": "edaa0b03639ec6485f6862c035ed10974d8f0008",
         "type": "github"
       },
       "original": {
         "owner": "vic",
+        "ref": "v0.12.0",
         "repo": "den",
         "type": "github"
       }
     },
     "flake-aspects": {
       "locked": {
-        "lastModified": 1772999207,
-        "narHash": "sha256-dzZpKU1wS/9oMsgK9dqCD+wblBMj1EAhInQtvY2dLUI=",
+        "lastModified": 1773339018,
+        "narHash": "sha256-sPPriYJpLmukixc6/KBzeOhw83OSodco5YbeayHzAgo=",
         "owner": "vic",
         "repo": "flake-aspects",
-        "rev": "778d8d7c1352c3b173cdcb9fd0f65acbaf4744a6",
+        "rev": "b51a00bc0140e7708e421a64f20170a2e8ccae93",
         "type": "github"
       },
       "original": {
         "owner": "vic",
+        "ref": "v0.7.0",
         "repo": "flake-aspects",
-        "type": "github"
-      }
-    },
-    "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769996383,
-        "narHash": "sha256-AnYjnFWgS49RlqX7LrC4uA+sCCDBj0Ry/WOJ5XWAsa0=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "57928607ea566b5db3ad13af0e57e921e6b12381",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
         "type": "github"
       }
     },
@@ -143,7 +125,6 @@
         "darwin": "darwin",
         "den": "den",
         "flake-aspects": "flake-aspects",
-        "flake-parts": "flake-parts",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "import-tree": "import-tree",

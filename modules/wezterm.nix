@@ -45,17 +45,15 @@ in
         };
       };
 
-    darwin.homeManager = {
-      custom.wezterm.config = {
-        native_macos_fullscreen_mode = true;
-        keys = [
-          {
-            key = "f";
-            mods = "CMD|CTRL";
-            action = mkLuaInline "wezterm.action.ToggleFullScreen";
-          }
-        ];
-      };
+    darwin.homeManager.custom.wezterm.config = {
+      native_macos_fullscreen_mode = true;
+      keys = [
+        {
+          key = "f";
+          mods = "CMD|CTRL";
+          action = mkLuaInline "wezterm.action.ToggleFullScreen";
+        }
+      ];
     };
   };
 }

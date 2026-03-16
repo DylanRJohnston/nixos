@@ -8,6 +8,7 @@
       "entertainment"
       "gaming"
     ];
+
   };
 
   den.aspects.macbook-pro.darwin = {
