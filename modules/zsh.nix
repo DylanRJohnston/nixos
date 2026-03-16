@@ -13,6 +13,7 @@
       "pbpaste" = "xclip -o -selection clipboard";
       "headphones" =
         "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
+      "zed" = "zeditor";
     };
 
     darwin.homeManager.programs.zsh.sessionVariables = {

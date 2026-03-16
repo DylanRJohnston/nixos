@@ -1,6 +1,11 @@
 {
   den.aspects.base.homeManager =
-    { config, lib, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       options.custom.zed.config = lib.mkOption {
         type = lib.types.submodule {
@@ -9,6 +14,8 @@
       };
 
       config = {
+        home.packages = [ pkgs.zed-editor ];
+
         custom.zed.config = {
           context_servers.context7 = {
             enabled = true;
