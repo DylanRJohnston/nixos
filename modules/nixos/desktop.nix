@@ -60,6 +60,7 @@
       config = {
         services.dbus.enable = true;
         programs.sway.enable = true;
+        programs.waybar.enable = true;
         xdg.portal = {
           enable = true;
           extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
@@ -71,6 +72,7 @@
           swayidle
           rofi
           wezterm
+          pavucontrol
         ];
 
         # Enable swaylock PAM service for authentication
