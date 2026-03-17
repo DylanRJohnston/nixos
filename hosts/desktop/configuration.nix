@@ -3,7 +3,6 @@
     users.dylanj = { };
 
     roles = [
-      "base"
       "development"
       "entertainment"
       "gaming"

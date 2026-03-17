@@ -1,11 +1,27 @@
-{ den, ... }:
+{ den, lib, ... }:
 {
+  den.schema.host = {
+    options.roles = lib.mkOption {
+      type = lib.types.listOf (
+        lib.types.enum [
+          "base"
+          "development"
+          "entertainment"
+          "gaming"
+          "home-automation"
+        ]
+      );
+    };
+
+    config.roles = [ "base" ];
+  };
+
   den.ctx.host.includes = [
     (
       { host }:
       { class, ... }:
       den.provides.forward {
-        each = host.roles or [ ];
+        each = lib.unique host.roles or [ ];
         fromClass = _: class;
         intoClass = _: class;
         intoPath = _: [ ];
@@ -18,7 +34,7 @@
     (
       { host, user }:
       den.provides.forward {
-        each = host.roles or [ ];
+        each = lib.unique host.roles or [ ];
         fromClass = _: "homeManager";
         intoClass = _: host.class;
         intoPath = _: [
