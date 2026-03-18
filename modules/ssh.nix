@@ -1,7 +1,10 @@
+{ lib, ... }:
 {
-  den.aspects.base = {
-    darwin.homeManager.programs.ssh.matchBlocks."*".extraOptions = {
-      "UseKeychain" = "yes";
+  kit.base = {
+    darwin.homeManager.programs.ssh.matchBlocks = lib.debug.traceSeq "evaling nested home manager" {
+      "*".extraOptions = {
+        "UseKeychain" = "yes";
+      };
     };
 
     homeManager = {

@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  den.aspects.base = {
+  kit.base = {
     os.system.primaryUser = "dylanj";
 
     nixos.options.system.primaryUser = lib.mkOption {

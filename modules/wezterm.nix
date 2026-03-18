@@ -4,7 +4,7 @@ let
   inherit (lib.generators) mkLuaInline toLua;
 in
 {
-  den.aspects.base = {
+  kit.base = {
     homeManager =
       { config, ... }:
       {

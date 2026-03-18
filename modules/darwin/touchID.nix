@@ -1,5 +1,5 @@
 {
-  den.aspects.base.darwin.security.pam.services.sudo_local = {
+  kit.base.darwin.security.pam.services.sudo_local = {
     enable = true;
     touchIdAuth = true;
     watchIdAuth = false;

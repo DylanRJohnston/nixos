@@ -10,7 +10,7 @@ let
     };
 in
 {
-  den.aspects.base = {
+  kit.base = {
     darwin = home "/Users";
     nixos = home "/home";
   };

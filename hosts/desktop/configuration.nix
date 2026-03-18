@@ -10,7 +10,7 @@
     ];
   };
 
-  den.aspects.desktop.nixos =
+  kit.desktop.nixos =
     { pkgs, ... }:
     {
       networking.hostName = "desktop";

@@ -1,5 +1,5 @@
 {
-  den.aspects.development.homeManager = {
+  kit.development.homeManager = {
     programs.carapace = {
       enable = true;
       enableNushellIntegration = true;

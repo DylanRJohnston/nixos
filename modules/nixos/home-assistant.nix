@@ -1,5 +1,5 @@
 {
-  den.aspects.home-automation.nixos = {
+  kit.home-automation.nixos = {
     services.home-assistant = {
       enable = true;
       openFirewall = true;

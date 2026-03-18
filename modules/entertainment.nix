@@ -1,5 +1,5 @@
 {
-  den.aspects.entertainment = {
+  kit.entertainment = {
     darwin.homebrew.casks = [
       "audacity"
       "gimp"

@@ -1,5 +1,5 @@
 {
-  den.aspects.base.nixos.hardware.bluetooth = {
+  kit.base.nixos.hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
 

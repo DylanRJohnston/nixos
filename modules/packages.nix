@@ -52,7 +52,7 @@ let
     };
 in
 {
-  den.aspects = {
+  kit = {
     base.os = system;
     base.homeManager = home_base;
     development.homeManager = home_development;

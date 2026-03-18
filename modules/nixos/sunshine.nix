@@ -4,7 +4,7 @@ let
   };
 in
 {
-  den.aspects.gaming = {
+  kit.gaming = {
     nixos =
       {
         pkgs,
@@ -47,7 +47,7 @@ in
                 let
                   width = "\${SUNSHINE_CLIENT_WIDTH}";
                   height = "\${SUNSHINE_CLIENT_HEIGHT}";
-                  fps = "\${SUNSHINE_CLIENT_FPS}"; 
+                  fps = "\${SUNSHINE_CLIENT_FPS}";
                 in
                 steamid: name: {
                   inherit name;

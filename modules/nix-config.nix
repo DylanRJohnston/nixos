@@ -2,7 +2,7 @@ let
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
 in
 {
-  den.aspects.base.os = {
+  kit.base.os = {
     nixpkgs.config.allowUnfree = true;
     nix = {
       enable = true;

@@ -1,5 +1,5 @@
 {
-  den.aspects.base.nixos = {
+  kit.base.nixos = {
     boot.loader.systemd-boot = {
       enable = true;
       configurationLimit = 10;

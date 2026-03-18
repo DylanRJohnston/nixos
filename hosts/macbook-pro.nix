@@ -10,9 +10,7 @@
 
   };
 
-  den.aspects.macbook-pro.darwin = {
-    homebrew.casks = [
-      "backblaze"
-    ];
-  };
+  kit.macbook-pro.darwin.homebrew.casks = [
+    "backblaze"
+  ];
 }

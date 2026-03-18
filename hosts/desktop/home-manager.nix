@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.homeManager =
+  kit.desktop.homeManager =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
