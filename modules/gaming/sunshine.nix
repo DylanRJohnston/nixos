@@ -1,6 +1,8 @@
 let
   games = {
     "1086940" = "Baldur's Gate 3";
+    "719040" = "Wasteland 3";
+    "1091500" = "Cyberpunk 2077";
   };
 in
 {
@@ -47,13 +49,13 @@ in
                 let
                   width = "\${SUNSHINE_CLIENT_WIDTH}";
                   height = "\${SUNSHINE_CLIENT_HEIGHT}";
-                  fps = "\${SUNSHINE_CLIENT_FPS}"; 
+                  fps = "\${SUNSHINE_CLIENT_FPS}";
                 in
                 steamid: name: {
                   inherit name;
                   image-path = "${home}/.config/sunshine/covers/${steamid}.png";
                   output = "/tmp/${steamid}.log";
-                  cmd = "steam -tenfoot steam://rungameid/${steamid}";
+                  cmd = "steam steam://rungameid/${steamid}";
                 };
               steam_apps = lib.mapAttrsToList steam_app games;
               other_apps = [
@@ -63,7 +65,7 @@ in
                 }
                 {
                   name = "Steam Big Picture";
-                  cmd = "gamescope -f --steam -- steam -tenfoot -pipewire-dmabuf";
+                  cmd = "steam -tenfoot -pipewire-dmabuf";
                 }
               ];
             in

@@ -60,7 +60,7 @@
       config = {
         services.dbus.enable = true;
         programs.sway.enable = true;
-        programs.waybar.enable = true;
+        # programs.waybar.enable = true;
         xdg.portal = {
           enable = true;
           extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
@@ -104,11 +104,24 @@
               # Log to the journal (view with: journalctl -t sway-run -b)
               exec 1> >(systemd-cat -t sway-run) 2>&1
 
+              # --- NVIDIA FIXES ---
+              export WLR_NO_HARDWARE_CURSORS=1
+              export WLR_RENDERER=gles2
+              export GBM_BACKEND=nvidia-drm
+              export __GL_GSYNC_ALLOWED=0
+              export __GL_VRR_ALLOWED=0
+              export __GLX_VENDOR_LIBRARY_NAME=nvidia
+              # Setting this causes Steam UI performance to tank 
+              # export XWAYLAND_NO_GLAMOR=1
+
               export XDG_SESSION_TYPE=wayland
               export XDG_CURRENT_DESKTOP=sway
               export XDG_CURRENT_DESKTOP=sway
               export SDL_VIDEODRIVER=wayland
               export MOZ_ENABLE_WAYLAND=1
+              export QT_QPA_PLATFORM=wayland
+              export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+              export NIXOS_OZONE_WL=1
 
               # If you use a specific terminal/launcher, set it here if you want:
               # export TERMINAL=foot
