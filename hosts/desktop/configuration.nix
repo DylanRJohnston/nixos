@@ -21,7 +21,7 @@
       boot = {
         plymouth =
           let
-            theme = "abstract_ring";
+            theme = "cross_hud";
           in
           {
             enable = true;
@@ -57,7 +57,6 @@
 
       console = {
         earlySetup = true;
-        font = "Lat2-Terminus16";
         packages = [ pkgs.terminus_font ];
         keyMap = "us";
       };

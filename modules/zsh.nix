@@ -1,4 +1,4 @@
-{ kit, lib, ... }:
+{ kit, ... }:
 {
   kit.base.includes = [
     kit.base.provides.zsh

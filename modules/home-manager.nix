@@ -4,7 +4,7 @@
   ...
 }:
 {
-  den.schema.user.classes = lib.mkDefault [ "homeManager" ];
+  kit.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
   kit.base = {
     homeManager.home.stateVersion = "26.05";

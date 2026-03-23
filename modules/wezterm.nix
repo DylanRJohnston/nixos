@@ -28,7 +28,7 @@ in
             enable_tab_bar = false;
             font = mkLuaInline "wezterm.font('FiraCode Nerd Font Mono')";
             font_size = 16;
-            window_decorations = "RESIZE";
+            window_decorations = lib.mkDefault "NONE";
             window_padding = {
               left = 0;
               right = 0;
@@ -46,6 +46,7 @@ in
       };
 
     darwin.homeManager.custom.wezterm.config = {
+      window_decorations = "RESIZE";
       native_macos_fullscreen_mode = true;
       keys = [
         {
