@@ -46,10 +46,11 @@
           ui_font_size = 16;
           buffer_font_size = 16;
 
+          icon_theme = "Catppuccin Macchiato";
           theme = {
+            dark = "Catppuccin Macchiato";
             mode = "dark";
             light = "Ayu Light";
-            dark = "Catppuccin Macchiato";
           };
 
           buffer_font_family = "FiraCode Nerd Font Mono";
