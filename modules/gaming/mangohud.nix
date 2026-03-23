@@ -1,5 +1,5 @@
 {
-  den.aspects.gaming.nixos =
+  kit.gaming.nixos =
     { pkgs, ... }:
     {
       environment.systemPackages = [ pkgs.mangohud ];

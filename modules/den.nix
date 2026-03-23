@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  den,
   kit,
   ...
 }:
@@ -22,6 +23,8 @@ let
   ];
 in
 {
+  _module.args.__findFile = den.lib.__findFile;
+
   imports = [
     inputs.den.flakeModule
     inputs.flake-aspects.flakeModule
@@ -29,20 +32,29 @@ in
     hoistModule
   ];
 
-  den.aspects = lib.debug.traceSeq (builtins.attrNames kit) {
-    inherit (kit)
-      base
-      development
-      gaming
-      entertainment
-      home-automation
-      ;
-  };
+  den.ctx.host.includes = [
+    (
+      { host }:
+      {
+        includes = host.includes;
+      }
+    )
+  ];
 
-  den.ctx.host.includes = [ kit.fuck.provides.host ];
-  den.ctx.user.includes = [ kit.fuck.provides.user ];
-  den.ctx.hm-user.includes = [ kit.fuck.provides.hm-user ];
-  den.schema.host = kit.schema.host;
+  den.ctx.hm-user.includes = [
+    (
+      { host, user }:
+      {
+        includes = host.includes;
+      }
+    )
+  ];
+
+  # den.ctx.host.includes = [ kit.fuck.provides.host ];
+  # den.ctx.user.includes = [ kit.fuck.provides.user ];
+  # den.ctx.hm-user.includes = [ kit.fuck.provides.hm-user ];
+  # den.schema.host = kit.schema.host;
+  den.schema.user = kit.schema.user;
 
   # flake.flakeModule = inputs.import-tree ../modules;
   flake.flakeModule = exportModule;

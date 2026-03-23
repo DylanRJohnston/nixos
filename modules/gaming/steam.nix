@@ -1,5 +1,5 @@
 {
-  den.aspects.gaming = {
+  kit.gaming = {
     darwin.homebrew.casks = [ "steam" ];
     nixos =
       {

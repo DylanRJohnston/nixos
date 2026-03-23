@@ -6,13 +6,13 @@
 {
   kit.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
-  kit.base = {
+  kit.base = lib.debug.traceSeq "kit.base home manager module evaluated" {
     homeManager.home.stateVersion = "26.05";
 
     nixos.imports = [ inputs.home-manager.nixosModules.home-manager ];
     darwin.imports = [ inputs.home-manager.darwinModules.home-manager ];
 
-    os = {
+    os = lib.debug.traceSeq "os home manager module evaluated" {
       options.homeManager = lib.mkOption {
         type = lib.types.deferredModule;
       };

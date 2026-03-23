@@ -1,14 +1,16 @@
-{ lib, ... }:
+{ lib, kit, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkOption types debug;
   inherit (lib.generators) mkLuaInline toLua;
 in
 {
+  # kit.base.includes = [ kit.base.provides.wezterm ];
+
   kit.base = {
-    homeManager =
+    homeManager = lib.debug.traceSeq "1237182372837 setting wezterm homeManager" (
       { config, ... }:
       {
-        options.custom.wezterm.config = mkOption {
+        options.custom.wezterm.config = lib.debug.traceSeq "setting wezterm config option" lib.mkOption {
           type = types.submodule {
             freeformType = types.anything;
           };
@@ -43,7 +45,8 @@ in
             return ${toLua { } config.custom.wezterm.config}
           '';
         };
-      };
+      }
+    );
 
     darwin.homeManager.custom.wezterm.config = {
       window_decorations = "RESIZE";

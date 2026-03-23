@@ -2,7 +2,7 @@
   inputs.darwin.url = "github:lnl7/nix-darwin/master";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.den.url = "github:vic/den/v0.12.0";
+  inputs.den.url = "github:vic/den/v0.13.0";
 
   inputs.flake-aspects.url = "github:vic/flake-aspects/v0.7.0";
 
