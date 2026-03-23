@@ -71,11 +71,26 @@
 
           lsp.nixd.initialization_options.formatting.command = [ "nixfmt" ];
 
-          auto_install_extensions = {
-            nix = true;
-            rust = true;
-            toml = true;
-          };
+          auto_install_extensions =
+            [
+              "catppuccin"
+              "catppuccin-icons"
+              "cue"
+              "cypher"
+              "graphql"
+              "helm"
+              "html"
+              "make"
+              "nix"
+              "rust"
+              "starlark"
+              "toml"
+            ]
+            |> lib.map (name: {
+              inherit name;
+              value = true;
+            })
+            |> lib.listToAttrs;
         };
 
         home.file.".config/zed/settings.json".text = lib.generators.toJSON { } config.custom.zed.config;
