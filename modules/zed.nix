@@ -31,6 +31,16 @@
               provider = "zed.dev";
               model = "gpt-5.3-codex";
             };
+            profiles = {
+              ask = {
+                name = "Ask";
+                enable_all_context_servers = true;
+              };
+              write = {
+                name = "Write";
+                enable_all_context_servers = true;
+              };
+            };
           };
 
           ui_font_size = 16;
