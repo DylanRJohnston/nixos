@@ -1,4 +1,5 @@
 {
+  kit,
   inputs,
   lib,
   ...
@@ -6,37 +7,40 @@
 {
   kit.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
-  kit.base = lib.debug.traceSeq "kit.base home manager module evaluated" {
+  kit.base.includes = [
+    kit.base._.homeManager
+    kit.base._.homeManager._.hostConfig
+  ];
+
+  kit.base._.homeManager = {
+    description = 22;
+
     homeManager.home.stateVersion = "26.05";
 
     nixos.imports = [ inputs.home-manager.nixosModules.home-manager ];
     darwin.imports = [ inputs.home-manager.darwinModules.home-manager ];
 
-    os = lib.debug.traceSeq "os home manager module evaluated" {
-      options.homeManager = lib.mkOption {
-        type = lib.types.deferredModule;
-      };
-
+    os = {
       config = {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
       };
     };
-
-    includes = [
-      (
-        { host, user }:
-        lib.debug.traceSeq "!!!!!!!!!!! home manager module ${host.name} ${host.class} ${user.userName}" {
-          os = lib.debug.traceSeq "0000000000 class accessed ${host.class}" (
-            { config, ... }:
-            lib.debug.traceSeq "----------- actual import" {
-              home-manager.users.${user.userName}.imports = [
-                config.homeManager
-              ];
-            }
-          );
-        }
-      )
-    ];
   };
+
+  kit.base._.homeManager._.hostConfig = (
+    { user, ... }:
+    {
+      os =
+        { config, ... }:
+        {
+          options.homeManager = lib.mkOption {
+            type = lib.types.deferredModule;
+          };
+
+          config.home-manager.users.${user.userName}.imports = [ config.homeManager ];
+        };
+    }
+  );
+
 }

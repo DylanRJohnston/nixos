@@ -1,18 +1,15 @@
-{ lib, kit, ... }:
+{ lib, ... }:
 let
-  inherit (lib) mkOption types debug;
   inherit (lib.generators) mkLuaInline toLua;
 in
 {
-  # kit.base.includes = [ kit.base.provides.wezterm ];
-
   kit.base = {
-    homeManager = lib.debug.traceSeq "1237182372837 setting wezterm homeManager" (
+    homeManager =
       { config, ... }:
       {
-        options.custom.wezterm.config = lib.debug.traceSeq "setting wezterm config option" lib.mkOption {
-          type = types.submodule {
-            freeformType = types.anything;
+        options.programs.wezterm.config = lib.mkOption {
+          type = lib.types.submodule {
+            freeformType = lib.types.anything;
           };
 
           description = "Custom wezterm configuration, the 'wezterm' import is in scope";
@@ -25,7 +22,7 @@ in
         };
 
         config = {
-          custom.wezterm.config = {
+          programs.wezterm.config = {
             color_scheme = "Solarized Dark Higher Contrast";
             enable_tab_bar = false;
             font = mkLuaInline "wezterm.font('FiraCode Nerd Font Mono')";
@@ -42,13 +39,12 @@ in
           home.file.".config/wezterm/wezterm.lua".text = ''
             local wezterm = require 'wezterm';
 
-            return ${toLua { } config.custom.wezterm.config}
+            return ${toLua { } config.programs.wezterm.config}
           '';
         };
-      }
-    );
+      };
 
-    darwin.homeManager.custom.wezterm.config = {
+    darwin.homeManager.programs.wezterm.config = {
       window_decorations = "RESIZE";
       native_macos_fullscreen_mode = true;
       keys = [

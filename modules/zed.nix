@@ -7,7 +7,7 @@
       ...
     }:
     {
-      options.custom.zed.config = lib.mkOption {
+      options.programs.zed.config = lib.mkOption {
         type = lib.types.submodule {
           freeformType = lib.types.anything;
         };
@@ -16,7 +16,7 @@
       config = {
         home.packages = [ pkgs.zed-editor ];
 
-        custom.zed.config = {
+        programs.zed.config = {
           context_servers.context7 = {
             enabled = true;
             url = "https://mcp.context7.com/mcp";
@@ -93,7 +93,7 @@
             |> lib.listToAttrs;
         };
 
-        home.file.".config/zed/settings.json".text = lib.generators.toJSON { } config.custom.zed.config;
+        home.file.".config/zed/settings.json".text = lib.generators.toJSON { } config.programs.zed.config;
       };
     };
 }

@@ -1,16 +1,18 @@
+{ kit, ... }:
 {
   den.hosts.x86_64-linux.desktop = {
     users.dylanj = { };
 
-    roles = [
-      "development"
-      "entertainment"
-      "gaming"
-      "home-automation"
+    roles = with kit; [
+      base
+      development
+      entertainment
+      gaming
+      home-automation
     ];
   };
 
-  kit.desktop.nixos =
+  den.aspects.desktop.nixos =
     { pkgs, ... }:
     {
       networking.hostName = "desktop";

@@ -3,11 +3,11 @@
   den.hosts.aarch64-darwin.macbook-pro = {
     users.dylanj = { };
 
-    includes = [
-      kit.base
-      kit.development
-      kit.entertainment
-      kit.gaming
+    roles = with kit; [
+      base
+      development
+      entertainment
+      gaming
     ];
   };
 

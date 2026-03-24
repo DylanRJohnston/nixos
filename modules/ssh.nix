@@ -1,7 +1,6 @@
-{ lib, ... }:
 {
   kit.base = {
-    darwin.homeManager.programs.ssh.matchBlocks = lib.debug.traceSeq "evaling nested home manager" {
+    darwin.homeManager.programs.ssh.matchBlocks = {
       "*".extraOptions = {
         "UseKeychain" = "yes";
       };
