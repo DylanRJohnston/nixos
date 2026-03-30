@@ -1,3 +1,3 @@
 {
-  den.aspects.disabled.nixos.services.redshit.enable = true;
+  den.aspects.disabled.nixos.services.redshift.enable = true;
 }

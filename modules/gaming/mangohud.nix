@@ -9,7 +9,7 @@
         settings = {
           # --- POSITIONING ---
           position = "top-right"; # <--- This is the magic line
-          horizontal = true; # Keeps it in a clean line instead of a block
+          horizontal = false; # Keeps it in a clean line instead of a block
           hud_no_margin = true; # Pulls it tight against the corner
 
           # --- VISUALS ---
@@ -29,6 +29,8 @@
 
           offset_x = 10;
           offset_y = 10;
+
+          toggle_hud = "Shift_R+F12";
         };
       };
 

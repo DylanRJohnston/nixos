@@ -1,7 +1,9 @@
 {
   den.aspects.gaming.nixos =
-    { pkgs, ... }:
+    { config, ... }:
     {
+      security.polkit.enable = true;
+      users.users.${config.system.primaryUser}.extraGroups = [ "gamemode" ];
       programs.gamemode = {
         enable = true;
         enableRenice = true;
@@ -9,16 +11,10 @@
           general = {
             softrealtime = "auto";
             renice = 10;
-          };
-          custom = {
-            start = "${pkgs.libnotify}/bin/notify-send 'GameMode' 'Optimisation Active'";
-            end = "${pkgs.libnotify}/bin/notify-send 'GameMode' 'Optimisation Deactivated'";
+            desiredgov = "performance";
+            defaultgov = "schedutil";
           };
         };
-      };
-
-      programs.steam.extraEnv = {
-        GAMEMODERUN = "1";
       };
     };
 }

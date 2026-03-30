@@ -4,6 +4,7 @@ let
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
+        _1password-gui
         fd
         fzf
         git
@@ -16,6 +17,7 @@ let
         nixd
         nixfmt
         nixpkgs-fmt
+        pulseaudio
         pv
         tmux
         tree
