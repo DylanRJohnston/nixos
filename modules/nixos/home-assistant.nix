@@ -14,8 +14,10 @@
         python3Packages: with python3Packages; [
           aiohomekit
           aiohue
+          androidtvremote2
           getmac
           gtts
+          ibeacon-ble
           pyatv
           pychromecast
           python-otbr-api

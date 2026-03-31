@@ -1,3 +1,3 @@
 {
-  kit.disabled.nixos.services.redshit.enable = true;
+  kit.disabled.nixos.services.redshift.enable = true;
 }

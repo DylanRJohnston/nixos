@@ -76,6 +76,8 @@
       "pbpaste" = "xclip -o -selection clipboard";
       "headphones" =
         "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
+      "mouse" =
+        "bluetoothctl connect EB:33:0A:19:B9:15 && sleep 2 && bluetoothctl connect EB:33:0A:19:B9:15";
       "zed" = "zeditor";
     };
 
