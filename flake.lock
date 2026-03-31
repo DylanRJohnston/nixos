@@ -23,33 +23,17 @@
     },
     "den": {
       "locked": {
-        "lastModified": 1773963416,
-        "narHash": "sha256-I5oLzwJ8LOTA6OBiIYGRsL16q16Yn3DN72+0FeNR2oA=",
+        "lastModified": 1774839646,
+        "narHash": "sha256-IFz5Q+bT4HUxIb2aoLGZpPlrIaW5ClRrUIjAfb7JF3w=",
         "owner": "vic",
         "repo": "den",
-        "rev": "4c190d73cf3bb05ffc303f7d6c7aa2308c816462",
+        "rev": "e72f7b4691a1b53e9e654f2127a93c8b42d34976",
         "type": "github"
       },
       "original": {
         "owner": "vic",
-        "ref": "v0.13.0",
+        "ref": "v0.14.0",
         "repo": "den",
-        "type": "github"
-      }
-    },
-    "flake-aspects": {
-      "locked": {
-        "lastModified": 1773339018,
-        "narHash": "sha256-sPPriYJpLmukixc6/KBzeOhw83OSodco5YbeayHzAgo=",
-        "owner": "vic",
-        "repo": "flake-aspects",
-        "rev": "b51a00bc0140e7708e421a64f20170a2e8ccae93",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vic",
-        "ref": "v0.7.0",
-        "repo": "flake-aspects",
         "type": "github"
       }
     },
@@ -124,7 +108,6 @@
       "inputs": {
         "darwin": "darwin",
         "den": "den",
-        "flake-aspects": "flake-aspects",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "import-tree": "import-tree",

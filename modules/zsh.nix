@@ -18,7 +18,7 @@
           };
       };
 
-    os.homeManager =
+    homeManager =
       { pkgs, ... }:
       {
         programs.starship = {

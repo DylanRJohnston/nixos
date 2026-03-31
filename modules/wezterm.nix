@@ -1,10 +1,12 @@
-{ lib, ... }:
+{ lib, kit, ... }:
 let
   inherit (lib.generators) mkLuaInline toLua;
 in
 {
-  kit.base = {
-    homeManager =
+  kit.base.includes = [ kit.base._.wezterm ];
+
+  kit.base._.wezterm = {
+    homeManager = (
       { config, ... }:
       {
         options.programs.wezterm.config = lib.mkOption {
@@ -42,18 +44,21 @@ in
             return ${toLua { } config.programs.wezterm.config}
           '';
         };
-      };
+      }
+    );
 
-    darwin.homeManager.programs.wezterm.config = {
-      window_decorations = "RESIZE";
-      native_macos_fullscreen_mode = true;
-      keys = [
-        {
-          key = "f";
-          mods = "CMD|CTRL";
-          action = mkLuaInline "wezterm.action.ToggleFullScreen";
-        }
-      ];
+    darwin = {
+      homeManager.programs.wezterm.config = {
+        window_decorations = "RESIZE";
+        native_macos_fullscreen_mode = true;
+        keys = [
+          {
+            key = "f";
+            mods = "CMD|CTRL";
+            action = mkLuaInline "wezterm.action.ToggleFullScreen";
+          }
+        ];
+      };
     };
   };
 }
