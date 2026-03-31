@@ -1,7 +1,7 @@
-{ den, lib, ... }:
+{ kit, lib, ... }:
 {
-  den.aspects.gaming = {
-    includes = [ den.aspects.gaming._.sunshine ];
+  kit.gaming = {
+    includes = [ kit.gaming._.sunshine ];
 
     _.sunshine.nixos =
       { pkgs, config, ... }:

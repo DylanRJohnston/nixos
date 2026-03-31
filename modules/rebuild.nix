@@ -1,5 +1,5 @@
 {
-  den.aspects.base = {
+  kit.base = {
     darwin.security.sudo.extraConfig = ''
       ALL ALL=NOPASSWD: /run/current-system/sw/bin/darwin-rebuild
     '';

@@ -1,5 +1,5 @@
 {
-  den.aspects.base.os =
+  kit.base.os =
     { pkgs, ... }:
     {
       fonts = {

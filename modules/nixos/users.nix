@@ -1,5 +1,5 @@
 {
-  den.aspects.base.nixos =
+  kit.base.nixos =
     { config, ... }:
     {
       users.users.${config.system.primaryUser} = {

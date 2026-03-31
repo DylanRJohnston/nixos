@@ -1,5 +1,6 @@
-{ lib, ... }: {
-  den.aspects.base.nixos = {
+{ lib, ... }:
+{
+  kit.base.nixos = {
     console.font = lib.mkDefault "Lat2-Terminus16";
     console.colors = [
       "073642"

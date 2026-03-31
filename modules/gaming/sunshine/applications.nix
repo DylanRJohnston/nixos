@@ -1,15 +1,15 @@
-{ den, lib, ... }:
+{ kit, lib, ... }:
 let
   games = ./games.json |> builtins.readFile |> builtins.fromJSON;
 in
 {
-  den.aspects.gaming._.sunshine = {
-    includes = with den.aspects.gaming._.sunshine._.apps._; [
-      definitions
-      icons
+  kit.gaming._.sunshine = {
+    includes = [
+      kit.gaming._.sunshine._.definitions
+      kit.gaming._.sunshine._.icons
     ];
 
-    _.apps._.definitions.nixos =
+    _.definitions.nixos =
       { config, pkgs, ... }:
       {
         services.sunshine.applications =
@@ -41,7 +41,7 @@ in
           };
       };
 
-    _.apps._.icons.homeManager =
+    _.icons.homeManager =
       { lib, pkgs, ... }:
       {
         home.activation.sunshineIcons =

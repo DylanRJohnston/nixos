@@ -1,3 +1,3 @@
 {
-  den.aspects.disabled.nixos.services.redshift.enable = true;
+  kit.disabled.nixos.services.redshift.enable = true;
 }

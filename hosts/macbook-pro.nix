@@ -1,18 +1,17 @@
+{ kit, ... }:
 {
   den.hosts.aarch64-darwin.macbook-pro = {
     users.dylanj = { };
 
-    roles = [
-      "development"
-      "entertainment"
-      "gaming"
-    ];
-
-  };
-
-  den.aspects.macbook-pro.darwin = {
-    homebrew.casks = [
-      "backblaze"
+    roles = with kit; [
+      base
+      development
+      entertainment
+      gaming
     ];
   };
+
+  den.aspects.macbook-pro.darwin.homebrew.casks = [
+    "backblaze"
+  ];
 }

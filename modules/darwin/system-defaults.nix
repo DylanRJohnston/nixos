@@ -1,5 +1,5 @@
 {
-  den.aspects.base.darwin = {
+  kit.base.darwin = {
     system.defaults = {
       dock = {
         show-recents = false;

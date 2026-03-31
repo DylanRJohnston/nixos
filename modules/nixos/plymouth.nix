@@ -1,5 +1,8 @@
+{ kit, ... }:
 {
-  den.aspects.entertainment.nixos =
+  kit.entertainment.includes = [ kit.entertainment._.plymouth ];
+
+  kit.entertainment._.plymouth =
     { pkgs, ... }:
     {
       systemd.services.systemd-vconsole-setup.enable = false;

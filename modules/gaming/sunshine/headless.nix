@@ -1,7 +1,7 @@
-{ den, ... }:
+{ kit, ... }:
 {
-  den.aspects.gaming._.sunshine = {
-    includes = [ den.aspects.gaming._.sunshine._.headless ];
+  kit.gaming._.sunshine = {
+    includes = [ kit.gaming._.sunshine._.headless ];
 
     _.headless.nixos.services.sunshine.global_prep_cmd =
       let

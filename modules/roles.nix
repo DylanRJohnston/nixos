@@ -1,49 +1,56 @@
-{ den, lib, ... }:
 {
-  den.schema.host = {
-    options.roles = lib.mkOption {
-      type = lib.types.listOf (
-        lib.types.enum [
-          "base"
-          "development"
-          "entertainment"
-          "gaming"
-          "home-automation"
-        ]
-      );
+  lib,
+  den,
+  ...
+}:
+let
+  recursiveApply =
+    apply: ctx: include:
+    if include ? includes then recursiveFunctor apply include ctx else apply ctx include;
+
+  recursiveFunctor =
+    apply: aspect:
+    aspect
+    // {
+      __functor = self: ctx: {
+        includes =
+          self.includes or [ ]
+          |> builtins.filter lib.isFunction
+          |> map (recursiveApply apply ctx)
+          |> builtins.filter (x: x != { });
+      };
     };
 
-    config.roles = [ "base" ];
+  parametric.fixedTo.exactly =
+    ctx: aspect: recursiveFunctor (lib.flip den.lib.take.exactly) aspect ctx;
+  parametric.fixedTo.atLeast =
+    ctx: aspect: recursiveFunctor (lib.flip den.lib.take.atLeast) aspect ctx;
+in
+{
+  kit.schema.host.options.roles = lib.mkOption {
+    type = lib.types.listOf den.lib.aspects.types.aspectSubmodule;
   };
 
-  den.ctx.host.includes = [
-    (
-      { host }:
-      { class, ... }:
-      den.provides.forward {
-        each = lib.unique host.roles or [ ];
-        fromClass = _: class;
-        intoClass = _: class;
-        intoPath = _: [ ];
-        fromAspect = role: den.aspects.${role};
-      }
-    )
-  ];
+  kit.roles._.host =
+    { host }:
+    den.lib.parametric.fixedTo { inherit host; } {
+      includes = host.roles;
+    };
 
-  den.ctx.hm-user.includes = [
-    (
-      { host, user }:
-      den.provides.forward {
-        each = lib.unique host.roles or [ ];
-        fromClass = _: "homeManager";
-        intoClass = _: host.class;
-        intoPath = _: [
-          "home-manager"
-          "users"
-          user.userName
-        ];
-        fromAspect = role: den.aspects.${role};
+  kit.roles._.homeManager =
+    { host, user }:
+    { class, ... }:
+    if class == "homeManager" then
+      den.lib.parametric.fixedTo { inherit host user; } {
+        includes = host.roles;
       }
-    )
-  ];
+    else
+      { };
+
+  kit.roles._.user =
+    { host, user }:
+    parametric.fixedTo.atLeast { inherit host user; } {
+      includes = host.roles;
+    };
+
 }

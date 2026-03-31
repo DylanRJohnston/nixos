@@ -1,26 +1,22 @@
+{ kit, ... }:
 {
-  den.aspects.base = {
-    os =
-      { config, pkgs, ... }:
+  kit.base.includes = [
+    kit.base.provides.zsh
+    kit.base.provides.zsh.provides.default-shell
+  ];
+
+  kit.base.provides.zsh = {
+    os.programs.zsh.enable = true;
+
+    provides.default-shell =
+      { user, ... }:
       {
-        users.users.${config.system.primaryUser}.shell = pkgs.zsh;
-        programs.zsh.enable = true;
+        os =
+          { pkgs, ... }:
+          {
+            users.users.${user.userName}.shell = pkgs.zsh;
+          };
       };
-
-    nixos.homeManager.programs.zsh.shellAliases = {
-      "battery" = "cat /sys/class/power_supply/BAT0/capacity";
-      "pbcopy" = "xclip -i -selection clipboard";
-      "pbpaste" = "xclip -o -selection clipboard";
-      "headphones" =
-        "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
-      "mouse" = "bluetoothctl connect EB:33:0A:19:B9:15 && sleep 2 blueoothctl connect EB:33:0A:19:B9:15";
-      "zed" = "zeditor";
-    };
-
-    darwin.homeManager.programs.zsh.sessionVariables = {
-      PATH = "$PATH:/opt/homebrew/bin";
-      APPLE_SSH_ADD_BEHAVIOR = "macos";
-    };
 
     homeManager =
       { pkgs, ... }:
@@ -73,5 +69,21 @@
           '';
         };
       };
+
+    nixos.homeManager.programs.zsh.shellAliases = {
+      "battery" = "cat /sys/class/power_supply/BAT0/capacity";
+      "pbcopy" = "xclip -i -selection clipboard";
+      "pbpaste" = "xclip -o -selection clipboard";
+      "headphones" =
+        "bluetoothctl connect 70:26:05:E0:AC:84 && sleep 2 && bluetoothctl connect 70:26:05:E0:AC:84";
+      "mouse" =
+        "bluetoothctl connect EB:33:0A:19:B9:15 && sleep 2 && bluetoothctl connect EB:33:0A:19:B9:15";
+      "zed" = "zeditor";
+    };
+
+    darwin.homeManager.programs.zsh.sessionVariables = {
+      PATH = "$PATH:/opt/homebrew/bin";
+      APPLE_SSH_ADD_BEHAVIOR = "macos";
+    };
   };
 }

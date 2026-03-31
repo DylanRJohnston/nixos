@@ -1,5 +1,5 @@
 {
-  den.aspects.base.homeManager =
+  kit.base.homeManager =
     { pkgs, ... }:
     {
       programs.vim = {

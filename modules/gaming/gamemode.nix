@@ -1,9 +1,13 @@
+{ kit, ... }:
 {
-  den.aspects.gaming.nixos =
-    { config, ... }:
-    {
+  kit.gaming = {
+    includes = [
+      kit.gaming._.gamemode
+      kit.gaming._.gamemode._.permissions
+    ];
+
+    _.gamemode.nixos = {
       security.polkit.enable = true;
-      users.users.${config.system.primaryUser}.extraGroups = [ "gamemode" ];
       programs.gamemode = {
         enable = true;
         enableRenice = true;
@@ -17,4 +21,11 @@
         };
       };
     };
+
+    _.gamemode._.permissions =
+      { user, ... }:
+      {
+        nixos.users.users.${user.userName}.extraGroups = [ "gamemode" ];
+      };
+  };
 }

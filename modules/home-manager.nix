@@ -1,28 +1,43 @@
 {
+  kit,
   inputs,
   lib,
   ...
 }:
 {
-  den.schema.user.classes = lib.mkDefault [ "homeManager" ];
-  den.default.homeManager.home.stateVersion = "26.05";
+  kit.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
-  den.aspects.base = {
+  kit.base.includes = [
+    kit.base._.homeManager
+  ];
+
+  kit.base._.homeManager = {
+    includes = [
+      kit.base._.homeManager._.globalModule
+    ];
+
+    homeManager.home.stateVersion = "26.05";
+
     nixos.imports = [ inputs.home-manager.nixosModules.home-manager ];
     darwin.imports = [ inputs.home-manager.darwinModules.home-manager ];
 
-    os =
-      { config, ... }:
-      {
-        options.homeManager = lib.mkOption {
-          type = lib.types.deferredModule;
-        };
+    os.config = {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+    };
 
-        config = {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.${config.system.primaryUser}.imports = [ config.homeManager ];
-        };
+    _.globalModule =
+      { user, ... }:
+      {
+        os =
+          { config, ... }:
+          {
+            options.homeManager = lib.mkOption {
+              type = lib.types.deferredModule;
+            };
+
+            config.home-manager.users.${user.userName}.imports = [ config.homeManager ];
+          };
       };
   };
 }

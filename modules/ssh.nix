@@ -1,7 +1,9 @@
 {
-  den.aspects.base = {
-    darwin.homeManager.programs.ssh.matchBlocks."*".extraOptions = {
-      "UseKeychain" = "yes";
+  kit.base = {
+    darwin.homeManager.programs.ssh.matchBlocks = {
+      "*".extraOptions = {
+        "UseKeychain" = "yes";
+      };
     };
 
     homeManager = {

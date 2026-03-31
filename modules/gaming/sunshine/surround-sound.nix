@@ -1,7 +1,7 @@
-{ den, ... }:
+{ kit, ... }:
 {
-  den.aspects.gaming._.sunshine = {
-    includes = [ den.aspects.gaming._.sunshine._.surround-sound ];
+  kit.gaming._.sunshine = {
+    includes = [ kit.gaming._.sunshine._.surround-sound ];
 
     _.surround-sound.nixos =
       {
