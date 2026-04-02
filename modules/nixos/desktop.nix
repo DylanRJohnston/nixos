@@ -111,7 +111,7 @@
               export __GL_GSYNC_ALLOWED=0
               export __GL_VRR_ALLOWED=0
               export __GLX_VENDOR_LIBRARY_NAME=nvidia
-              # Setting this causes Steam UI performance to tank 
+              # Setting this causes Steam UI performance to tank
               # export XWAYLAND_NO_GLAMOR=1
 
               export XDG_SESSION_TYPE=wayland

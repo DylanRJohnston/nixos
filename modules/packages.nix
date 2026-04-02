@@ -1,62 +1,64 @@
-{ ... }:
-let
-  system =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [
-        _1password-gui
-        fd
-        fzf
-        git
-        git-town
-        htop
-        iftop
-        jq
-        killall
-        lsof
-        nixd
-        nixfmt
-        nixpkgs-fmt
-        pulseaudio
-        pv
-        tmux
-        tree
-        vim
-        wget
-      ];
-    };
-
-  home_base =
-    { pkgs, ... }:
-    {
-      home.packages = with pkgs; [
-        commitizen
-        gnupg
-        mosh
-        sops
-        zstd
-      ];
-
-    };
-
-  home_development =
-    { pkgs, ... }:
-    {
-      home.packages = with pkgs; [
-        awscli2
-        binaryen
-        cachix
-        claude-code
-        kubectl
-        kubectx
-        nmap
-      ];
-    };
-in
 {
   kit = {
-    base.os = system;
-    base.homeManager = home_base;
-    development.homeManager = home_development;
+    base = {
+      os =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [
+            fd
+            fzf
+            git
+            git-town
+            htop
+            iftop
+            jq
+            killall
+            lsof
+            nixd
+            nixfmt
+            alejandra
+            pv
+            tmux
+            tree
+            vim
+            wget
+          ];
+        };
+
+      nixos =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = with pkgs; [
+            _1password-gui
+            pulseaudio
+          ];
+        };
+
+      homeManager =
+        { pkgs, ... }:
+        {
+          home.packages = with pkgs; [
+            commitizen
+            gnupg
+            mosh
+            sops
+            zstd
+          ];
+        };
+    };
+
+    development.homeManager =
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          awscli2
+          binaryen
+          cachix
+          claude-code
+          kubectl
+          kubectx
+          nmap
+        ];
+      };
   };
 }

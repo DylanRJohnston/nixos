@@ -1,14 +1,14 @@
 { kit, ... }:
 {
   kit.base.includes = [
-    kit.base.provides.zsh
-    kit.base.provides.zsh.provides.default-shell
+    kit.base._.zsh
+    kit.base._.zsh._.default-shell
   ];
 
-  kit.base.provides.zsh = {
+  kit.base._.zsh = {
     os.programs.zsh.enable = true;
 
-    provides.default-shell =
+    _.default-shell =
       { user, ... }:
       {
         os =

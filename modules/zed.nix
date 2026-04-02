@@ -35,14 +35,19 @@
         homeManager =
           { config, ... }:
           {
-            programs.zed.config = {
+            options.programs.zed.nixd.hostConfigPath = lib.mkOption {
+              type = lib.types.path;
+              default = "${config.home.homeDirectory}/.nixpkgs";
+            };
+
+            config.programs.zed.config = {
               languages.Nix.language_servers = [
                 "nixd"
                 "!nil"
               ];
               lsp.nixd.initialization_options =
                 let
-                  flake = "(builtins.getFlake ${config.home.homeDirectory}/.nixpkgs)";
+                  flake = "(builtins.getFlake ${config.programs.zed.nixd.hostConfigPath})";
                 in
                 {
                   autowatch = true;

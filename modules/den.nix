@@ -21,6 +21,7 @@ rec {
       den.ctx.user.includes = [ kit.roles._.user ];
       den.ctx.hm-user.includes = [ kit.roles._.homeManager ];
 
-      den.schema.user.classes = lib.mkForce [ "homeManager" ];
+      den.schema.user.imports = [ kit.schema.user ];
+      den.schema.host.imports = [ kit.schema.host ];
     };
 }

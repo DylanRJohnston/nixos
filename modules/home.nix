@@ -1,17 +1,24 @@
-let
-  home =
-    prefix:
-    { config, ... }:
-    let
-      user = config.system.primaryUser;
-    in
-    {
-      users.users.${user}.home = "${prefix}/${user}";
-    };
-in
+{ kit, ... }:
 {
-  kit.base = {
-    darwin = home "/Users";
-    nixos = home "/home";
-  };
+  kit.base.includes = [ kit.base._.homeDirectory ];
+
+  kit.schema.user =
+    { user, lib, ... }:
+    {
+      options.home = lib.mkOption {
+        type = lib.types.str;
+        default =
+          {
+            darwin = "/Users/${user.userName}";
+            nixos = "/home/${user.userName}";
+          }
+          .${user.host.class};
+      };
+    };
+
+  kit.base._.homeDirectory =
+    { user, ... }:
+    {
+      os.users.users.${user.userName}.home = user.home;
+    };
 }
