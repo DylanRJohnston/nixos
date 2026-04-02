@@ -1,8 +1,8 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.base.includes = [ kit.base._.homeDirectory ];
+  arc.base.includes = [ arc.base._.homeDirectory ];
 
-  kit.schema.user =
+  arc.schema.user =
     { user, lib, ... }:
     {
       options.home = lib.mkOption {
@@ -16,7 +16,7 @@
       };
     };
 
-  kit.base._.homeDirectory =
+  arc.base._.homeDirectory =
     { user, ... }:
     {
       os.users.users.${user.userName}.home = user.home;

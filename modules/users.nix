@@ -1,5 +1,5 @@
 {
-  kit.base.nixos =
+  arc.base.nixos =
     { config, ... }:
     {
       users.users.${config.system.primaryUser} = {

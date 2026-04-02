@@ -1,12 +1,12 @@
-{ kit, lib, ... }:
+{ arc, lib, ... }:
 let
   games = ./games.json |> builtins.readFile |> builtins.fromJSON;
 in
 {
-  kit.gaming._.sunshine = {
+  arc.gaming._.sunshine = {
     includes = [
-      kit.gaming._.sunshine._.definitions
-      kit.gaming._.sunshine._.icons
+      arc.gaming._.sunshine._.definitions
+      arc.gaming._.sunshine._.icons
     ];
 
     _.definitions.nixos =

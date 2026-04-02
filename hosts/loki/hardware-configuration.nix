@@ -2,7 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  den.aspects.desktop.nixos =
+  den.aspects.loki.nixos =
     {
       config,
       lib,

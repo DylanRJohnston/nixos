@@ -1,5 +1,5 @@
 {
-  kit.gaming.nixos =
+  arc.gaming.nixos =
     {
       pkgs,
       ...

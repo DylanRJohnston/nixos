@@ -1,5 +1,5 @@
 {
-  kit.base = {
+  arc.base = {
     darwin.security.sudo.extraConfig = ''
       ALL ALL=NOPASSWD: /run/current-system/sw/bin/darwin-rebuild
     '';

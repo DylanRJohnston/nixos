@@ -1,5 +1,5 @@
 {
-  kit.development.homeManager = {
+  arc.development.homeManager = {
     programs.carapace = {
       enable = true;
       enableNushellIntegration = true;

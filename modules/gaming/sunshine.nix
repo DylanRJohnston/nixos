@@ -1,7 +1,7 @@
-{ kit, lib, ... }:
+{ arc, lib, ... }:
 {
-  kit.gaming = {
-    includes = [ kit.gaming._.sunshine ];
+  arc.gaming = {
+    includes = [ arc.gaming._.sunshine ];
 
     _.sunshine.nixos =
       { pkgs, config, ... }:

@@ -1,5 +1,5 @@
 {
-  kit.base.homeManager =
+  arc.base.homeManager =
     { pkgs, ... }:
     {
       programs.vim = {

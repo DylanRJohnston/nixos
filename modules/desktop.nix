@@ -1,5 +1,5 @@
 {
-  kit.base.nixos =
+  arc.base.nixos =
     {
       lib,
       config,

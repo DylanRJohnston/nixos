@@ -1,11 +1,11 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.base.includes = [
-    kit.base._.zsh
-    kit.base._.zsh._.default-shell
+  arc.base.includes = [
+    arc.base._.zsh
+    arc.base._.zsh._.default-shell
   ];
 
-  kit.base._.zsh = {
+  arc.base._.zsh = {
     os.programs.zsh.enable = true;
 
     _.default-shell =

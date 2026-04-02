@@ -24,37 +24,37 @@ let
     ctx: aspect: recursiveFunctor (lib.flip den.lib.take.atLeast) aspect ctx;
 in
 {
-  kit.schema.host.options.roles = lib.mkOption {
+  arc.schema.host.options.aspects = lib.mkOption {
     type = lib.types.listOf den.lib.aspects.types.aspectSubmodule;
   };
 
-  kit.roles._.host.includes = [
+  arc.aspects._.host.includes = [
     (
       { host }:
       den.lib.parametric.fixedTo { inherit host; } {
-        includes = host.roles;
+        includes = host.aspects;
       }
     )
   ];
 
-  kit.roles._.homeManager.includes = [
+  arc.aspects._.homeManager.includes = [
     (
       { host, user }:
       { class, ... }:
       if class == "homeManager" then
         den.lib.parametric.fixedTo { inherit host user; } {
-          includes = host.roles;
+          includes = host.aspects;
         }
       else
         { }
     )
   ];
 
-  kit.roles._.user.includes = [
+  arc.aspects._.user.includes = [
     (
       { host, user }:
       parametric.fixedTo.atLeast { inherit host user; } {
-        includes = host.roles;
+        includes = host.aspects;
       }
     )
   ];

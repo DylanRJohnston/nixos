@@ -14,7 +14,7 @@ let
   ] (name: "town ${name}");
 in
 {
-  kit.base.homeManager.programs.git = {
+  arc.base.homeManager.programs.git = {
     enable = true;
     settings = {
       user.name = "Dylan R. Johnston";

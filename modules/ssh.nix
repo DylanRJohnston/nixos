@@ -1,5 +1,5 @@
 {
-  kit.base = {
+  arc.base = {
     darwin.homeManager.programs.ssh.matchBlocks = {
       "*".extraOptions = {
         "UseKeychain" = "yes";
@@ -58,5 +58,10 @@
         };
       };
     };
+  };
+
+  arc.mesh.os = {
+    programs.ssh.startAgent = true;
+    services.tailscale.enable = true;
   };
 }

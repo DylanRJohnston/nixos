@@ -1,5 +1,5 @@
 {
-  kit.gaming = {
+  arc.gaming = {
     darwin.homebrew.casks = [ "steam" ];
     nixos =
       {

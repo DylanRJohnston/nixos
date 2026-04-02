@@ -1,5 +1,5 @@
 {
-  kit.home-automation.nixos =
+  arc.home-automation.nixos =
     {
       pkgs,
       lib,

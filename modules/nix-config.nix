@@ -2,7 +2,7 @@ let
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
 in
 {
-  kit.base.os = {
+  arc.base.os = {
     nixpkgs.config.allowUnfree = true;
     nix = {
       enable = true;

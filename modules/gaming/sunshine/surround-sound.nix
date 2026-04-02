@@ -1,7 +1,7 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.gaming._.sunshine = {
-    includes = [ kit.gaming._.sunshine._.surround-sound ];
+  arc.gaming._.sunshine = {
+    includes = [ arc.gaming._.sunshine._.surround-sound ];
 
     _.surround-sound.nixos =
       {

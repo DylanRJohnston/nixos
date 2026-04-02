@@ -1,5 +1,5 @@
 {
-  kit.base.os =
+  arc.base.os =
     { pkgs, ... }:
     {
       fonts = {

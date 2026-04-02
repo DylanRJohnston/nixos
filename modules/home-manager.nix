@@ -1,19 +1,19 @@
 {
-  kit,
+  arc,
   inputs,
   lib,
   ...
 }:
 {
-  kit.schema.user.classes = lib.mkDefault [ "homeManager" ];
+  arc.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
-  kit.base.includes = [
-    kit.base._.homeManager
+  arc.base.includes = [
+    arc.base._.homeManager
   ];
 
-  kit.base._.homeManager = {
+  arc.base._.homeManager = {
     includes = [
-      kit.base._.homeManager._.globalModule
+      arc.base._.homeManager._.globalModule
     ];
 
     homeManager.home.stateVersion = "26.05";

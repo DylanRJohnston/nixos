@@ -1,5 +1,5 @@
 {
-  kit.base.homeManager.programs.direnv = {
+  arc.base.homeManager.programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };

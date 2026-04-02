@@ -1,5 +1,5 @@
 {
-  kit.base.darwin.security.pam.services.sudo_local = {
+  arc.base.darwin.security.pam.services.sudo_local = {
     enable = true;
     touchIdAuth = true;
     watchIdAuth = false;

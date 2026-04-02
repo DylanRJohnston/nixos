@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  kit.base.nixos = {
+  arc.base.nixos = {
     console.font = lib.mkDefault "Lat2-Terminus16";
     console.colors = [
       "073642"

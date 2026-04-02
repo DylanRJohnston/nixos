@@ -1,5 +1,5 @@
 {
-  den.aspects.desktop.homeManager =
+  den.aspects.loki.homeManager =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

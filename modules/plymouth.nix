@@ -1,8 +1,8 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.entertainment.includes = [ kit.entertainment._.plymouth ];
+  arc.entertainment.includes = [ arc.entertainment._.plymouth ];
 
-  kit.entertainment._.plymouth =
+  arc.entertainment._.plymouth =
     { pkgs, ... }:
     {
       systemd.services.systemd-vconsole-setup.enable = false;

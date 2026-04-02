@@ -1,5 +1,5 @@
 {
-  kit.base.darwin = {
+  arc.base.darwin = {
     system.defaults = {
       dock = {
         show-recents = false;

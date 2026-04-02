@@ -1,5 +1,5 @@
 {
-  kit.base.nixos.hardware.bluetooth = {
+  arc.base.nixos.hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
 

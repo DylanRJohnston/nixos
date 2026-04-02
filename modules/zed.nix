@@ -1,16 +1,14 @@
-{ kit, lib, ... }:
+{ arc, lib, ... }:
 {
-  flake.kit = kit;
+  arc.base.includes = [ arc.base._.zed ];
 
-  kit.base.includes = [ kit.base._.zed ];
-
-  kit.base._.zed = {
+  arc.base._.zed = {
     includes = [
-      kit.base._.zed._.agents
-      kit.base._.zed._.context-servers
-      kit.base._.zed._.misc
-      kit.base._.zed._.nixd-config
-      kit.base._.zed._.theme
+      arc.base._.zed._.agents
+      arc.base._.zed._.context-servers
+      arc.base._.zed._.misc
+      arc.base._.zed._.nixd-config
+      arc.base._.zed._.theme
     ];
 
     homeManager =

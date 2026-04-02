@@ -1,8 +1,8 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.base.includes = [ kit.base._.bootloader ];
+  arc.base.includes = [ arc.base._.bootloader ];
 
-  kit.base._.bootloader = {
+  arc.base._.bootloader = {
     boot.loader = {
       systemd-boot = {
         enable = true;

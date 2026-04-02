@@ -1,9 +1,9 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.gaming = {
+  arc.gaming = {
     includes = [
-      kit.gaming._.gamemode
-      kit.gaming._.gamemode._.permissions
+      arc.gaming._.gamemode
+      arc.gaming._.gamemode._.permissions
     ];
 
     _.gamemode.nixos = {

@@ -1,11 +1,11 @@
-{ lib, kit, ... }:
+{ lib, arc, ... }:
 let
   inherit (lib.generators) mkLuaInline toLua;
 in
 {
-  kit.base.includes = [ kit.base._.wezterm ];
+  arc.base.includes = [ arc.base._.wezterm ];
 
-  kit.base._.wezterm = {
+  arc.base._.wezterm = {
     homeManager = (
       { config, ... }:
       {

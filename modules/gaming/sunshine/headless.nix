@@ -1,7 +1,7 @@
-{ kit, ... }:
+{ arc, ... }:
 {
-  kit.gaming._.sunshine = {
-    includes = [ kit.gaming._.sunshine._.headless ];
+  arc.gaming._.sunshine = {
+    includes = [ arc.gaming._.sunshine._.headless ];
 
     _.headless.nixos.services.sunshine.global_prep_cmd =
       let
