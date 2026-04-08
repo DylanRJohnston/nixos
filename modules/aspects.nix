@@ -1,61 +1,59 @@
 { lib, den, ... }:
 let
-  recursiveApply =
-    apply: ctx: include:
-    if include ? includes then recursiveFunctor apply include ctx else apply ctx include;
-
-  recursiveFunctor =
-    apply: aspect:
-    aspect
-    // {
-      __functor = self: ctx: {
-        includes =
-          self.includes or [ ]
-          |> builtins.filter lib.isFunction
-          |> map (recursiveApply apply ctx)
-          |> builtins.filter (x: x != { });
-      };
+  aspects =
+    host:
+    lib.cartesianProduct {
+      aspect = host.aspects;
+      class = [
+        host.class
+        "os"
+      ];
     };
 
-  parametric.fixedTo.exactly =
-    ctx: aspect: recursiveFunctor (lib.flip den.lib.take.exactly) aspect ctx;
+  host =
+    { host }:
+    den._.forward {
+      each = aspects host;
+      fromClass = it: it.class;
+      intoClass = it: it.class;
+      intoPath = _: [ ];
+      fromAspect = it: den.lib.parametric.fixedTo { inherit host; } it.aspect;
+    };
 
-  parametric.fixedTo.atLeast =
-    ctx: aspect: recursiveFunctor (lib.flip den.lib.take.atLeast) aspect ctx;
+  user =
+    { host, user }:
+    den._.forward {
+      each = host.aspects;
+      fromClass = it: "user";
+      intoClass = it: host.class;
+      intoPath = _: [
+        "users"
+        "users"
+        user.userName
+      ];
+      fromAspect = den.lib.parametric.fixedTo { inherit host user; };
+    };
+
+  homeManager =
+    { host, user }:
+    den._.forward {
+      each = host.aspects;
+      fromClass = lib.const "homeManager";
+      intoClass = lib.const host.class;
+      intoPath = _: [
+        "home-manager"
+        "users"
+        user.userName
+      ];
+      fromAspect = den.lib.parametric.fixedTo { inherit host user; };
+    };
 in
 {
-  arc.schema.host.options.aspects = lib.mkOption {
-    type = lib.types.listOf den.lib.aspects.types.aspectSubmodule;
-  };
+  arc.schema.host = { };
 
-  arc.aspects._.host.includes = [
-    (
-      { host }:
-      den.lib.parametric.fixedTo { inherit host; } {
-        includes = host.aspects;
-      }
-    )
-  ];
-
-  arc.aspects._.homeManager.includes = [
-    (
-      { host, user }:
-      { class, ... }:
-      if class == "homeManager" then
-        den.lib.parametric.fixedTo { inherit host user; } {
-          includes = host.aspects;
-        }
-      else
-        { }
-    )
-  ];
-
+  arc.aspects._.host.includes = [ host ];
   arc.aspects._.user.includes = [
-    (
-      { host, user }:
-      parametric.fixedTo.atLeast { inherit host user; } {
-        includes = host.aspects;
-      }
-    )
+    user
+    homeManager
   ];
 }

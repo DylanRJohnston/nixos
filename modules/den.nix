@@ -16,9 +16,9 @@ rec {
         namespace
       ];
 
-      den.ctx.host.includes = [ arc.roles._.host ];
-      den.ctx.user.includes = [ arc.roles._.user ];
-      den.ctx.hm-user.includes = [ arc.roles._.homeManager ];
+      den.ctx.host.includes = [ arc.aspects._.host ];
+      den.ctx.user.includes = [ arc.aspects._.user ];
+      den.ctx.hm-user.includes = [ arc.aspects._.homeManager ];
 
       den.schema.user.imports = [ arc.schema.user ];
       den.schema.host.imports = [ arc.schema.host ];

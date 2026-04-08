@@ -1,6 +1,10 @@
 { arc, lib, ... }:
 let
-  games = ./games.json |> builtins.readFile |> builtins.fromJSON;
+  games = {
+    "1086940" = "Baldur's Gate 3";
+    "719040" = "Wasteland 3";
+    "1091500" = "Cyberpunk 2077";
+  };
 in
 {
   arc.gaming._.sunshine = {

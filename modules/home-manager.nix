@@ -1,43 +1,32 @@
+{ inputs, lib, ... }:
 {
-  arc,
-  inputs,
-  lib,
-  ...
-}:
-{
-  arc.schema.user.classes = lib.mkDefault [ "homeManager" ];
-
-  arc.base.includes = [
-    arc.base._.homeManager
-  ];
-
-  arc.base._.homeManager = {
+  arc.base = rec {
     includes = [
-      arc.base._.homeManager._.globalModule
+      _.homeManager
     ];
 
-    homeManager.home.stateVersion = "26.05";
+    _.homeManager = {
+      nixos.imports = [ inputs.home-manager.nixosModules.home-manager ];
+      darwin.imports = [ inputs.home-manager.darwinModules.home-manager ];
 
-    nixos.imports = [ inputs.home-manager.nixosModules.home-manager ];
-    darwin.imports = [ inputs.home-manager.darwinModules.home-manager ];
+      os = {
+        options.homeManager = lib.mkOption {
+          type = lib.types.deferredModule;
+        };
 
-    os.config = {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-    };
-
-    _.globalModule =
-      { user, ... }:
-      {
-        os =
-          { config, ... }:
-          {
-            options.homeManager = lib.mkOption {
-              type = lib.types.deferredModule;
-            };
-
-            config.home-manager.users.${user.userName}.imports = [ config.homeManager ];
-          };
+        config = {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+        };
       };
+
+      homeManager =
+        { osConfig, ... }:
+        {
+          imports = [ osConfig.homeManager ];
+
+          home.stateVersion = "26.05";
+        };
+    };
   };
 }

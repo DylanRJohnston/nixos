@@ -19,6 +19,6 @@
   arc.base._.homeDirectory =
     { user, ... }:
     {
-      os.users.users.${user.userName}.home = user.home;
+      user.home = user.home;
     };
 }

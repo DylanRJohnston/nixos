@@ -5,14 +5,11 @@
 
     aspects = with arc; [
       base
+      backup
       development
       entertainment
       gaming
       mesh
-
-      {
-        darwin.homebrew.casks = [ "backblaze" ];
-      }
     ];
   };
 }

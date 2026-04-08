@@ -1,5 +1,8 @@
+{ arc, ... }:
 {
-  arc.base = {
+  arc.base.includes = [ arc.base._.ssh ];
+
+  arc.base._.ssh = {
     darwin.homeManager.programs.ssh.matchBlocks = {
       "*".extraOptions = {
         "UseKeychain" = "yes";
@@ -20,11 +23,6 @@
             user = "git";
             identityFile = "~/.ssh/personal";
           };
-          "hypersec.gitlab.com" = {
-            hostname = "gitlab.com";
-            user = "git";
-            identityFile = "~/.ssh/hypersec";
-          };
           "pi" = {
             hostname = "10.55.0.1";
             user = "dylanj";
@@ -43,25 +41,13 @@
             port = 2022;
             forwardAgent = true;
           };
-          "nix-build-slave-arm64" = {
-            hostname = "127.0.0.1";
-            identityFile = "~/.nixpkgs/dockerfiles/buildhosts/nix-build-slave.key";
-            port = 3022;
-            user = "root";
-          };
-          "nix-build-slave-amd64" = {
-            hostname = "127.0.0.1";
-            identityFile = "~/.nixpkgs/dockerfiles/buildhosts/nix-build-slave.key";
-            port = 4022;
-            user = "root";
-          };
         };
       };
     };
   };
 
   arc.mesh.os = {
-    programs.ssh.startAgent = true;
-    services.tailscale.enable = true;
+    # programs.ssh.startAgent = true;
+    # services.tailscale.enable = true;
   };
 }

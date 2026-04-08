@@ -1,4 +1,4 @@
-{ arc, ... }:
+{ den, arc, ... }:
 {
   arc.gaming = {
     includes = [
@@ -22,10 +22,8 @@
       };
     };
 
-    _.gamemode._.permissions =
-      { user, ... }:
-      {
-        nixos.users.users.${user.userName}.extraGroups = [ "gamemode" ];
-      };
+    _.gamemode._.permissions = den.lib.nixos {
+      user.extraGroups = [ "gamemode" ];
+    };
   };
 }

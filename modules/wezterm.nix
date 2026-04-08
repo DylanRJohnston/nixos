@@ -6,7 +6,7 @@ in
   arc.base.includes = [ arc.base._.wezterm ];
 
   arc.base._.wezterm = {
-    homeManager = (
+    homeManager =
       { config, ... }:
       {
         options.programs.wezterm.config = lib.mkOption {
@@ -44,21 +44,18 @@ in
             return ${toLua { } config.programs.wezterm.config}
           '';
         };
-      }
-    );
-
-    darwin = {
-      homeManager.programs.wezterm.config = {
-        window_decorations = "RESIZE";
-        native_macos_fullscreen_mode = true;
-        keys = [
-          {
-            key = "f";
-            mods = "CMD|CTRL";
-            action = mkLuaInline "wezterm.action.ToggleFullScreen";
-          }
-        ];
       };
+
+    darwin.homeManager.programs.wezterm.config = {
+      window_decorations = "RESIZE";
+      native_macos_fullscreen_mode = true;
+      keys = [
+        {
+          key = "f";
+          mods = "CMD|CTRL";
+          action = mkLuaInline "wezterm.action.ToggleFullScreen";
+        }
+      ];
     };
   };
 }

@@ -2,7 +2,7 @@
 {
   arc.base.includes = [ arc.base._.bootloader ];
 
-  arc.base._.bootloader = {
+  arc.base._.bootloader.nixos = {
     boot.loader = {
       systemd-boot = {
         enable = true;

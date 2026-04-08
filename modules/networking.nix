@@ -10,7 +10,7 @@
   };
 
   arc.base._.hostname =
-    { host }:
+    { host, ... }:
     {
       os.networking.hostName = host.name;
     };

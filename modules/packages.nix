@@ -7,21 +7,14 @@ let
     };
 
   systemCasks = casks: {
-    homebrew.enable = true;
-    homebrew.onActivation.cleanup = "zap";
-    homebrew.onActivation.autoUpdate = true;
     homebrew.casks = casks;
-
-    homeManager = {
-      targets.darwin.copyApps.enable = false;
-      targets.darwin.copyApps.enableChecks = false;
-    };
   };
 
   packages.base.os =
     pkgs: with pkgs; [
       alejandra
       commitizen
+      entr
       fd
       fzf
       git
@@ -33,6 +26,7 @@ let
       killall
       lsof
       mosh
+      nix-unit
       nixfmt
       pv
       sops
@@ -81,6 +75,7 @@ let
   packages.entertainment.nixos =
     pkgs: with pkgs; [
       audacity
+      firefox
       gimp
       spotify
       vlc
@@ -107,4 +102,8 @@ in
 
   arc.entertainment.nixos = systemPackages packages.entertainment.nixos;
   arc.entertainment.darwin = systemCasks packages.entertainment.casks;
+  arc.entertainment.homeManager = {
+    targets.darwin.copyApps.enable = false;
+    targets.darwin.copyApps.enableChecks = false;
+  };
 }

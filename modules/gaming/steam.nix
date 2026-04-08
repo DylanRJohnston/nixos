@@ -1,13 +1,9 @@
+{ lib, ... }:
 {
   arc.gaming = {
     darwin.homebrew.casks = [ "steam" ];
     nixos =
-      {
-        pkgs,
-        lib,
-        config,
-        ...
-      }:
+      { pkgs, config, ... }:
       {
         options.programs.steam.extraEnv = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
