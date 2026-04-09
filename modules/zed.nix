@@ -106,6 +106,9 @@
     };
 
     _.misc.homeManager.programs.zed.config = {
+      diagnostics.inline.enabled = true;
+      inlay_hints.enabled = true;
+
       languages = {
         TypeScript.code_actions_on_format = {
           "source.fixAll.eslint" = true;
