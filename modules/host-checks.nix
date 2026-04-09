@@ -1,20 +1,21 @@
 rec {
-  imports = [ flake.flakeModule ];
-  flake.flakeModule =
+  imports = [ flake.flakeModule.host-checks ];
+  flake.flakeModule.host-checks =
     { config, lib, ... }:
     let
       build =
         { name, value }:
         {
-          inherit name;
           system = value.config.system.build.toplevel.system;
+
+          name = name;
           value = value.config.system.build.toplevel;
         };
 
-      flake.checks =
+      checks =
         [
-          config.flake.nixosConfigurations
-          config.flake.darwinConfigurations
+          config.flake.nixosConfigurations or { }
+          config.flake.darwinConfigurations or { }
         ]
         |> lib.map lib.attrsToList
         |> lib.flatten
@@ -23,6 +24,6 @@ rec {
         |> lib.mapAttrs (_: lib.listToAttrs);
     in
     {
-      inherit flake;
+      flake.checks = checks;
     };
 }

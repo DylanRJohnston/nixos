@@ -1,6 +1,6 @@
 rec {
-  imports = [ flake.flakeModule ];
-  flake.flakeModule =
+  imports = [ flake.flakeModule.arc ];
+  flake.flakeModule.arc =
     { inputs, arc, ... }:
     let
       importing = inputs ? arc;
