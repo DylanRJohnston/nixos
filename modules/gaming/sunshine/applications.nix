@@ -13,35 +13,43 @@ in
       arc.gaming._.sunshine._.icons
     ];
 
-    _.definitions.nixos =
-      { config, pkgs, ... }:
+    _.definitions =
+      { host, user }:
       {
-        services.sunshine.applications =
-          let
-            home = config.users.users.${config.system.primaryUser}.home;
-            steam_app = steamid: name: {
-              inherit name;
-              image-path = "${home}/.config/sunshine/covers/${steamid}.png";
-              output = "/tmp/${steamid}.log";
-              cmd = "steam steam://rungameid/${steamid}";
-            };
-            steam_apps = lib.mapAttrsToList steam_app games;
-            other_apps = [
-              {
-                name = "Desktop";
-                image-path = "desktop.png";
-              }
-              {
-                name = "Steam Big Picture";
-                cmd = "steam -tenfoot -pipewire-dmabuf";
-              }
-            ];
-          in
+        nixos =
+          { pkgs, ... }:
           {
-            apps = steam_apps ++ other_apps;
-            env = {
-              PATH = "$(PATH):${pkgs.gamescope}/bin:${pkgs.sway}/bin:${pkgs.bash}/bin:${pkgs.util-linux}/bin:${pkgs.xdg-utils}/bin:${pkgs.steam}/bin:${pkgs.sudo}/bin";
+            assertions = lib.singleton {
+              assertion = host.users |> lib.attrNames |> lib.length |> (x: x == 1);
+              message = "sunshine requires exactly one user";
             };
+
+            services.sunshine.applications =
+              let
+                steam_app = steamid: name: {
+                  inherit name;
+                  image-path = "${user.home}/.config/sunshine/covers/${steamid}.png";
+                  output = "/tmp/${steamid}.log";
+                  cmd = "steam steam://rungameid/${steamid}";
+                };
+                steam_apps = lib.mapAttrsToList steam_app games;
+                other_apps = [
+                  {
+                    name = "Desktop";
+                    image-path = "desktop.png";
+                  }
+                  {
+                    name = "Steam Big Picture";
+                    cmd = "steam -tenfoot -pipewire-dmabuf";
+                  }
+                ];
+              in
+              {
+                apps = steam_apps ++ other_apps;
+                env = {
+                  PATH = "$(PATH):${pkgs.gamescope}/bin:${pkgs.sway}/bin:${pkgs.bash}/bin:${pkgs.util-linux}/bin:${pkgs.xdg-utils}/bin:${pkgs.steam}/bin:${pkgs.sudo}/bin";
+                };
+              };
           };
       };
 

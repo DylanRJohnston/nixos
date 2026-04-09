@@ -24,14 +24,14 @@ let
     { host, user }:
     den._.forward {
       each = host.aspects;
-      fromClass = it: "user";
-      intoClass = it: host.class;
+      fromClass = lib.const "user";
+      intoClass = lib.const host.class;
       intoPath = _: [
         "users"
         "users"
         user.userName
       ];
-      fromAspect = den.lib.parametric.fixedTo { inherit host user; };
+      fromAspect = it: den.lib.parametric.fixedTo { inherit host user; } it;
     };
 
   homeManager =
@@ -45,14 +45,12 @@ let
         "users"
         user.userName
       ];
-      fromAspect = den.lib.parametric.fixedTo { inherit host user; };
+      fromAspect = it: den.lib.parametric.fixedTo { inherit host user; } it;
     };
 in
 {
-  arc.schema.host = { };
-
-  arc.aspects._.host.includes = [ host ];
-  arc.aspects._.user.includes = [
+  arc.ctx.host.includes = [ host ];
+  arc.ctx.user.includes = [
     user
     homeManager
   ];
