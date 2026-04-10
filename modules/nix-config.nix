@@ -1,6 +1,7 @@
 let
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
 in
+{ unitTest, ... }:
 {
   arc.base.os = {
     nixpkgs.config.allowUnfree = true;
@@ -30,4 +31,20 @@ in
       };
     };
   };
+
+  flake.tests.nix-config.test-duplicate-substituter = unitTest (
+    { arc, igloo, ... }:
+    {
+      den.hosts.aarch64-darwin.igloo = {
+        user.tux = { };
+        aspects = with arc; [ base ];
+      };
+
+      expr = igloo.nix.settings.substituters;
+      expected = [
+        "https://aseipp-nix-cache.freetls.fastly.net"
+        "https://cache.nixos.org/"
+      ];
+    }
+  );
 }

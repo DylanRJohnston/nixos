@@ -1,3 +1,4 @@
+{ lib, ... }:
 rec {
   imports = [ flake.flakeModule.arc ];
   flake.flakeModule.arc =
