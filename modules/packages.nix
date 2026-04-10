@@ -49,6 +49,7 @@ let
     "caffeine"
     "dbeaver-community"
     "docker-desktop"
+    "element"
     "firefox"
     "google-chrome"
     "istat-menus"
