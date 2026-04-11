@@ -3,6 +3,8 @@
     enable = true;
     powerOnBoot = true;
 
+    disabledPlugins = [ "policy" ];
+
     settings = {
       General = {
         Experimental = true;
@@ -10,6 +12,7 @@
       };
       Policy = {
         AutoEnable = true;
+        # ReconnectUUIDs = "";
       };
     };
   };
