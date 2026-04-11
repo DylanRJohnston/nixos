@@ -4,8 +4,8 @@
     users.dylanj = { };
 
     aspects = with arc; [
-      base
       backup
+      base
       development
       entertainment
       gaming
