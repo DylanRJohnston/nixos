@@ -35,7 +35,8 @@ rec {
           options.expr = lib.mkOption { };
           options.expected = lib.mkOption { };
 
-          config._module.args.igloo = config.flake.darwinConfigurations.igloo.config;
+          config._module.args.igloo = config.flake.nixosConfigurations.igloo.config;
+          config._module.args.apple = config.flake.darwinConfigurations.apple.config;
         };
     in
     {

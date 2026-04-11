@@ -35,7 +35,7 @@ in
   flake.tests.nix-config.test-duplicate-substituter = unitTest (
     { arc, igloo, ... }:
     {
-      den.hosts.aarch64-darwin.igloo = {
+      den.hosts.x86_64-linux.igloo = {
         user.tux = { };
         aspects = with arc; [ base ];
       };

@@ -1,8 +1,8 @@
-{ arc, ... }:
+{ arc, unitTest, ... }:
 {
   arc.entertainment.includes = [ arc.entertainment._.plymouth ];
 
-  arc.entertainment._.plymouth =
+  arc.entertainment._.plymouth.nixos =
     { pkgs, ... }:
     {
       systemd.services.systemd-vconsole-setup.enable = false;
@@ -49,4 +49,20 @@
         keyMap = "us";
       };
     };
+
+  flake.tests.plymouth.test-enable = unitTest (
+    { arc, igloo, ... }:
+    {
+      den.hosts.x86_64-linux.igloo = {
+        users.tux = { };
+        aspects = with arc; [
+          base
+          entertainment
+        ];
+      };
+
+      expr = igloo.boot.plymouth.enable;
+      expected = true;
+    }
+  );
 }

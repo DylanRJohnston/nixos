@@ -13,14 +13,14 @@
     };
 
   flake.tests.homebrew.test-cleanup = unitTest (
-    { arc, igloo, ... }:
+    { arc, apple, ... }:
     {
-      den.hosts.aarch64-darwin.igloo = {
-        user.tux = { };
+      den.hosts.aarch64-darwin.apple = {
+        users.tux = { };
         aspects = with arc; [ base ];
       };
 
-      expr = igloo.homebrew.onActivation.cleanup;
+      expr = apple.homebrew.onActivation.cleanup;
       expected = "zap";
     }
   );
