@@ -3,3 +3,4 @@ result
 *.img.zst
 *.swp
 nixos-wsl
+.direnv

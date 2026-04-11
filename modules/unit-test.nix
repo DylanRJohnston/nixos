@@ -38,33 +38,56 @@ rec {
           config._module.args.igloo = config.flake.nixosConfigurations.igloo.config;
           config._module.args.apple = config.flake.darwinConfigurations.apple.config;
         };
+
+      perSystem =
+        fn:
+        [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ]
+        |> lib.map (
+          system:
+          fn {
+            inherit system;
+            pkgs = inputs.nixpkgs.legacyPackages.${system};
+          }
+          |> lib.attrsToList
+          |> lib.map (
+            { name, value }:
+            {
+              kind = name;
+              name = system;
+              value = value;
+            }
+          )
+        )
+        |> lib.flatten
+        |> lib.groupBy (it: it.kind)
+        |> lib.mapAttrs (_: lib.listToAttrs);
+
     in
     {
-      # imports = [ inputs.den.flakeOutputs.checks ];
+      imports = [
+        inputs.den.flakeOutputs.packages
+        inputs.den.flakeOutputs.devShells
+      ];
+
       _module.args.unitTest = unitTest;
 
-      # flake.checks = lib.genAttrs [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ] (
-      #   system:
-      #   let
-      #     pkgs = inputs.nixpkgs.legacyPackages.${system};
-      #   in
-      #   {
-      #     unit-tests = pkgs.runCommand "unit-tests" { } ''
-      #       export HOME="$(realpath .)"
-      #       ${pkgs.nix-unit}/bin/nix-unit \
-      #           --eval-store "$HOME" \
-      #           --extra-experimental-features "nix-command flakes pipe-operators" \
-      #           --override-input darwin ${inputs.darwin} \
-      #           --override-input den ${inputs.den} \
-      #           --override-input hardware ${inputs.hardware} \
-      #           --override-input home-manager ${inputs.home-manager} \
-      #           --override-input import-tree ${inputs.import-tree} \
-      #           --override-input nixpkgs ${inputs.nixpkgs} \
-      #           --flake ${inputs.self}\#tests
-      #       touch $out
-      #     '';
-      #   }
-      # );
-    };
+      flake = perSystem (
+        { pkgs, ... }:
+        rec {
+          packages.unit-tests = pkgs.writeShellScriptBin "unit-tests" ''
+            find . -name '*.nix' | entr -c nix-unit --flake ".#tests$1"
+          '';
 
+          devShells.default = (
+            pkgs.mkShell {
+              buildInputs = [ packages.unit-tests ];
+            }
+          );
+        }
+      );
+    };
 }
