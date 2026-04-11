@@ -3,6 +3,8 @@
   arc.base.includes = [ arc.base._.ssh ];
 
   arc.base._.ssh = {
+    nixos.programs.ssh.startAgent = true;
+
     darwin.homeManager.programs.ssh.matchBlocks = {
       "*".extraOptions = {
         "UseKeychain" = "yes";
@@ -44,10 +46,5 @@
         };
       };
     };
-  };
-
-  arc.mesh.os = {
-    # programs.ssh.startAgent = true;
-    # services.tailscale.enable = true;
   };
 }
