@@ -1,4 +1,9 @@
-{ arc, lib, ... }:
+{
+  den,
+  arc,
+  lib,
+  ...
+}:
 let
   games = {
     "1086940" = "Baldur's Gate 3";
@@ -13,22 +18,17 @@ in
       arc.gaming._.sunshine._.icons
     ];
 
-    _.definitions =
-      { host, user }:
+    _.definitions = den.lib.perHost (
+      { host }:
       {
         nixos =
           { pkgs, ... }:
           {
-            assertions = lib.singleton {
-              assertion = host.users |> lib.attrNames |> lib.length |> (x: x == 1);
-              message = "sunshine requires exactly one user";
-            };
-
             services.sunshine.applications =
               let
                 steam_app = steamid: name: {
                   inherit name;
-                  image-path = "${user.home}/.config/sunshine/covers/${steamid}.png";
+                  image-path = "${host.primaryUser.home}/.config/sunshine/covers/${steamid}.png";
                   output = "/tmp/${steamid}.log";
                   cmd = "steam steam://rungameid/${steamid}";
                 };
@@ -51,7 +51,8 @@ in
                 };
               };
           };
-      };
+      }
+    );
 
     _.icons.homeManager =
       { lib, pkgs, ... }:

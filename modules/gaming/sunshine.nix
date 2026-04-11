@@ -1,7 +1,12 @@
-{ arc, lib, ... }:
+{
+  den,
+  arc,
+  lib,
+  ...
+}:
 {
   arc.gaming = {
-    includes = [ arc.gaming._.sunshine ];
+    includes = [ (den.lib.nixos arc.gaming._.sunshine) ];
 
     _.sunshine.nixos =
       { pkgs, config, ... }:
