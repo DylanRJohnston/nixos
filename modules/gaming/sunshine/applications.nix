@@ -73,20 +73,30 @@ in
               OUT="$HOME/.config/sunshine/covers/"
 
               mkdir -p "$OUT"
+              for STEAM_ID in ${gameIds}; do
+                  INPUT=""
+                  PRIMARY_INPUT="$CACHE/$STEAM_ID/library_600x900.jpg"
 
-              for steamid in ${gameIds}; do
-                input="$CACHE/$steamid/library_600x900.jpg"
-                output="$OUT/$steamid.png"
+                  if [[ -f "$PRIMARY_INPUT" ]]; then
+                    INPUT="$PRIMARY_INPUT"
+                  else
+                    FALLBACK_INPUT="$(${pkgs.findutils}/bin/find "$CACHE/$STEAM_ID" -type f -name "library_capsule.jpg" -print -quit 2>/dev/null || true)"
 
-                if [[ ! -f "$input" ]]; then
-                    echo "Skipping $steamid, no library image found"
+                    if [[ -n "$FALLBACK_INPUT" && -f "$FALLBACK_INPUT" ]]; then
+                        INPUT="$FALLBACK_INPUT"
+                    fi
+                  fi
+
+                  if [[ -z "$INPUT" ]]; then
+                    echo "Skipping $STEAM_ID, no library image found (checked library_600x900.jpg and library_capsule.jpg)"
                     continue
-                fi
+                  fi
 
-                if [[ ! -f "$output" || "$input" -nt "$output" ]]; then
-                  ${pkgs.imagemagick}/bin/magick convert "$input" "$output"
-                  echo "Converted $steamid -> $output"
-                fi
+                  OUTPUT="$OUT/$STEAM_ID.png"
+                  if [[ ! -f "$OUTPUT" || "$INPUT" -nt "$OUTPUT" ]]; then
+                    ${pkgs.imagemagick}/bin/magick convert "$INPUT" "$OUTPUT"
+                    echo "Converted $STEAM_ID from $INPUT -> $OUTPUT"
+                  fi
               done
             ''}";
       };
