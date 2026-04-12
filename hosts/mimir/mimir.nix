@@ -1,17 +1,20 @@
-{ arc, ... }:
+{
+  inputs,
+  arc,
+  ...
+}:
 {
   den.hosts.aarch64-linux.mimir = {
+    boot = arc.bootloader._.sd-card;
+
     users.dylanj = { };
 
-    aspects = with arc; [
-      base
-      home-automation
-      mesh
+    aspects = [
+      arc.base
+      arc.home-automation
+      arc.mesh
       {
         nixos = {
-          boot.loader.grub.enable = true;
-          boot.loader.generic-extlinux-compatible.enable = true;
-
           networking.firewall.interfaces.wlan0.allowedTCPPorts = [
             9080
             8096
