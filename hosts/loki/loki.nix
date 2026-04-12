@@ -3,13 +3,13 @@
   den.hosts.x86_64-linux.loki = {
     users.dylanj = { };
 
-    aspects = with arc; [
-      base
-      development
-      entertainment
-      gaming
-      home-automation
-      mesh
+    aspects = [
+      arc.base
+      arc.development
+      arc.entertainment
+      arc.gaming
+      arc.home-automation
+      arc.mesh
     ];
   };
 }

@@ -3,13 +3,13 @@
   den.hosts.aarch64-darwin.odin = {
     users.dylanj = { };
 
-    aspects = with arc; [
-      backup
-      base
-      development
-      entertainment
-      gaming
-      mesh
+    aspects = [
+      arc.backup
+      arc.base
+      arc.development
+      arc.entertainment
+      arc.gaming
+      arc.mesh
     ];
   };
 }

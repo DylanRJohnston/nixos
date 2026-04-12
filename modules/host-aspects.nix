@@ -49,6 +49,11 @@ let
     };
 in
 {
+  arc.schema.host.options.aspects = lib.mkOption {
+    type = lib.types.listOf den.lib.aspects.types.aspectType;
+    default = [ ];
+  };
+
   arc.ctx.host.includes = [ host ];
   arc.ctx.user.includes = [
     user
