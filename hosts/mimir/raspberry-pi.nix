@@ -27,5 +27,10 @@
       fsType = "vfat";
       options = lib.mkForce [ "nofail" ];
     };
+
+    "/mnt/external" = {
+      device = "/dev/disk/by-uuid/2ac2b713-dc25-4f75-b00f-2ec6c937bfa3";
+      fsType = "ext4";
+    };
   };
 }
