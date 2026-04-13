@@ -1,6 +1,5 @@
-rec {
-  imports = [ flake.flakeModule.host-checks ];
-  flake.flakeModule.host-checks =
+let
+  deferredModule =
     { config, lib, ... }:
     let
       build =
@@ -26,4 +25,8 @@ rec {
     {
       flake.checks = checks;
     };
+in
+{
+  imports = [ deferredModule ];
+  flake.flakeModule = deferredModule;
 }

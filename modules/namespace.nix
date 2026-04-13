@@ -1,8 +1,11 @@
-{ lib, ... }:
-rec {
-  imports = [ flake.flakeModule.arc ];
-  flake.flakeModule.arc =
-    { inputs, arc, ... }:
+let
+  module =
+    {
+      inputs,
+      arc,
+      lib,
+      ...
+    }:
     let
       importing = inputs ? arc;
       import-namespace = inputs.den.namespace "arc" [ inputs.arc ];
@@ -11,9 +14,19 @@ rec {
     {
       imports = [
         inputs.den.flakeModule
+        inputs.den.flakeOutputs.packages
+        inputs.den.flakeOutputs.devShells
         (if importing then import-namespace else export-namespace)
       ];
 
-      den = { inherit (arc) ctx schema; };
+      options.flake.flakeModule = lib.mkOption {
+        type = lib.types.deferredModule;
+      };
+
+      config.den = { inherit (arc) ctx schema; };
     };
+in
+{
+  imports = [ module ];
+  flake.flakeModule = module;
 }

@@ -1,5 +1,5 @@
 {
-  arc.base.nixos =
+  arc.entertainment.nixos =
     {
       lib,
       config,

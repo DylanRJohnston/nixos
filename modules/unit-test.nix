@@ -1,8 +1,6 @@
 # Adapted from https://github.com/vic/den/blob/5a4b828a445d5f5c1803e201dcdd5a5cbb7563ce/templates/ci/modules/test-support/eval-den.nix
-rec {
-  imports = [ flake.flakeModule.unit-test ];
-
-  flake.flakeModule.unit-test =
+let
+  module =
     {
       config,
       inputs,
@@ -23,7 +21,7 @@ rec {
             };
           };
           modules = [
-            config.flake.flakeModule.arc
+            config.flake.flakeModule
             module
             testModule
           ];
@@ -68,11 +66,6 @@ rec {
 
     in
     {
-      imports = [
-        inputs.den.flakeOutputs.packages
-        inputs.den.flakeOutputs.devShells
-      ];
-
       _module.args.unitTest = unitTest;
 
       flake = perSystem (
@@ -90,4 +83,8 @@ rec {
         }
       );
     };
+in
+{
+  imports = [ module ];
+  flake.flakeModules.unit-test = module;
 }
