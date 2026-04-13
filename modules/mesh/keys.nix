@@ -1,8 +1,15 @@
 let
   # Needs to be deferred because we want den.hosts to be at the import site
   deferredModule =
-    { den, lib, ... }:
     {
+      den,
+      arc,
+      lib,
+      ...
+    }:
+    {
+      arc.mesh.includes = [ arc.mesh._.keys ];
+
       arc.mesh._.keys.os.users.users =
         den.hosts
         |> lib.attrValues
@@ -16,35 +23,10 @@ let
         |> lib.mapAttrs (_: keys: { openssh.authorizedKeys.keys = keys; });
     };
 in
-{
-  lib,
-  arc,
-  unitTest,
-  ...
-}:
+{ lib, unitTest, ... }:
 {
   imports = [ deferredModule ];
   flake.flakeModule = deferredModule;
-
-  arc.mesh.includes = [
-    arc.mesh._.tailscale
-    arc.mesh._.ssh
-    arc.mesh._.keys
-  ];
-
-  arc.mesh._.tailscale.os.services.tailscale.enable = true;
-
-  arc.mesh._.ssh = {
-    nixos.programs.mosh.enable = true;
-
-    os.services.openssh = {
-      enable = true;
-      extraConfig = ''
-        PasswordAuthentication no
-        PermitRootLogin no
-      '';
-    };
-  };
 
   arc.schema.user.options.key = lib.mkOption {
     type = lib.types.nullOr lib.types.str;
