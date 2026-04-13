@@ -35,7 +35,7 @@ in
   arc.mesh._.tailscale.os.services.tailscale.enable = true;
 
   arc.mesh._.ssh = {
-    nixos.mosh.enable = true;
+    nixos.programs.mosh.enable = true;
 
     os.services.openssh = {
       enable = true;
