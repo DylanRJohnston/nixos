@@ -2,7 +2,7 @@
   inputs.darwin.url = "github:lnl7/nix-darwin/master";
   inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.den.url = "github:vic/den";
+  inputs.den.url = "github:dylanrjohnston/den/dylan.johnston/strict-mode";
 
   inputs.hardware.url = "github:nixos/nixos-hardware";
 

@@ -14,13 +14,17 @@ let
     {
       imports = [
         inputs.den.flakeModule
-        inputs.den.flakeOutputs.packages
-        inputs.den.flakeOutputs.devShells
+        inputs.den.flakeModules.strict
+        inputs.den.flakeOutputs.all
         (if importing then import-namespace else export-namespace)
       ];
 
       options.flake.flakeModule = lib.mkOption {
         type = lib.types.deferredModule;
+      };
+
+      options.flake.flakeModules = lib.mkOption {
+        type = lib.types.lazyAttrsOf lib.types.deferredModule;
       };
 
       config.den = { inherit (arc) ctx schema; };
