@@ -51,5 +51,14 @@
 
     # Expose Home Assistant as a Tailscale Service
     services.tailscale-serve."hass".target = "127.0.0.1:8123";
+
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      nssmdns6 = true;
+      openFirewall = true;
+    };
+
+    services.dbus.enable = true;
   };
 }
