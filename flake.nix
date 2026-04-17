@@ -13,6 +13,9 @@
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+  inputs.beads.url = "github:gastownhall/beads/v1.0.2";
+  inputs.beads.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs =
     inputs:
     (inputs.nixpkgs.lib.evalModules {

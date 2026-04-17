@@ -3,14 +3,21 @@ let
   module =
     {
       config,
+      den,
       inputs,
       lib,
       ...
     }:
     let
-      unitTest = module: {
-        inherit ((evalArc module).config) expr expected;
-      };
+      testModule =
+        { config, ... }:
+        {
+          options.expr = lib.mkOption { };
+          options.expected = lib.mkOption { };
+
+          config._module.args.igloo = config.flake.nixosConfigurations.igloo.config;
+          config._module.args.apple = config.flake.darwinConfigurations.apple.config;
+        };
 
       evalArc =
         module:
@@ -27,60 +34,20 @@ let
           ];
         };
 
-      testModule =
-        { config, ... }:
-        {
-          options.expr = lib.mkOption { };
-          options.expected = lib.mkOption { };
-
-          config._module.args.igloo = config.flake.nixosConfigurations.igloo.config;
-          config._module.args.apple = config.flake.darwinConfigurations.apple.config;
-        };
-
-      perSystem =
-        fn:
-        [
-          "x86_64-linux"
-          "aarch64-linux"
-          "aarch64-darwin"
-        ]
-        |> lib.map (
-          system:
-          fn {
-            inherit system;
-            pkgs = inputs.nixpkgs.legacyPackages.${system};
-          }
-          |> lib.attrsToList
-          |> lib.map (
-            { name, value }:
-            {
-              kind = name;
-              name = system;
-              value = value;
-            }
-          )
-        )
-        |> lib.flatten
-        |> lib.groupBy (it: it.kind)
-        |> lib.mapAttrs (_: lib.listToAttrs);
-
+      unitTest = module: {
+        inherit ((evalArc module).config) expr expected;
+      };
     in
     {
       _module.args.unitTest = unitTest;
       _module.args.perSystem = perSystem;
 
-      flake = perSystem (
+      flake = den.lib.perSystem (
         { pkgs, ... }:
-        rec {
+        {
           packages.unit-tests = pkgs.writeShellScriptBin "unit-tests" ''
             find . -name '*.nix' | entr -c nix-unit --flake ".#tests$1"
           '';
-
-          devShells.default = (
-            pkgs.mkShell {
-              buildInputs = [ packages.unit-tests ];
-            }
-          );
         }
       );
     };

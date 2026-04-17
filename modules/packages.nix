@@ -14,6 +14,7 @@ let
     pkgs: with pkgs; [
       alejandra
       commitizen
+      dix
       entr
       fd
       fzf
@@ -26,6 +27,8 @@ let
       killall
       lsof
       mosh
+      nix-output-monitor
+      nix-tree
       nix-unit
       nixfmt
       pv
