@@ -27,7 +27,8 @@ let
         type = lib.types.lazyAttrsOf lib.types.deferredModule;
       };
 
-      config.den = { inherit (arc) ctx schema; };
+      config.den.ctx = arc.ctx;
+      config.den.schema = { inherit (arc.schema) host user; };
     };
 in
 {
