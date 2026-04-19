@@ -14,9 +14,9 @@
       arc.base
       arc.home-automation
       arc.mesh
+      arc.remote-builders
       {
         nixos = { pkgs, ... }: {
-          environment.systemPackages = with pkgs; [ zed-editor.remote_server ];
           networking.firewall.interfaces.wlan0.allowedTCPPorts = [
             9080
             8096

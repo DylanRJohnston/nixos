@@ -1,4 +1,4 @@
-{ arc, ... }:
+{ lib, arc, ... }:
 {
   arc.mesh.includes = [ arc.mesh._.ssh ];
 
@@ -7,9 +7,10 @@
 
     os.services.openssh = {
       enable = true;
-      extraConfig = ''
+      extraConfig = lib.mkBefore ''
         PasswordAuthentication no
-        PermitRootLogin no
+        PermitRootLogin prohibit-password
+        KbdInteractiveAuthentication no
       '';
     };
   };
