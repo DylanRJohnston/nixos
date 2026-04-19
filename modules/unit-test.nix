@@ -67,6 +67,7 @@ let
     in
     {
       _module.args.unitTest = unitTest;
+      _module.args.perSystem = perSystem;
 
       flake = perSystem (
         { pkgs, ... }:
