@@ -21,7 +21,7 @@
         };
 
         config = {
-          home.packages = [ pkgs.zed-editor ];
+          # home.packages = [ pkgs.zed-editor ];
 
           home.file.".config/zed/settings.json".text = lib.generators.toJSON { } config.programs.zed.config;
         };
