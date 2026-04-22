@@ -22,14 +22,17 @@
         python3Packages: with python3Packages; [
           aiohomekit
           aiohue
+          aiopyarr
           androidtvremote2
           getmac
           gtts
           ibeacon-ble
           isal
+          jellyfin-apiclient-python
           pyatv
           pychromecast
           python-otbr-api
+          qbittorrent-api
           samsungctl
           samsungtvws
           yalexs-ble

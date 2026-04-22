@@ -1,0 +1,171 @@
+services:
+  sabnzbd:
+    image: linuxserver/sabnzbd
+    ports:
+      - "9080:8080"
+    networks:
+      - mediarr
+    volumes:
+      - "./config/sabnzbd:/config" # sab config directory
+      - "myMedia:/mnt" # completed directory for downloads. this contains the category directories
+    environment:
+      TZ: Australia/Perth
+      PUID: 1000 # set to UID of your user
+      PGID: 1000 # set to GID of your user
+    restart: unless-stopped
+  jellyfin:
+    container_name: jellyfin
+    image: jellyfin/jellyfin
+    user: 1000:1000
+    ports:
+      - 8096:8096
+      # - 1900:1900/udp
+    networks:
+      - mediarr
+    environment:
+      - JELLYFIN_CACHE_DIR=/var/cache/jellyfin
+      - JELLYFIN_CONFIG_DIR=/etc/jellyfin
+      - JELLYFIN_DATA_DIR=/var/lib/jellyfin
+      - JELLYFIN_LOG_DIR=/var/log/jellyfin
+      - TZ=Australia/Perth
+    volumes:
+      - ./configs/jellyfin/etc:/etc/jellyfin
+      - ./configs/jellyfin/var-cache:/var/cache/jellyfin
+      - ./configs/jellyfin/var-lib:/var/lib/jellyfin
+      - ./configs/jellyfin/var-log:/var/log/jellyfin
+      - myMedia:/mnt
+    restart: unless-stopped
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    hostname: bazarr
+    networks:
+      - mediarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+    volumes:
+      - ./configs/mediarr/bazarr:/config
+      - myMedia:/mnt
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    depends_on:
+      - sonarr
+      - radarr
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    hostname: jellyseerr
+    networks:
+      - mediarr
+    user: 1000:1000
+    environment:
+      - TZ=Australia/Perth
+    ports:
+      - 5055:5055
+    volumes:
+      - ./configs/mediarr/jellyseerr:/app/config
+    restart: unless-stopped
+    depends_on:
+      - sonarr
+      - radarr
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    hostname: prowlarr
+    networks:
+      - mediarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+    volumes:
+      - ./configs/mediarr/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    depends_on:
+      - flaresolverr
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    hostname: flaresolverr
+    networks:
+      - mediarr
+    environment:
+      - LOG_LEVEL=info
+      - TZ=Australia/Perth
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    hostname: qbittorrent
+    networks:
+      - mediarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+      - WEBUI_PORT=8080
+    volumes:
+      - ./configs/mediarr/qbittorrent:/config
+      - myMedia:/mnt
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    hostname: radarr
+    networks:
+      - mediarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+    volumes:
+      - ./configs/mediarr/radarr:/config
+      - myMedia:/mnt
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    depends_on:
+      - prowlarr
+      - qbittorrent
+      - jellyfin
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    hostname: sonarr
+    networks:
+      - mediarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Australia/Perth
+    volumes:
+      - ./configs/mediarr/sonarr:/config
+      - myMedia:/mnt
+    depends_on:
+      - prowlarr
+      - qbittorrent
+      - jellyfin
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+networks:
+  mediarr:
+    driver: bridge
+volumes:
+  myMedia:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /mnt/external
