@@ -11,7 +11,7 @@ in
 {
   den.lib.nixos = conditionalAspect "nixos";
   den.lib.darwin = conditionalAspect "darwin";
-  den.lib.perSystem =
+  _module.args.perSystem =
     fn:
     [
       "x86_64-linux"

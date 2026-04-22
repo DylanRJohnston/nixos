@@ -3,7 +3,7 @@ let
   module =
     {
       config,
-      den,
+      perSystem,
       inputs,
       lib,
       ...
@@ -40,9 +40,8 @@ let
     in
     {
       _module.args.unitTest = unitTest;
-      _module.args.perSystem = perSystem;
 
-      flake = den.lib.perSystem (
+      flake = perSystem (
         { pkgs, ... }:
         {
           packages.unit-tests = pkgs.writeShellScriptBin "unit-tests" ''
