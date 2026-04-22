@@ -47,6 +47,7 @@
           trusted_proxies = [ "127.0.0.1" ];
         };
         automation = "!include automations.yaml";
+        script = "!include scripts.yaml";
       };
     };
 
