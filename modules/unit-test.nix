@@ -40,7 +40,6 @@ let
     in
     {
       _module.args.unitTest = unitTest;
-      _module.args.perSystem = perSystem;
 
       flake = den.lib.perSystem (
         { pkgs, ... }:

@@ -45,7 +45,7 @@ let
       exec ${patched}/bin/chip-ota-provider-app "''${args[@]}"
     '';
 in
-{ arc, perSystem, ... }:
+{ den, arc, ... }:
 {
   arc.home-automation.includes = [ arc.home-automation._.matter ];
 
@@ -58,7 +58,7 @@ in
       networking.firewall.allowedUDPPorts = [ 5540 ];
     };
 
-  flake = perSystem (
+  flake = den.lib.perSystem (
     { pkgs, ... }:
     {
       packages.chip-ota-provider-app = chip-ota-provider-app pkgs;
