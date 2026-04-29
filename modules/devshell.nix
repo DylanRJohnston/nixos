@@ -10,12 +10,9 @@
     { pkgs, system }:
     let
       flakePackages = lib.attrValues config.flake.packages.${system};
-      beads = inputs.beads.packages.${system}.default;
+      # beads = inputs.beads.packages.${system}.default;
     in
     {
-      devShells.default = pkgs.mkShell {
-        buildInputs = flakePackages ++ [ beads ];
-      };
     }
   );
 }
