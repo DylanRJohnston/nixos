@@ -61,7 +61,6 @@ let
     "omnifocus"
     "postman"
     "rectangle"
-    "send-to-kindle"
     "wezterm"
     "wireshark-app"
     "zed"
