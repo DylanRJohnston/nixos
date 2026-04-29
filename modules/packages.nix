@@ -61,6 +61,7 @@ let
     "omnifocus"
     "postman"
     "rectangle"
+    "send-to-kindle"
     "wezterm"
     "wireshark-app"
     "zed"
@@ -95,6 +96,7 @@ let
       kubectx
       nixd
       nmap
+      pandoc
     ];
 in
 {
