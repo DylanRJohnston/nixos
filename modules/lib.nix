@@ -18,25 +18,12 @@ in
   ];
   den.lib.withSystems =
     systems: fn:
-    systems
-    |> lib.map (
+    lib.genAttrs systems (
       system:
       fn {
         inherit system;
         pkgs = inputs.nixpkgs.legacyPackages.${system};
       }
-      |> lib.attrsToList
-      |> lib.map (
-        { name, value }:
-        {
-          kind = name;
-          name = system;
-          value = value;
-        }
-      )
-    )
-    |> lib.flatten
-    |> lib.groupBy (it: it.kind)
-    |> lib.mapAttrs (_: lib.listToAttrs);
+    );
 
 }

@@ -41,10 +41,10 @@ let
     {
       _module.args.unitTest = unitTest;
 
-      flake = den.lib.perSystem (
+      flake.packages = den.lib.perSystem (
         { pkgs, ... }:
         {
-          packages.unit-tests = pkgs.writeShellScriptBin "unit-tests" ''
+          unit-tests = pkgs.writeShellScriptBin "unit-tests" ''
             find . -name '*.nix' | entr -c nix-unit --flake ".#tests$1"
           '';
         }

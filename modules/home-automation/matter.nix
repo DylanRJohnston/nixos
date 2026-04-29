@@ -1,23 +1,30 @@
 let
   chip-ota-provider-app =
-    pkgs:
+    {
+      fetchurl,
+      stdenv,
+      glibc,
+      libnl,
+      autoPatchelfHook,
+      writeShellScriptBin,
+    }:
     let
-      raw = pkgs.fetchurl {
+      raw = fetchurl {
         url = "https://github.com/home-assistant-libs/matter-linux-ota-provider/releases/download/2025.9.0/chip-ota-provider-app-aarch64";
         sha256 = "4GirbEBQ4j6qbM2pv37M3Et5KiUU4QmMvBK0FM1kqn4=";
       };
 
-      patched = pkgs.stdenvNoCC.mkDerivation {
+      patched = stdenv.mkDerivation {
         name = "chip-ota-provider-app";
         version = "2025.9.0";
         src = raw;
         dontUnpack = true;
 
-        nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+        nativeBuildInputs = [ autoPatchelfHook ];
         buildInputs = [
-          pkgs.glibc
-          pkgs.stdenv.cc.cc.lib
-          pkgs.libnl
+          glibc
+          stdenv.cc.cc.lib
+          libnl
         ];
 
         installPhase = ''
@@ -29,7 +36,7 @@ let
         '';
       };
     in
-    pkgs.writeShellScriptBin "chip-ota-provider-app" ''
+    writeShellScriptBin "chip-ota-provider-app" ''
       set -eo pipefail
       args=()
       while (( $# )); do
@@ -54,14 +61,14 @@ in
     {
       services.matter-server.enable = true;
       services.tailscale-serve."matter".target = "127.0.0.1:5580";
-      systemd.services.matter-server.path = [ (chip-ota-provider-app pkgs) ];
+      systemd.services.matter-server.path = [ (pkgs.callPackage chip-ota-provider-app { }) ];
       networking.firewall.allowedUDPPorts = [ 5540 ];
     };
 
-  flake = den.lib.withSystems [ "x86_64-linux" "aarch64-linux" ] (
+  flake.packages = den.lib.withSystems [ "x86_64-linux" "aarch64-linux" ] (
     { pkgs, ... }:
     {
-      packages.chip-ota-provider-app = chip-ota-provider-app pkgs;
+      chip-ota-provider-app = pkgs.callPackage chip-ota-provider-app { };
     }
   );
 }
