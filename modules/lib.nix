@@ -11,13 +11,14 @@ in
 {
   den.lib.nixos = conditionalAspect "nixos";
   den.lib.darwin = conditionalAspect "darwin";
-  den.lib.perSystem =
-    fn:
-    [
-      "x86_64-linux"
-      "aarch64-linux"
-      "aarch64-darwin"
-    ]
+  den.lib.perSystem = den.lib.withSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+    "aarch64-darwin"
+  ];
+  den.lib.withSystems =
+    systems: fn:
+    systems
     |> lib.map (
       system:
       fn {

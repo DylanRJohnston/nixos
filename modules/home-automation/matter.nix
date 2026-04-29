@@ -58,7 +58,7 @@ in
       networking.firewall.allowedUDPPorts = [ 5540 ];
     };
 
-  flake = den.lib.perSystem (
+  flake = den.lib.withSystems [ "x86_64-linux" "aarch64-linux" ] (
     { pkgs, ... }:
     {
       packages.chip-ota-provider-app = chip-ota-provider-app pkgs;
