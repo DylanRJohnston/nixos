@@ -95,6 +95,7 @@ let
       kubectx
       nixd
       nmap
+      pandoc
     ];
 in
 {

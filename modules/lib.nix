@@ -11,31 +11,19 @@ in
 {
   den.lib.nixos = conditionalAspect "nixos";
   den.lib.darwin = conditionalAspect "darwin";
-  _module.args.perSystem =
-    fn:
-    [
-      "x86_64-linux"
-      "aarch64-linux"
-      "aarch64-darwin"
-    ]
-    |> lib.map (
+  den.lib.perSystem = den.lib.withSystems [
+    "x86_64-linux"
+    "aarch64-linux"
+    "aarch64-darwin"
+  ];
+  den.lib.withSystems =
+    systems: fn:
+    lib.genAttrs systems (
       system:
       fn {
         inherit system;
         pkgs = inputs.nixpkgs.legacyPackages.${system};
       }
-      |> lib.attrsToList
-      |> lib.map (
-        { name, value }:
-        {
-          kind = name;
-          name = system;
-          value = value;
-        }
-      )
-    )
-    |> lib.flatten
-    |> lib.groupBy (it: it.kind)
-    |> lib.mapAttrs (_: lib.listToAttrs);
+    );
 
 }

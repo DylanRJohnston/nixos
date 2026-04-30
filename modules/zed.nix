@@ -9,6 +9,7 @@
       arc.base._.zed._.misc
       arc.base._.zed._.nixd-config
       arc.base._.zed._.theme
+      arc.base._.zed._.ssh
     ];
 
     homeManager =
@@ -62,17 +63,18 @@
     _.context-servers.homeManager.programs.zed.config.context_servers.context7 = {
       enabled = true;
       url = "https://mcp.context7.com/mcp";
-      settings = { };
     };
 
     _.agents.homeManager.programs.zed.config.agent = {
-      default_profile = "ask";
+      dock = "right";
+      sidebar_side = "right";
+      default_profile = "write";
       model_parameters = [ ];
       default_model = {
         effort = "medium";
         enable_thinking = true;
         provider = "zed.dev";
-        model = "gpt-5.3-codex";
+        model = "gpt-5.5-pro";
       };
       profiles = {
         ask = {
@@ -103,6 +105,11 @@
         catppuccin = true;
         catppuccin-icons = true;
       };
+
+      project_panel.dock = "left";
+      outline_panel.dock = "left";
+      collaboration_panel.dock = "left";
+      git_panel.dock = "left";
     };
 
     _.misc.homeManager.programs.zed.config = {
@@ -136,6 +143,31 @@
           value = true;
         })
         |> lib.listToAttrs;
+    };
+
+    _.ssh.homeManager.programs.zed.config = {
+      # TODO make this derived from den.hosts
+      ssh_connections = [
+        {
+          host = "mimir";
+          args = [ ];
+          projects = [
+            {
+              paths = [ "/etc/nixos" ];
+
+            }
+          ];
+        }
+        {
+          host = "loki";
+          args = [ ];
+          projects = [
+            {
+              paths = [ "/home/dylanj/.nixpkgs" ];
+            }
+          ];
+        }
+      ];
     };
   };
 }
