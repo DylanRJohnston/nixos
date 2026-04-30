@@ -46,7 +46,7 @@
               ];
               lsp.nixd.initialization_options =
                 let
-                  flake = "(builtins.getFlake ${config.programs.zed.nixd.hostConfigPath})";
+                  flake = "(builtins.getFlake \"${config.programs.zed.nixd.hostConfigPath}\")";
                 in
                 {
                   autowatch = true;
