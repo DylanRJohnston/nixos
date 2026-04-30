@@ -5,6 +5,7 @@
         show-recents = false;
         autohide = true;
         static-only = true;
+        wvous-br-corner = 1;
       };
 
       finder = {
