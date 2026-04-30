@@ -13,7 +13,7 @@
     ];
 
     homeManager =
-      { config, pkgs, ... }:
+      { config, ... }:
       {
         options.programs.zed.config = lib.mkOption {
           type = lib.types.submodule {

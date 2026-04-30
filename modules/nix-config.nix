@@ -1,17 +1,14 @@
 let
   lockfile = builtins.fromJSON (builtins.readFile ../flake.lock);
 in
-{ unitTest, ... }:
+{ unitTest, inputs, ... }:
 {
   arc.base.os = {
     nixpkgs.config.allowUnfree = true;
     nix = {
       enable = true;
       extraOptions = "experimental-features = nix-command flakes pipe-operators";
-
-      settings = {
-        substituters = [ "https://aseipp-nix-cache.freetls.fastly.net" ];
-      };
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
       registry = {
         nixpkgs = {
@@ -40,10 +37,9 @@ in
         aspects = with arc; [ base ];
       };
 
-      expr = igloo.nix.settings.substituters;
+      expr = igloo.nix.nixPath;
       expected = [
-        "https://aseipp-nix-cache.freetls.fastly.net"
-        "https://cache.nixos.org/"
+        "nixpkgs=${inputs.nixpkgs}"
       ];
     }
   );
