@@ -35,6 +35,7 @@ in
         push.default = "current";
         merge.conflictstyle = "diff3";
         url."git@github.com:".insteadOf = "https://github.com/";
+        git-town.sync-feature-strategy = "rebase";
       };
     };
   };
