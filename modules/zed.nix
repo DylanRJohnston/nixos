@@ -13,7 +13,25 @@
     ];
 
     homeManager =
-      { config, ... }:
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      let
+        # Write the Nix config to the store as compact JSON, then pretty-print
+        # it with jq so the on-disk file is human-readable and comparisons are
+        # stable regardless of how Zed reformats the file.
+        settingsRaw = pkgs.writeText "zed-settings-raw.json" (
+          lib.generators.toJSON { } config.programs.zed.config
+        );
+        settingsFile = pkgs.runCommand "zed-settings.json" { nativeBuildInputs = [ pkgs.jq ]; } ''
+          jq . ${settingsRaw} > $out
+        '';
+        zedConfigDir = "${config.home.homeDirectory}/.config/zed";
+        zedConfigPath = "${zedConfigDir}/settings.json";
+      in
       {
         options.programs.zed.config = lib.mkOption {
           type = lib.types.submodule {
@@ -21,11 +39,42 @@
           };
         };
 
-        config = {
-          # home.packages = [ pkgs.zed-editor ];
+        config.home.activation.zedSettings =
+          lib.hm.dag.entryAfter [ "writeBoundary" ]
+            "${pkgs.writeShellScript "zed-settings-sync" ''
+              set -o nounset
+              set -o pipefail
 
-          home.file.".config/zed/settings.json".text = lib.generators.toJSON { } config.programs.zed.config;
-        };
+              ZED_CONFIG="${zedConfigPath}"
+              NIX_CONFIG="${settingsFile}"
+
+              if [ ! -f "$ZED_CONFIG" ]; then
+                mkdir -p "${zedConfigDir}"
+                cp "$NIX_CONFIG" "$ZED_CONFIG"
+                chmod +w "$ZED_CONFIG"
+                echo "Initialised $ZED_CONFIG from Nix config"
+              else
+                # Normalise key order and formatting before comparing so that
+                # Zed reformatting the file doesn't produce spurious diffs.
+                ZED_NORM=$(${pkgs.jq}/bin/jq --sort-keys . <(${pkgs.fixjson}/bin/fixjson "$ZED_CONFIG") 2>/dev/null)
+                NIX_NORM=$(${pkgs.jq}/bin/jq --sort-keys . <(${pkgs.fixjson}/bin/fixjson "$NIX_CONFIG"))
+
+                if [ "$ZED_NORM" != "$NIX_NORM" ]; then
+                  echo ""
+                  echo "WARNING: $ZED_CONFIG has drifted from the Nix config."
+                  echo "Diff (a = on-disk, b = nix config):"
+                  echo ""
+                  ${pkgs.json-diff}/bin/json-diff \
+                    <(echo "$ZED_NORM") \
+                    <(echo "$NIX_NORM") \
+                    || true
+                  echo ""
+                  echo "  To accept Zed's changes: update modules/zed.nix to match."
+                  echo "  To reset to Nix config:  cp ${settingsFile} $ZED_CONFIG"
+                  echo ""
+                fi
+              fi
+            ''}";
       };
 
     _.nixd-config =
@@ -71,7 +120,7 @@
       default_profile = "write";
       model_parameters = [ ];
       default_model = {
-        effort = "medium";
+        effort = "high";
         enable_thinking = true;
         provider = "zed.dev";
         model = "gpt-5.5-pro";
