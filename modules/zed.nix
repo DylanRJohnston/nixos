@@ -64,7 +64,7 @@
                   echo "WARNING: $ZED_CONFIG has drifted from the Nix config."
                   echo "Diff (a = on-disk, b = nix config):"
                   echo ""
-                  ${pkgs.json-diff}/bin/json-diff \
+                  ${pkgs.json-diff}/bin/json-diff --color \
                     <(echo "$ZED_NORM") \
                     <(echo "$NIX_NORM") \
                     || true
