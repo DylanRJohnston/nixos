@@ -24,6 +24,7 @@
           aiohue
           aiopyarr
           androidtvremote2
+          b2sdk
           getmac
           gtts
           ibeacon-ble
@@ -31,6 +32,7 @@
           jellyfin-apiclient-python
           pyatv
           pychromecast
+          pysmlight
           python-otbr-api
           qbittorrent-api
           samsungctl
@@ -48,6 +50,8 @@
         };
         automation = "!include automations.yaml";
         script = "!include scripts.yaml";
+        scene = "!include scenes.yaml";
+        zha.zigpy_config.ota.extra_providers = [ { type = "ikea"; } ];
       };
     };
 
