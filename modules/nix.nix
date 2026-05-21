@@ -60,9 +60,8 @@ in
       };
     };
 
-    darwin = {
-      imports = [ inputs.determinate.darwinModules.default ];
-    };
+    darwin.imports = [ inputs.determinate.darwinModules.default ];
+    nixos.imports = [ inputs.determinate.nixosModules.default ];
   };
 
   flake.tests.nix-config.test-duplicate-substituter = unitTest (
