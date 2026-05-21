@@ -1,17 +1,22 @@
 {
-  inputs.darwin.url = "github:lnl7/nix-darwin/master";
-  inputs.darwin.inputs.nixpkgs.follows = "nixpkgs";
+  inputs = {
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.den.url = "github:dylanrjohnston/den/dylan.johnston/strict-mode";
+    den.url = "github:dylanrjohnston/den/dylan.johnston/strict-mode";
 
-  inputs.hardware.url = "github:nixos/nixos-hardware";
+    determinate.url = "github:DeterminateSystems/determinate";
+    determinate.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.home-manager.url = "github:nix-community/home-manager/master";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    hardware.url = "github:nixos/nixos-hardware";
 
-  inputs.import-tree.url = "github:vic/import-tree";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    import-tree.url = "github:vic/import-tree";
+
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  };
 
   outputs =
     inputs:
