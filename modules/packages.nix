@@ -30,6 +30,7 @@ let
       nix-output-monitor
       nix-tree
       nix-unit
+      nixd
       nixfmt
       pv
       sops
@@ -93,7 +94,6 @@ let
       claude-code
       kubectl
       kubectx
-      nixd
       nmap
       pandoc
     ];
