@@ -63,6 +63,10 @@ in
       services.tailscale-serve."matter".target = "127.0.0.1:5580";
       systemd.services.matter-server.path = [ (pkgs.callPackage chip-ota-provider-app { }) ];
       networking.firewall.allowedUDPPorts = [ 5540 ];
+      # fd36:da06:8db4 is my thread network, battery powered devices exceed the conntrack timeout
+      networking.firewall.extraCommands = ''
+        ip6tables -I nixos-fw 3 -i end0 -p udp -s fd36:da06:8db4:0::/64 -j nixos-fw-accept
+      '';
     };
 
   flake.packages = den.lib.withSystems [ "x86_64-linux" "aarch64-linux" ] (
