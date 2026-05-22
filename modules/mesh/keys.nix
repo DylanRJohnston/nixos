@@ -15,11 +15,11 @@ let
         |> lib.attrValues
         |> lib.map lib.attrValues
         |> lib.flatten
-        |> lib.map (it: it.users)
-        |> lib.map lib.attrValues
-        |> lib.flatten
-        |> lib.groupBy (it: it.userName)
-        |> lib.mapAttrs (_: users: users |> lib.map (it: it.key) |> lib.filter (it: it != null))
+          |> lib.map (it: it.users)
+          |> lib.map lib.attrValues
+          |> lib.flatten
+          |> lib.groupBy (it: it.userName)
+          |> lib.mapAttrs (_: users: users |> lib.map (it: it.key) |> lib.filter (it: it != null))
         |> lib.mapAttrs (_: keys: { openssh.authorizedKeys.keys = keys; });
     };
 in
@@ -34,48 +34,104 @@ in
     description = "SSH public key";
   };
 
-  flake.tests.mesh.test-cross-host-keys = unitTest (
-    { arc, config, ... }:
-    {
-      den.hosts.aarch64-darwin.apple = {
-        users.kiki = { };
-        users.boba.key = "boba-apple";
+  arc.schema.host.options.hostKey = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = "SSH public host key";
+  };
 
-        aspects = [
-          arc.base
-          arc.mesh._.keys
-        ];
-      };
+  flake.tests.mesh = {
+    test-cross-host-user-keys = unitTest (
+      { arc, config, ... }:
+      {
+        den.hosts.aarch64-darwin.apple = {
+          users.kiki = { };
+          users.boba.key = "boba-apple";
 
-      den.hosts.x86_64-linux.pear = {
-        users.kiki.key = "kiki-pear";
-        users.boba.key = "boba-pear";
+          aspects = [
+            arc.base
+            arc.mesh._.keys
+          ];
+        };
 
-        aspects = [
-          arc.base
-          arc.mesh._.keys
-        ];
-      };
+        den.hosts.x86_64-linux.pear = {
+          users.kiki.key = "kiki-pear";
+          users.boba.key = "boba-pear";
 
-      den.hosts.aarch64-linux.orange = {
-        users.kiki.key = "kiki-orange";
-      };
+          aspects = [
+            arc.base
+            arc.mesh._.keys
+          ];
+        };
 
-      expr = {
-        kiki = config.flake.darwinConfigurations.apple.config.users.users.kiki.openssh.authorizedKeys.keys;
-        boba = config.flake.nixosConfigurations.pear.config.users.users.boba.openssh.authorizedKeys.keys;
-      };
+        den.hosts.aarch64-linux.orange = {
+          users.kiki.key = "kiki-orange";
+        };
 
-      expected = {
-        boba = [
-          "boba-apple"
-          "boba-pear"
-        ];
-        kiki = [
-          "kiki-orange"
-          "kiki-pear"
-        ];
-      };
-    }
-  );
+        expr = {
+          kiki = config.flake.darwinConfigurations.apple.config.users.users.kiki.openssh.authorizedKeys.keys;
+          boba = config.flake.nixosConfigurations.pear.config.users.users.boba.openssh.authorizedKeys.keys;
+        };
+
+        expected = {
+          boba = [
+            "boba-apple"
+            "boba-pear"
+          ];
+          kiki = [
+            "kiki-orange"
+            "kiki-pear"
+          ];
+        };
+      }
+    );
+
+    test-cross-host-host-keys = unitTest (
+      { arc, config, ... }:
+      {
+        den.hosts.aarch64-darwin.apple = {
+          users.kiki = { };
+          users.boba.key = "boba-apple";
+
+          aspects = [
+            arc.base
+            arc.mesh._.keys
+          ];
+        };
+
+        den.hosts.x86_64-linux.pear = {
+          users.kiki.key = "kiki-pear";
+          users.boba.key = "boba-pear";
+
+          aspects = [
+            arc.base
+            arc.mesh._.keys
+          ];
+        };
+
+        den.hosts.aarch64-linux.orange = {
+          users.kiki.key = "kiki-orange";
+          hostKey = "orange-host-key";
+        };
+
+        expr = {
+          apple-kiki = config.flake.darwinConfigurations.apple.config.users.users.kiki.openssh.authorizedKeys.keys;
+          pear-boba = config.flake.nixosConfigurations.pear.config.users.users.boba.openssh.authorizedKeys.keys;
+        };
+
+        expected = {
+          pear-boba = [
+            "boba-apple"
+            "boba-pear"
+            "orange-host-key"
+          ];
+          apple-kiki = [
+            "kiki-orange"
+            "kiki-pear"
+            "orange-host-key"
+          ];
+        };
+      }
+    );
+  };
 }

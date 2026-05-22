@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   arc.hardware._.raspberry-pi.nixos =
     { pkgs, ... }:
     {

@@ -7,7 +7,7 @@
 let
   registry = {
     nixpkgs = {
-      exact = false;
+      exact = true;
       from = {
         id = "nixpkgs";
         type = "indirect";
@@ -40,9 +40,16 @@ in
   };
 
   arc.determinate = {
-    os = {
+    nixos.imports = [ inputs.determinate.nixosModules.default ];
+    os.homeManager = {
+      imports = [ inputs.determinate.homeManagerModules.default ];
+      nix.package = lib.mkForce null;
+    };
+
+    # It's annoying that the nix and darwin modules for determinate are so different
+    darwin = {
+      imports = [ inputs.determinate.darwinModules.default ];
       nix.enable = lib.mkForce false;
-      homeManager.imports = [ inputs.determinate.homeManagerModules.default ];
 
       determinateNix = {
         enable = true;
@@ -59,9 +66,6 @@ in
         };
       };
     };
-
-    darwin.imports = [ inputs.determinate.darwinModules.default ];
-    nixos.imports = [ inputs.determinate.nixosModules.default ];
   };
 
   flake.tests.nix-config.test-duplicate-substituter = unitTest (
