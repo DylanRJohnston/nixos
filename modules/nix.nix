@@ -55,8 +55,15 @@ in
         enable = true;
         inherit registry;
 
+        determinateNixd = {
+          builder.state = "enabled";
+          garbageCollector.strategy = "automatic";
+        };
+
         customSettings = {
           sandbox = true;
+
+          trusted-users = [ "dylanj" ];
 
           experimental-features = [
             "nix-command"

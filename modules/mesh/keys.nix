@@ -15,12 +15,26 @@ let
         |> lib.attrValues
         |> lib.map lib.attrValues
         |> lib.flatten
+        |> (
+          hosts:
+          let
+            host_keys = hosts |> lib.map (it: it.hostKey) |> lib.filter (it: it != null);
+          in
+          hosts
           |> lib.map (it: it.users)
           |> lib.map lib.attrValues
           |> lib.flatten
           |> lib.groupBy (it: it.userName)
-          |> lib.mapAttrs (_: users: users |> lib.map (it: it.key) |> lib.filter (it: it != null))
-        |> lib.mapAttrs (_: keys: { openssh.authorizedKeys.keys = keys; });
+          |> lib.mapAttrs (
+            _: users:
+            users
+            # nixfmt
+            |> lib.map (it: it.key)
+            |> lib.filter (it: it != null)
+            |> (user_keys: user_keys ++ host_keys)
+          )
+          |> lib.mapAttrs (_: keys: { openssh.authorizedKeys.keys = keys; })
+        );
     };
 in
 { lib, unitTest, ... }:
@@ -115,8 +129,10 @@ in
         };
 
         expr = {
-          apple-kiki = config.flake.darwinConfigurations.apple.config.users.users.kiki.openssh.authorizedKeys.keys;
-          pear-boba = config.flake.nixosConfigurations.pear.config.users.users.boba.openssh.authorizedKeys.keys;
+          apple-kiki =
+            config.flake.darwinConfigurations.apple.config.users.users.kiki.openssh.authorizedKeys.keys;
+          pear-boba =
+            config.flake.nixosConfigurations.pear.config.users.users.boba.openssh.authorizedKeys.keys;
         };
 
         expected = {
