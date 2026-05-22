@@ -11,30 +11,28 @@ let
       arc.mesh.includes = [ arc.mesh._.keys ];
 
       arc.mesh._.keys.os.users.users =
-        den.hosts
-        |> lib.attrValues
-        |> lib.map lib.attrValues
-        |> lib.flatten
-        |> (
-          hosts:
-          let
-            host_keys = hosts |> lib.map (it: it.hostKey) |> lib.filter (it: it != null);
-          in
-          hosts
-          |> lib.map (it: it.users)
-          |> lib.map lib.attrValues
-          |> lib.flatten
-          |> lib.groupBy (it: it.userName)
-          |> lib.mapAttrs (
-            _: users:
-            users
-            # nixfmt
-            |> lib.map (it: it.key)
-            |> lib.filter (it: it != null)
-            |> (user_keys: user_keys ++ host_keys)
-          )
-          |> lib.mapAttrs (_: keys: { openssh.authorizedKeys.keys = keys; })
-        );
+        let
+          hosts =
+            den.hosts # nixfmt
+            |> lib.attrValues
+            |> lib.map lib.attrValues
+            |> lib.flatten;
+
+          host_keys = hosts |> lib.map (it: it.hostKey);
+
+          user_keys =
+            hosts
+            |> lib.map (it: it.users)
+            |> lib.map lib.attrValues
+            |> lib.flatten
+            |> lib.groupBy' (acc: it: acc ++ [ it.key ]) [ ] (it: it.userName);
+
+          all_keys =
+            user_keys # nixfmt
+            |> lib.mapAttrs (_: lib.flip lib.concat host_keys)
+            |> lib.mapAttrs (_: lib.filter (it: it != null));
+        in
+        all_keys |> lib.mapAttrs (_: keys: { openssh.authorizedKeys.keys = keys; });
     };
 in
 { lib, unitTest, ... }:
