@@ -18,8 +18,8 @@ in
       arc.gaming._.sunshine._.icons
     ];
 
-    _.definitions = den.lib.perHost (
-      { host }:
+    _.definitions = (
+      { host, ... }:
       {
         nixos =
           { pkgs, ... }:

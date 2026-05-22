@@ -35,6 +35,7 @@
             };
           }
         );
+        default = { };
       };
 
       config.systemd.services.tailscale-serve = {
