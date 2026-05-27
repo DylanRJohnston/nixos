@@ -33,6 +33,8 @@ in
         init.defaultBranch = "main";
         core.editor = "vim";
         push.default = "current";
+        push.autoSetupRemote = true;
+        pull.rebase = true;
         merge.conflictstyle = "diff3";
         url."git@github.com:".insteadOf = "https://github.com/";
         git-town.sync-feature-strategy = "rebase";
