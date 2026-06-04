@@ -9,6 +9,7 @@
         user = config.system.primaryUser;
         onActivation.cleanup = "zap";
         onActivation.autoUpdate = true;
+        onActivation.extraFlags = [ "--force-cleanup" ];
       };
     };
 
