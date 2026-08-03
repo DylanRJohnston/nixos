@@ -13,6 +13,9 @@
       {
         nixos.boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
       }
+      {
+        user.extraGroups = [ "dialout" ];
+      }
     ];
   };
 }
