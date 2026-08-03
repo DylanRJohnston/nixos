@@ -1,5 +1,7 @@
+{ arc, ... }:
 {
-  arc.entertainment.nixos =
+  # arc.interactive.includes = [ arc.interactive._.sway ];
+  arc.interactive._.sway.nixos =
     {
       lib,
       config,
