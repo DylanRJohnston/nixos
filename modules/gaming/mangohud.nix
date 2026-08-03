@@ -35,7 +35,7 @@
       };
 
       programs.steam.extraEnv = {
-        MANGOHUD = "1";
+        MANGOHUD = "0";
         MANGOHUD_CONFIG = "read_cfg";
       };
     };
