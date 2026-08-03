@@ -8,6 +8,7 @@
       arc.development
       arc.entertainment
       arc.gaming
+      arc.interactive
       arc.mesh
       {
         nixos.boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
