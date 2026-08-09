@@ -1,7 +1,7 @@
 { arc, ... }:
 
 {
-  arc.interactive.includes = [ arc.interactive._.sunset ];
+  # arc.interactive.includes = [ arc.interactive._.sunset ];
 
   arc.interactive._.sunset.homeManager.services.wlsunset = {
     enable = true;
