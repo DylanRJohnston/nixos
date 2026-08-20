@@ -44,6 +44,7 @@ let
   packages.base.nixos =
     pkgs: with pkgs; [
       _1password-gui
+      obsidian
       pulseaudio
     ];
 
