@@ -27,6 +27,33 @@ This codebase is organised around **aspects** — named, composable units of con
 - Aspects live at `arc.<name>` (e.g. `arc.base`, `arc.gaming`, `arc.interactive`)
 - Hosts opt into aspects via their `aspects = [ ... ]` list in `hosts/<name>/<name>.nix`
 - Named sub-aspects (`arc.<aspect>._.<name>`) exist for debuggability — they are **not** automatically included; their parent must explicitly include them
+- `arc.interactive` represents machines with an attached display. Graphical settings, desktop integration, GUI toolkits, and similar configuration belong under it rather than `arc.base`, so headless hosts remain unaffected.
+
+### Host-facing Aspect Intent
+
+Use these definitions and litmus tests when deciding where configuration belongs:
+
+- **`arc.base` — universal baseline.** It contains only configuration that should apply to every managed host. If any present or plausible future host should not receive something, move it out of `base`. Light remote administration and reconfiguration tools such as Git, Vim, tmux, and basic Nix tooling may remain here.
+- **`arc.interactive` — locally graphical machines.** It contains configuration useful when a host has an attached display or graphical session: compositors, desktop integration, GUI toolkits, themes, fonts, portals, notifications, and general graphical applications. It is cross-platform in intent, even though adoption on Darwin is still in progress.
+- **`arc.development` — substantial software-development capability.** It contains heavy or specialised tools used to build, test, debug, and deploy projects. Ask whether a tool is needed merely to administer or lightly reconfigure a machine (`base`) or to use it as a serious development environment (`development`). A gaming appliance such as a Steam Deck should not need this aspect just to remain maintainable.
+- **`arc.entertainment` — optional non-gaming media and social software.** It contains distracting or discretionary applications that should be absent from focused/work-only machines, such as media consumption and personal social applications. This is a personal policy boundary rather than a generic software taxonomy.
+- **`arc.gaming` — game execution and support.** It contains game clients, compatibility layers, performance tooling, streaming, controller support, and gaming-specific system configuration. It applies to gaming machines, not general servers or Raspberry Pis.
+- **`arc.mesh` — trusted private-network membership.** It opts a host into the Tailscale mesh and the access/trust configuration shared by participating hosts, currently including SSH/Mosh and cross-host key distribution. Implementations may change (for example, to Tailscale SSH) without changing the aspect's intent.
+
+Selector namespaces such as `arc.bootloader` and `arc.hardware` provide implementations or profiles rather than broad machine roles. `arc.schema` and `arc.ctx` are framework internals.
+
+Deferred aspect-boundary audits and migrations are tracked in [`agents/aspect-refactor-todo.md`](agents/aspect-refactor-todo.md). Do not perform those unrelated refactors opportunistically while completing another task.
+
+### Sub-aspect Registration
+
+When a module defines a sub-aspect that should always accompany its parent, register the inclusion in the same module:
+
+```nix
+arc.interactive.includes = [ arc.interactive._.darkmode ];
+arc.interactive._.darkmode = { ... };
+```
+
+Do not register one module's sub-aspect from an unrelated module, such as registering dark mode from a compositor module.
 
 > For full details on the aspect system, named sub-aspects, includes, and worked examples, see [`agents/aspect-system.md`](agents/aspect-system.md).
 > Read this before adding, restructuring, or debugging any module.
@@ -34,3 +61,32 @@ This codebase is organised around **aspects** — named, composable units of con
 ## Host Files
 
 Hosts live under `hosts/<name>/<name>.nix` (or `hosts/<name>.nix` for simple cases). They declare the host's system, users, and which aspects apply.
+
+## Unit Tests
+
+Every new feature and every refactor must include a black-box unit test. Use the `unitTest` helper from `modules/unit-test.nix` to define a synthetic host and assert against its final evaluated configuration. Tests must verify externally observable host behavior rather than implementation details such as the contents of an aspect's `includes` list.
+
+For aspect-scoping changes, test both a host that includes the aspect and one that omits it. A refactor should preserve or deliberately update the existing behavioral assertions, while a new feature should cover its intended enabled behavior and any meaningful exclusion or default behavior.
+
+Do not consider a feature or refactor complete until its focused black-box test suite passes.
+
+```nix
+flake.tests.feature.test-included = unitTest (
+  { arc, igloo, ... }:
+  {
+    den.hosts.x86_64-linux.igloo.aspects = with arc; [
+      base
+      interactive
+    ];
+
+    expr = igloo.some.option;
+    expected = true;
+  }
+);
+```
+
+Run a focused test suite with:
+
+```bash
+nix-unit --flake '.#tests.feature'
+```
