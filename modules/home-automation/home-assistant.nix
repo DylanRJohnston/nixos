@@ -32,6 +32,12 @@
           21064
         ];
 
+        # AirPlay receivers connect back to Home Assistant on dynamic UDP ports.
+        networking.firewall.extraCommands = ''
+          iptables -I nixos-fw 1 -p udp -s 192.168.0.129 -j nixos-fw-accept
+          iptables -I nixos-fw 1 -p udp -s 192.168.0.50 -j nixos-fw-accept
+        '';
+
         # Expose Home Assistant as a Tailscale Service.
         services.tailscale-serve."hass".target = "127.0.0.1:8123";
 
