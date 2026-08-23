@@ -1,0 +1,101 @@
+kajplats_10_minute_sunrise:
+  alias: Sunsine
+  mode: restart
+  sequence:
+  - variables:
+      transition_seconds: 900
+      stage_delay: 90
+      lights:
+      - light.rocket_bottom
+      - light.metal_light
+      - light.bedside_table
+      - light.rocket_middle
+      - light.rocket_top
+      - light.task_light
+      - light.onion_light
+      - light.trisolaris
+      - light.oval_light
+  - action: light.turn_off
+    target:
+      entity_id: '{{ lights }}'
+  - repeat:
+      for_each: '{{ lights }}'
+      sequence:
+      - variables:
+          transition_remaining: '{{ [transition_seconds - ((repeat.index - 1) * stage_delay),
+            1] | max }}'
+      - action: script.turn_on
+        target:
+          entity_id: script.per_light_sunrise
+        data:
+          variables:
+            light_entity: '{{ repeat.item }}'
+            duration: '{{ transition_remaining }}'
+      - if:
+        - condition: template
+          value_template: '{{ not repeat.last }}'
+        then:
+        - delay:
+            seconds: '{{ stage_delay }}'
+per_light_sunrise:
+  alias: Per Light Sunrise
+  mode: parallel
+  max: 10
+  fields:
+    light_entity:
+      required: true
+    duration:
+      required: true
+  sequence:
+  - variables:
+      duration_s: '{{ duration | int }}'
+  - action: light.turn_on
+    target:
+      entity_id: '{{ light_entity }}'
+    data:
+      brightness_pct: 1
+      hs_color:
+      - 0
+      - 100
+      transition: 0
+  - action: light.turn_on
+    target:
+      entity_id: '{{ light_entity }}'
+    data:
+      brightness_pct: 100
+      hs_color:
+      - 30
+      - 75
+      transition: '{{ duration_s }}'
+shrek_mode:
+  sequence:
+  - action: light.turn_on
+    metadata: {}
+    target:
+      area_id:
+      - living_room
+      - bedroom
+      - kitchen
+      - office
+      - bathroom
+    data:
+      rgb_color:
+      - 0
+      - 255
+      - 0
+  alias: Shrek Mode
+  description: ''
+open_the_gate:
+  sequence:
+  - action: rest_command.open_gate
+    metadata: {}
+    data: {}
+  alias: Open the gate
+  description: ''
+open_the_lobby_door:
+  sequence:
+  - action: rest_command.open_lobby
+    metadata: {}
+    data: {}
+  alias: Open the lobby door
+  description: ''

@@ -1,0 +1,2222 @@
+- id: '1778159409877'
+  name: Evening
+  entities:
+    light.trisolaris:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 74
+      color_temp_kelvin:
+      hs_color:
+      - 21.26
+      - 75.591
+      rgb_color:
+      - 255
+      - 131
+      - 62
+      xy_color:
+      - 0.585
+      - 0.362
+      entity_id:
+      - light.trisolaris_bottom
+      - light.trisolaris_middle
+      - light.trisolaris_top
+      icon: mdi:lightbulb-group
+      friendly_name: Trisolaris
+      supported_features: 32
+      state: 'on'
+    light.fluffy_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 128
+      color_temp_kelvin:
+      hs_color:
+      - 28.868
+      - 83.137
+      rgb_color:
+      - 255
+      - 145
+      - 43
+      xy_color:
+      - 0.580987
+      - 0.384985
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Fluffy Light
+      supported_features: 44
+      state: 'on'
+    light.oval_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - colorloop
+      - 'off'
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 143
+      color_temp_kelvin:
+      hs_color:
+      - 30.152
+      - 77.255
+      rgb_color:
+      - 255
+      - 157
+      - 58
+      xy_color:
+      - 0.557992
+      - 0.392996
+      entity_id:
+      - light.oval_bottom
+      - light.oval_middle
+      - light.oval_top
+      icon: mdi:lightbulb-group
+      friendly_name: Oval Light
+      supported_features: 44
+      state: 'on'
+    light.cuck_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 163
+      color_temp_kelvin:
+      hs_color:
+      - 25.895
+      - 74.51
+      rgb_color:
+      - 255
+      - 147
+      - 65
+      xy_color:
+      - 0.567
+      - 0.378
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Cuck Light
+      supported_features: 44
+      state: 'on'
+    light.metal_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 196
+      color_temp_kelvin:
+      hs_color:
+      - 26.932
+      - 69.02
+      rgb_color:
+      - 255
+      - 158
+      - 79
+      xy_color:
+      - 0.543984
+      - 0.382971
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Metal Light
+      supported_features: 44
+      state: 'on'
+    light.onion_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 94
+      color_temp_kelvin:
+      hs_color:
+      - 291.789
+      - 74.51
+      rgb_color:
+      - 229
+      - 65
+      - 255
+      xy_color:
+      - 0.347997
+      - 0.151995
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Onion Light
+      supported_features: 44
+      state: 'on'
+    light.orb_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 171
+      color_temp_kelvin:
+      hs_color:
+      - 21.818
+      - 73.333
+      rgb_color:
+      - 255
+      - 136
+      - 68
+      xy_color:
+      - 0.577996
+      - 0.363989
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Orb Light
+      supported_features: 44
+      state: 'on'
+    light.kitchen_bench_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: color_temp
+      brightness: 36
+      color_temp_kelvin: 2732
+      hs_color:
+      - 28.327
+      - 64.71
+      rgb_color:
+      - 255
+      - 168
+      - 90
+      xy_color:
+      - 0.522
+      - 0.387
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Kitchen Bench Light
+      supported_features: 44
+      state: 'on'
+    light.mushroom_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 79
+      color_temp_kelvin: 2754
+      hs_color:
+      - 28.281
+      - 64.025
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Mushroom Light
+      supported_features: 40
+      state: 'on'
+    light.rocket:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 110
+      color_temp_kelvin:
+      hs_color:
+      - 29.764
+      - 94.882
+      rgb_color:
+      - 255
+      - 133
+      - 13
+      xy_color:
+      - 0.603
+      - 0.379
+      entity_id:
+      - light.rocket_bottom
+      - light.rocket_middle
+      - light.rocket_top
+      icon: mdi:lightbulb-group
+      friendly_name: Rocket
+      supported_features: 32
+      state: 'on'
+    light.doughnut_light:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Doughnut Light
+      supported_features: 0
+      state: 'on'
+    light.egg_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 130
+      color_temp_kelvin:
+      hs_color:
+      - 28.125
+      - 75.294
+      rgb_color:
+      - 255
+      - 153
+      - 63
+      xy_color:
+      - 0.561
+      - 0.386
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Egg Light
+      supported_features: 44
+      state: 'on'
+    light.column_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 99
+      color_temp_kelvin: 2202
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      entity_id:
+      - light.column_light_1
+      - light.column_light_2
+      - light.column_light_3
+      - light.column_light_4
+      - light.column_light_5
+      - light.column_light_6
+      icon: mdi:lightbulb-group
+      friendly_name: Column Light
+      supported_features: 40
+      state: 'on'
+    light.mini_lamp:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 120
+      color_temp_kelvin:
+      hs_color:
+      - 24.094
+      - 73.622
+      rgb_color:
+      - 255
+      - 143
+      - 67
+      xy_color:
+      - 0.568
+      - 0.373
+      friendly_name: Mini Lamp
+      supported_features: 32
+      state: 'on'
+    light.desk_orb_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 115
+      color_temp_kelvin:
+      hs_color:
+      - 293.386
+      - 74.016
+      rgb_color:
+      - 234
+      - 66
+      - 255
+      xy_color:
+      - 0.354
+      - 0.157
+      icon: mdi:lamp
+      friendly_name: Desk Orb Light
+      supported_features: 32
+      state: 'on'
+    light.task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 82
+      color_temp_kelvin:
+      hs_color:
+      - 21.26
+      - 64.567
+      rgb_color:
+      - 255
+      - 149
+      - 90
+      xy_color:
+      - 0.543
+      - 0.365
+      entity_id:
+      - light.task_light_east
+      - light.task_light_middle
+      - light.task_light_west
+      icon: mdi:lightbulb-group
+      friendly_name: Task Light
+      supported_features: 32
+      state: 'on'
+    switch.bedroom_air_quality_display:
+      device_class: outlet
+      friendly_name: Bedroom Air Quality Sensor
+      state: 'on'
+    light.bedside_table:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 115
+      color_temp_kelvin:
+      hs_color:
+      - 29.764
+      - 74.016
+      rgb_color:
+      - 255
+      - 160
+      - 66
+      xy_color:
+      - 0.548
+      - 0.393
+      friendly_name: Bedside Table Lamp
+      supported_features: 32
+      state: 'on'
+  metadata:
+    light.trisolaris:
+      entity_only: true
+    light.fluffy_light:
+      entity_only: true
+    light.oval_light:
+      entity_only: true
+    light.cuck_light:
+      entity_only: true
+    light.metal_light:
+      entity_only: true
+    light.onion_light:
+      entity_only: true
+    light.orb_light:
+      entity_only: true
+    light.kitchen_bench_light:
+      entity_only: true
+    light.mushroom_light:
+      entity_only: true
+    light.rocket:
+      entity_only: true
+    light.doughnut_light:
+      entity_only: true
+    light.egg_light:
+      entity_only: true
+    light.column_light:
+      entity_only: true
+    light.mini_lamp:
+      entity_only: true
+    light.desk_orb_light:
+      entity_only: true
+    light.task_light:
+      entity_only: true
+    switch.bedroom_air_quality_display:
+      entity_only: true
+    light.bedside_table:
+      entity_only: true
+  icon: mdi:weather-sunset
+- id: '1778162274547'
+  name: Late
+  entities:
+    light.trisolaris:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 28
+      color_temp_kelvin:
+      hs_color:
+      - 21.26
+      - 75.591
+      rgb_color:
+      - 255
+      - 131
+      - 62
+      xy_color:
+      - 0.585
+      - 0.362
+      entity_id:
+      - light.trisolaris_bottom
+      - light.trisolaris_middle
+      - light.trisolaris_top
+      icon: mdi:lightbulb-group
+      friendly_name: Trisolaris
+      supported_features: 32
+      state: 'on'
+    light.fluffy_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 61
+      color_temp_kelvin:
+      hs_color:
+      - 28.868
+      - 83.137
+      rgb_color:
+      - 255
+      - 145
+      - 43
+      xy_color:
+      - 0.580987
+      - 0.384985
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Fluffy Light
+      supported_features: 44
+      state: 'on'
+    light.oval_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - colorloop
+      - 'off'
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 71
+      color_temp_kelvin:
+      hs_color:
+      - 28.868
+      - 83.137
+      rgb_color:
+      - 255
+      - 145
+      - 43
+      xy_color:
+      - 0.581
+      - 0.385
+      entity_id:
+      - light.oval_bottom
+      - light.oval_middle
+      - light.oval_top
+      icon: mdi:lightbulb-group
+      friendly_name: Oval Light
+      supported_features: 44
+      state: 'on'
+    light.cuck_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 18
+      color_temp_kelvin:
+      hs_color:
+      - 29.82
+      - 65.49
+      rgb_color:
+      - 255
+      - 171
+      - 88
+      xy_color:
+      - 0.521
+      - 0.393
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Cuck Light
+      supported_features: 44
+      state: 'on'
+    light.metal_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 46
+      color_temp_kelvin:
+      hs_color:
+      - 28.868
+      - 83.137
+      rgb_color:
+      - 255
+      - 145
+      - 43
+      xy_color:
+      - 0.580987
+      - 0.384985
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Metal Light
+      supported_features: 44
+      state: 'on'
+    light.onion_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 31
+      color_temp_kelvin:
+      hs_color:
+      - 283.469
+      - 76.863
+      rgb_color:
+      - 201
+      - 59
+      - 255
+      xy_color:
+      - 0.31
+      - 0.133
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Onion Light
+      supported_features: 44
+      state: 'on'
+    light.orb_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 48
+      color_temp_kelvin:
+      hs_color:
+      - 28.868
+      - 83.137
+      rgb_color:
+      - 255
+      - 145
+      - 43
+      xy_color:
+      - 0.580987
+      - 0.384985
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Orb Light
+      supported_features: 44
+      state: 'on'
+    light.kitchen_bench_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: true
+      off_brightness: 36
+      friendly_name: Kitchen Bench Light
+      supported_features: 44
+      state: 'off'
+    light.mushroom_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 26
+      color_temp_kelvin: 2754
+      hs_color:
+      - 28.281
+      - 64.025
+      rgb_color:
+      - 255
+      - 169
+      - 92
+      xy_color:
+      - 0.519
+      - 0.387
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Mushroom Light
+      supported_features: 40
+      state: 'on'
+    light.rocket:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 87
+      color_temp_kelvin:
+      hs_color:
+      - 17.008
+      - 84.646
+      rgb_color:
+      - 255
+      - 100
+      - 39
+      xy_color:
+      - 0.633
+      - 0.34
+      entity_id:
+      - light.rocket_bottom
+      - light.rocket_middle
+      - light.rocket_top
+      icon: mdi:lightbulb-group
+      friendly_name: Rocket
+      supported_features: 32
+      state: 'on'
+    light.doughnut_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Doughnut Light
+      supported_features: 0
+      state: 'off'
+    light.egg_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 3
+      color_temp_kelvin:
+      hs_color:
+      - 30.353
+      - 66.667
+      rgb_color:
+      - 255
+      - 171
+      - 85
+      xy_color:
+      - 0.523995
+      - 0.393988
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Egg Light
+      supported_features: 44
+      state: 'on'
+    light.column_light_1:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 33
+      color_temp_kelvin: 2202
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_with_transition: false
+      off_brightness:
+      friendly_name: 'Column Light: 1'
+      supported_features: 40
+      state: 'on'
+    light.column_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: true
+      off_brightness: 46
+      friendly_name: 'Column Light: 2'
+      supported_features: 40
+      state: 'off'
+    light.column_light_3:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: true
+      off_brightness: 98
+      friendly_name: 'Column Light: 3'
+      supported_features: 40
+      state: 'off'
+    light.column_light_4:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: true
+      off_brightness: 99
+      friendly_name: 'Column Light: 4'
+      supported_features: 40
+      state: 'off'
+    light.column_light_5:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: true
+      off_brightness: 92
+      friendly_name: 'Column Light: 5'
+      supported_features: 40
+      state: 'off'
+    light.column_light_6:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: true
+      off_brightness: 99
+      friendly_name: 'Column Light: 6'
+      supported_features: 40
+      state: 'off'
+    light.mini_lamp:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 120
+      color_temp_kelvin:
+      hs_color:
+      - 25.512
+      - 72.835
+      rgb_color:
+      - 255
+      - 148
+      - 69
+      xy_color:
+      - 0.56
+      - 0.377
+      friendly_name: Mini Lamp
+      supported_features: 32
+      state: 'on'
+    light.task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 20
+      color_temp_kelvin:
+      hs_color:
+      - 12.756
+      - 70.472
+      rgb_color:
+      - 255
+      - 114
+      - 75
+      xy_color:
+      - 0.593
+      - 0.338
+      entity_id:
+      - light.task_light_east
+      - light.task_light_middle
+      - light.task_light_west
+      icon: mdi:lightbulb-group
+      friendly_name: Task Light
+      supported_features: 32
+      state: 'on'
+    light.desk_orb_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 63
+      color_temp_kelvin:
+      hs_color:
+      - 345.827
+      - 89.764
+      rgb_color:
+      - 255
+      - 26
+      - 80
+      xy_color:
+      - 0.645
+      - 0.28
+      icon: mdi:lamp
+      friendly_name: Desk Orb Light
+      supported_features: 32
+      state: 'on'
+    switch.bedroom_air_quality_display:
+      device_class: outlet
+      friendly_name: Bedroom Air Quality Sensor
+      state: 'on'
+    light.bedside_table:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 71
+      color_temp_kelvin:
+      hs_color:
+      - 21.26
+      - 80.709
+      rgb_color:
+      - 255
+      - 122
+      - 49
+      xy_color:
+      - 0.603
+      - 0.358
+      friendly_name: Bedside Table Lamp
+      supported_features: 32
+      state: 'on'
+  metadata:
+    light.trisolaris:
+      entity_only: true
+    light.fluffy_light:
+      entity_only: true
+    light.oval_light:
+      entity_only: true
+    light.cuck_light:
+      entity_only: true
+    light.metal_light:
+      entity_only: true
+    light.onion_light:
+      entity_only: true
+    light.orb_light:
+      entity_only: true
+    light.kitchen_bench_light:
+      entity_only: true
+    light.mushroom_light:
+      entity_only: true
+    light.rocket:
+      entity_only: true
+    light.doughnut_light:
+      entity_only: true
+    light.egg_light:
+      entity_only: true
+    light.column_light_1:
+      entity_only: true
+    light.column_light_2:
+      entity_only: true
+    light.column_light_3:
+      entity_only: true
+    light.column_light_4:
+      entity_only: true
+    light.column_light_5:
+      entity_only: true
+    light.column_light_6:
+      entity_only: true
+    light.mini_lamp:
+      entity_only: true
+    light.task_light:
+      entity_only: true
+    light.desk_orb_light:
+      entity_only: true
+    switch.bedroom_air_quality_display:
+      entity_only: true
+    light.bedside_table:
+      entity_only: true
+  icon: mdi:power-sleep
+- id: '1778423208110'
+  name: Bedtime
+  entities:
+    light.trisolaris:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      entity_id:
+      - light.trisolaris_bottom
+      - light.trisolaris_middle
+      - light.trisolaris_top
+      icon: mdi:lightbulb-group
+      friendly_name: Trisolaris
+      supported_features: 32
+      state: 'off'
+    light.fluffy_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 61
+      friendly_name: Fluffy Light
+      supported_features: 44
+      state: 'off'
+    light.oval_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - colorloop
+      - 'off'
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      entity_id:
+      - light.oval_bottom
+      - light.oval_middle
+      - light.oval_top
+      icon: mdi:lightbulb-group
+      friendly_name: Oval Light
+      supported_features: 44
+      state: 'off'
+    light.cuck_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 18
+      friendly_name: Cuck Light
+      supported_features: 44
+      state: 'off'
+    light.metal_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 46
+      friendly_name: Metal Light
+      supported_features: 44
+      state: 'off'
+    light.onion_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 31
+      friendly_name: Onion Light
+      supported_features: 44
+      state: 'off'
+    light.orb_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 48
+      friendly_name: Orb Light
+      supported_features: 44
+      state: 'off'
+    light.kitchen_bench_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 36
+      friendly_name: Kitchen Bench Light
+      supported_features: 44
+      state: 'off'
+    light.mushroom_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 26
+      friendly_name: Mushroom Light
+      supported_features: 40
+      state: 'off'
+    light.rocket:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 26
+      color_temp_kelvin:
+      hs_color:
+      - 29.764
+      - 94.882
+      rgb_color:
+      - 255
+      - 133
+      - 13
+      xy_color:
+      - 0.603
+      - 0.379
+      entity_id:
+      - light.rocket_bottom
+      - light.rocket_middle
+      - light.rocket_top
+      icon: mdi:lightbulb-group
+      friendly_name: Rocket
+      supported_features: 32
+      state: 'on'
+    light.doughnut_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Doughnut Light
+      supported_features: 0
+      state: 'off'
+    light.egg_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 41
+      friendly_name: Egg Light
+      supported_features: 44
+      state: 'off'
+    light.column_light_1:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 33
+      friendly_name: 'Column Light: 1'
+      supported_features: 40
+      state: 'off'
+    light.column_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 99
+      friendly_name: 'Column Light: 2'
+      supported_features: 40
+      state: 'off'
+    light.column_light_3:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 99
+      friendly_name: 'Column Light: 3'
+      supported_features: 40
+      state: 'off'
+    light.column_light_4:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 99
+      friendly_name: 'Column Light: 4'
+      supported_features: 40
+      state: 'off'
+    light.column_light_5:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 99
+      friendly_name: 'Column Light: 5'
+      supported_features: 40
+      state: 'off'
+    light.column_light_6:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 99
+      friendly_name: 'Column Light: 6'
+      supported_features: 40
+      state: 'off'
+    light.mini_lamp:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Mini Lamp
+      supported_features: 32
+      state: 'off'
+    light.task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Task Light
+      supported_features: 32
+      state: 'off'
+    light.desk_orb_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      icon: mdi:lamp
+      friendly_name: Desk Orb Light
+      supported_features: 32
+      state: 'off'
+    switch.bedroom_air_quality_display:
+      device_class: outlet
+      friendly_name: Bedroom Air Quality Sensor
+      state: 'off'
+    light.bedside_table:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Bedside Table Lamp
+      supported_features: 32
+      state: 'off'
+  metadata:
+    light.trisolaris:
+      entity_only: true
+    light.fluffy_light:
+      entity_only: true
+    light.oval_light:
+      entity_only: true
+    light.cuck_light:
+      entity_only: true
+    light.metal_light:
+      entity_only: true
+    light.onion_light:
+      entity_only: true
+    light.orb_light:
+      entity_only: true
+    light.kitchen_bench_light:
+      entity_only: true
+    light.mushroom_light:
+      entity_only: true
+    light.rocket:
+      entity_only: true
+    light.doughnut_light:
+      entity_only: true
+    light.egg_light:
+      entity_only: true
+    light.column_light_1:
+      entity_only: true
+    light.column_light_2:
+      entity_only: true
+    light.column_light_3:
+      entity_only: true
+    light.column_light_4:
+      entity_only: true
+    light.column_light_5:
+      entity_only: true
+    light.column_light_6:
+      entity_only: true
+    light.mini_lamp:
+      entity_only: true
+    light.task_light:
+      entity_only: true
+    light.desk_orb_light:
+      entity_only: true
+    switch.bedroom_air_quality_display:
+      entity_only: true
+    light.bedside_table:
+      entity_only: true
+  icon: mdi:power-sleep
+- id: '1778640901260'
+  name: Working From Home
+  entities:
+    light.column_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 4000
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 206
+      - 166
+      xy_color:
+      - 0.42
+      - 0.365
+      entity_id:
+      - light.column_light_1
+      - light.column_light_2
+      - light.column_light_3
+      - light.column_light_4
+      - light.column_light_5
+      - light.column_light_6
+      icon: mdi:lightbulb-group
+      friendly_name: Column Light
+      supported_features: 40
+      state: 'on'
+    light.desk_orb_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 4566
+      hs_color:
+      - 26.74
+      - 25.482
+      rgb_color:
+      - 255
+      - 219
+      - 190
+      xy_color:
+      - 0.39
+      - 0.356
+      icon: mdi:lamp
+      friendly_name: Desk Orb Light
+      supported_features: 32
+      state: 'on'
+    light.bounce_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 240
+      color_temp_kelvin: 4608
+      hs_color:
+      - 26.751
+      - 24.846
+      rgb_color:
+      - 255
+      - 220
+      - 192
+      xy_color:
+      - 0.388
+      - 0.355
+      friendly_name: Bounce Light
+      supported_features: 32
+      state: 'on'
+  metadata:
+    light.column_light:
+      entity_only: true
+    light.desk_orb_light:
+      entity_only: true
+    light.bounce_light:
+      entity_only: true
+  icon: mdi:deskphone
+- id: '1778724043009'
+  name: Day
+  entities:
+    light.trisolaris:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 125
+      color_temp_kelvin: 3663
+      hs_color:
+      - 27.026
+      - 41.343
+      rgb_color:
+      - 255
+      - 197
+      - 150
+      xy_color:
+      - 0.441
+      - 0.37
+      entity_id:
+      - light.trisolaris_bottom
+      - light.trisolaris_middle
+      - light.trisolaris_top
+      icon: mdi:lightbulb-group
+      friendly_name: Trisolaris
+      supported_features: 32
+      state: 'on'
+    light.fluffy_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: color_temp
+      brightness: 140
+      color_temp_kelvin: 4000
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 206
+      - 166
+      xy_color:
+      - 0.42
+      - 0.365
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Fluffy Light
+      supported_features: 44
+      state: 'on'
+    light.oval_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - colorloop
+      - 'off'
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: color_temp
+      brightness: 125
+      color_temp_kelvin: 3952
+      hs_color:
+      - 26.835
+      - 35.746
+      rgb_color:
+      - 255
+      - 205
+      - 164
+      xy_color:
+      - 0.422
+      - 0.366
+      entity_id:
+      - light.oval_bottom
+      - light.oval_middle
+      - light.oval_top
+      icon: mdi:lightbulb-group
+      friendly_name: Oval Light
+      supported_features: 44
+      state: 'on'
+    light.cuck_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 163
+      friendly_name: Cuck Light
+      supported_features: 44
+      state: 'off'
+    light.metal_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 196
+      friendly_name: Metal Light
+      supported_features: 44
+      state: 'off'
+    light.onion_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: color_temp
+      brightness: 186
+      color_temp_kelvin: 4000
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 206
+      - 166
+      xy_color:
+      - 0.42
+      - 0.365
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Onion Light
+      supported_features: 44
+      state: 'on'
+    light.orb_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 171
+      friendly_name: Orb Light
+      supported_features: 44
+      state: 'off'
+    light.kitchen_bench_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: color_temp
+      brightness: 204
+      color_temp_kelvin: 4000
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 206
+      - 166
+      xy_color:
+      - 0.42
+      - 0.365
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Kitchen Bench Light
+      supported_features: 44
+      state: 'on'
+    light.mushroom_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 79
+      friendly_name: Mushroom Light
+      supported_features: 40
+      state: 'off'
+    light.rocket:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 153
+      color_temp_kelvin: 4201
+      hs_color:
+      - 26.743
+      - 31.347
+      rgb_color:
+      - 255
+      - 211
+      - 175
+      xy_color:
+      - 0.408
+      - 0.362
+      entity_id:
+      - light.rocket_bottom
+      - light.rocket_middle
+      - light.rocket_top
+      icon: mdi:lightbulb-group
+      friendly_name: Rocket
+      supported_features: 32
+      state: 'on'
+    light.doughnut_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Doughnut Light
+      supported_features: 0
+      state: 'off'
+    light.egg_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: color_temp
+      brightness: 138
+      color_temp_kelvin: 4000
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 206
+      - 166
+      xy_color:
+      - 0.42
+      - 0.365
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Egg Light
+      supported_features: 44
+      state: 'on'
+    light.column_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 4000
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 206
+      - 166
+      xy_color:
+      - 0.42
+      - 0.365
+      entity_id:
+      - light.column_light_1
+      - light.column_light_2
+      - light.column_light_3
+      - light.column_light_4
+      - light.column_light_5
+      - light.column_light_6
+      icon: mdi:lightbulb-group
+      friendly_name: Column Light
+      supported_features: 40
+      state: 'on'
+    light.mini_lamp:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 120
+      color_temp_kelvin: 4587
+      hs_color:
+      - 26.745
+      - 25.163
+      rgb_color:
+      - 255
+      - 219
+      - 191
+      xy_color:
+      - 0.389
+      - 0.355
+      friendly_name: Mini Lamp
+      supported_features: 32
+      state: 'on'
+    light.desk_orb_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 4149
+      hs_color:
+      - 26.757
+      - 32.237
+      rgb_color:
+      - 255
+      - 209
+      - 173
+      xy_color:
+      - 0.411
+      - 0.362
+      icon: mdi:lamp
+      friendly_name: Desk Orb Light
+      supported_features: 32
+      state: 'on'
+    light.task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 194
+      color_temp_kelvin: 5235
+      hs_color:
+      - 27.321
+      - 16.142
+      rgb_color:
+      - 255
+      - 233
+      - 214
+      xy_color:
+      - 0.362
+      - 0.347
+      entity_id:
+      - light.task_light_east
+      - light.task_light_middle
+      - light.task_light_west
+      icon: mdi:lightbulb-group
+      friendly_name: Task Light
+      supported_features: 32
+      state: 'on'
+    switch.bedroom_air_quality_display:
+      device_class: outlet
+      friendly_name: Bedroom Air Quality Sensor
+      state: 'on'
+  metadata:
+    light.trisolaris:
+      entity_only: true
+    light.fluffy_light:
+      entity_only: true
+    light.oval_light:
+      entity_only: true
+    light.cuck_light:
+      entity_only: true
+    light.metal_light:
+      entity_only: true
+    light.onion_light:
+      entity_only: true
+    light.orb_light:
+      entity_only: true
+    light.kitchen_bench_light:
+      entity_only: true
+    light.mushroom_light:
+      entity_only: true
+    light.rocket:
+      entity_only: true
+    light.doughnut_light:
+      entity_only: true
+    light.egg_light:
+      entity_only: true
+    light.column_light:
+      entity_only: true
+    light.mini_lamp:
+      entity_only: true
+    light.desk_orb_light:
+      entity_only: true
+    light.task_light:
+      entity_only: true
+    switch.bedroom_air_quality_display:
+      entity_only: true
+  icon: mdi:weather-pouring
+- id: '1784564113146'
+  name: Bathroom (Late)
+  entities:
+    light.bathroom_bounce_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 31
+      color_temp_kelvin:
+      hs_color:
+      - 8.504
+      - 81.89
+      rgb_color:
+      - 255
+      - 76
+      - 46
+      xy_color:
+      - 0.65
+      - 0.319
+      friendly_name: Bathroom Bounce Light
+      supported_features: 32
+      state: 'on'
+    light.bathroom_task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 84
+      color_temp_kelvin:
+      hs_color:
+      - 11.339
+      - 64.961
+      rgb_color:
+      - 255
+      - 121
+      - 89
+      xy_color:
+      - 0.573
+      - 0.336
+      friendly_name: Bathroom Task Light
+      supported_features: 32
+      state: 'on'
+  metadata: {}
+- id: '1786261733744'
+  name: Bathroom (Day)
+  entities:
+    light.bathroom_bounce_light:
+      color_mode: color_temp
+      brightness: 182
+      color_temp_kelvin: 3433
+      friendly_name: Bathroom Bounce Light
+      state: 'on'
+    light.bathroom_task_light:
+      color_mode: color_temp
+      brightness: 182
+      color_temp_kelvin: 3433
+      state: 'on'
+      friendly_name: Bathroom Task Light
+  metadata: {}
+- id: '1786261759181'
+  name: Bathroom (Evening)
+  entities:
+    light.bathroom_bounce_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 128
+      color_temp_kelvin:
+      hs_color:
+      - 17.008
+      - 61.417
+      rgb_color:
+      - 255
+      - 143
+      - 98
+      xy_color:
+      - 0.542
+      - 0.353
+      friendly_name: Bathroom Bounce Light
+      supported_features: 32
+      state: 'on'
+    light.bathroom_task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 128
+      color_temp_kelvin:
+      hs_color:
+      - 17.008
+      - 61.417
+      rgb_color:
+      - 255
+      - 143
+      - 98
+      xy_color:
+      - 0.542
+      - 0.353
+      friendly_name: Bathroom Task Light
+      supported_features: 32
+      state: 'on'
+  metadata: {}
+- id: '1786266505626'
+  name: Toilet (Day)
+  entities:
+    light.toilet_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 255
+      color_temp_kelvin: 3460
+      hs_color:
+      - 27.214
+      - 45.65
+      rgb_color:
+      - 255
+      - 191
+      - 139
+      xy_color:
+      - 0.456
+      - 0.374
+      friendly_name: Toilet Light
+      supported_features: 32
+      state: 'on'
+  metadata: {}
+- id: '1786266550252'
+  name: Toilet (Evening)
+  entities:
+    light.toilet_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 150
+      color_temp_kelvin:
+      hs_color:
+      - 24.094
+      - 59.843
+      rgb_color:
+      - 255
+      - 164
+      - 102
+      xy_color:
+      - 0.516
+      - 0.374
+      friendly_name: Toilet Light
+      supported_features: 32
+      state: 'on'
+  metadata: {}
+- id: '1786266593013'
+  name: Toilet (Late)
+  entities:
+    light.toilet_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 63
+      color_temp_kelvin:
+      hs_color:
+      - 8.504
+      - 71.654
+      rgb_color:
+      - 255
+      - 98
+      - 72
+      xy_color:
+      - 0.611
+      - 0.325
+      friendly_name: Toilet Light
+      supported_features: 32
+      state: 'on'
+  metadata: {}

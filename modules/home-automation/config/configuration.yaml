@@ -1,0 +1,27 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+rest_command:
+  open_gate:
+    url: !secret open_gate_url
+    method: POST
+    content_type: application/x-www-form-urlencoded
+    payload: !secret open_gate_payload
+  open_lobby:
+    url: !secret open_gate_url
+    method: POST
+    content_type: application/x-www-form-urlencoded
+    payload: !secret open_lobby_payload
+
+homeassistant:
+  media_dirs:
+    local: /config/media

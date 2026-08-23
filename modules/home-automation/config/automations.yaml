@@ -1,0 +1,487 @@
+- id: '1778667324614'
+  alias: Arrive Home Controller
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.front_door_door
+    from:
+    - 'off'
+    to:
+    - 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.home
+    state:
+    - 'off'
+  actions:
+  - action: input_boolean.turn_on
+    metadata: {}
+    target:
+      entity_id: input_boolean.home
+    data: {}
+  mode: single
+- id: '1778667408275'
+  alias: Leaving Home Controller
+  description: ''
+  triggers:
+  - trigger: zone
+    entity_id: person.dylan_johnston
+    zone: zone.home
+    event: leave
+  conditions: []
+  actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    target:
+      entity_id: input_boolean.home
+    data: {}
+  mode: single
+- id: '1778667837727'
+  alias: Turn off all lights when leaving home
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.home
+    from:
+    - 'on'
+    to:
+    - 'off'
+  conditions: []
+  actions:
+  - action: light.turn_off
+    target:
+      entity_id: all
+  mode: single
+- id: '1778667979099'
+  alias: Turn on the lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.home
+    from:
+    - 'off'
+    to:
+    - 'on'
+    alias: When I open the front door
+  conditions: []
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.{{ states('input_select.time_vibe') | lower }}
+    data:
+      transition: 1
+  mode: single
+- id: '1778686338218'
+  alias: Kitchen Night Light
+  description: Turns the kitchen task light on low when motion is detected late at
+    night
+  triggers:
+  - id: 'on'
+    trigger: state
+    entity_id:
+    - binary_sensor.myggspray_wrlss_mtn_sensor_occupancy
+    from:
+    - 'off'
+    to:
+    - 'on'
+  - id: 'off'
+    trigger: state
+    entity_id:
+    - binary_sensor.myggspray_wrlss_mtn_sensor_occupancy
+    from:
+    - 'on'
+    to:
+    - 'off'
+  conditions:
+  - condition: state
+    entity_id: input_select.time_vibe
+    state:
+    - Bedtime
+  actions:
+  - choose:
+    - alias: Turn On
+      conditions:
+      - condition: trigger
+        id:
+        - 'On'
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id: light.task_light_east
+        data:
+          transition: 2
+          color_name: darkred
+          brightness: 1
+    - alias: Turn Off
+      conditions:
+      - condition: trigger
+        id:
+        - 'Off'
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id: light.task_light
+  mode: single
+- id: '1779717186987'
+  alias: Sunrise Weekday Schedule
+  description: ''
+  triggers:
+  - trigger: time
+    at:
+      entity_id: sensor.dumberos_next_alarm
+      offset: '-600'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  conditions: []
+  actions:
+  - action: script.kajplats_10_minute_sunrise
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1783141886084'
+  alias: Bathroom Auto Light
+  description: ''
+  triggers:
+  - id: 'on'
+    trigger: state
+    entity_id:
+    - binary_sensor.bathroom_motion_sensor_occupancy
+    from:
+    - 'off'
+    to:
+    - 'on'
+    alias: When bathroom is occupied
+  - id: 'off'
+    trigger: state
+    entity_id:
+    - binary_sensor.bathroom_motion_sensor_occupancy
+    from:
+    - 'on'
+    to:
+    - 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    alias: When Bathroom is unoccupied for 5 minutes
+  conditions: []
+  actions:
+  - choose:
+    - alias: 'on'
+      conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.bathroom_{{ states('input_select.time_vibe') |  lower }}
+        data: {}
+    - alias: 'off'
+      conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        target:
+          area_id: bathroom
+    - conditions: []
+      sequence: []
+  mode: single
+- id: '1786103283001'
+  alias: Time Vibe Controller
+  description: Modifies the state of input_select.time_vibe based on time triggers.
+    This is required to more easily handle automations such a lighting that span across
+    midnight. Naive 'after 9pm' fails after midnight.
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 0
+    id: Day
+  - trigger: sun
+    event: sunset
+    offset: 0
+    id: Evening
+  - trigger: time
+    at: '21:00:00'
+    id: Late
+  - trigger: state
+    entity_id:
+    - sensor.dumberos_battery_state
+    from:
+    - discharging
+    to:
+    - charging
+    id: Bedtime
+  conditions:
+  - alias: either
+    condition: or
+    conditions:
+    - condition: not
+      conditions:
+      - condition: trigger
+        id:
+        - Bedtime
+      alias: it's not bedtime
+    - alias: We're charging at home and it's late
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_select.time_vibe
+        state:
+        - Late
+      - condition: zone.in_zone
+        target:
+          entity_id: person.dylan_johnston
+        options:
+          behavior: any
+          for: 00:00:00
+          zone: zone.home
+        alias: Dylan is Home
+  actions:
+  - action: input_select.select_option
+    metadata: {}
+    target:
+      entity_id: input_select.time_vibe
+    data:
+      option: '{{ trigger.id }}'
+  mode: single
+- id: '1786104269565'
+  alias: Time Vibe -> Lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_select.time_vibe
+  conditions:
+  - condition: state
+    entity_id: light.onion_light
+    state:
+    - 'on'
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.{{ states('input_select.time_vibe') | lower }}
+    data:
+      transition: 1
+  mode: single
+- id: '1786266657932'
+  alias: Toilet Auto Light
+  description: ''
+  triggers:
+  - id: 'on'
+    trigger: state
+    entity_id:
+    - binary_sensor.toilet_motion_sensor_occupancy
+    from:
+    - 'off'
+    to:
+    - 'on'
+    alias: When toilet is occupied
+  - id: 'off'
+    trigger: state
+    entity_id:
+    - binary_sensor.toilet_motion_sensor_occupancy
+    from:
+    - 'on'
+    to:
+    - 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    alias: When toilet is unoccupied for 5 minutes
+  conditions: []
+  actions:
+  - choose:
+    - alias: 'on'
+      conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.toilet_{{ states('input_select.time_vibe') |  lower }}
+        data: {}
+    - alias: 'off'
+      conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        target:
+          area_id: toilet
+    - conditions: []
+      sequence: []
+  mode: single
+- id: '1786285563437'
+  alias: Open Gate when getting in Car
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.dumberos_connected_to_car
+    to:
+    - 'on'
+    from:
+    - 'off'
+  conditions:
+  - condition: zone
+    entity_id: person.dylan_johnston
+    zone: zone.home
+  actions:
+  - action: rest_command.open_gate
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1786319920794'
+  alias: Open gate when arriving home
+  description: ''
+  triggers:
+  - trigger: zone
+    entity_id: person.dylan_johnston
+    zone: zone.coming_home
+    event: enter
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.dumberos_connected_to_car
+    state:
+    - 'on'
+  actions:
+  - action: rest_command.open_gate
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1786628420404'
+  alias: Welcome me home
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.home
+    from:
+    - 'off'
+    to:
+    - 'on'
+    alias: When I open the front door
+  conditions: []
+  actions:
+  - action: media_player.volume_set
+    metadata: {}
+    target:
+      entity_id: media_player.q_series_soundbar
+    data:
+      volume_level: 0.1
+    alias: Set the volume to 10%
+  - alias: Say "Welcome Home"
+    action: media_player.play_media
+    metadata: {}
+    target:
+      entity_id: media_player.q_series_soundbar
+    data:
+      media:
+        media_content_id: media-source://tts/tts.google_translate_en_com?message=Welcome+Home&language=en-au
+        media_content_type: audio/mp3
+        metadata:
+          title: Welcome Home
+          thumbnail: /api/brands/integration/google_translate/logo.png
+          media_class: app
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://tts
+          - media_content_type: audio/mp3
+            media_content_id: media-source://tts/tts.google_translate_en_com?message=Welcome+Home&language=en-au
+          browse_entity_id: media_player.q_series_soundbar
+  mode: single
+- id: '1787146897358'
+  alias: Enable DND at Bedtime
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_select.time_vibe
+    to:
+    - Bedtime
+    id: priority_only
+  - trigger: state
+    entity_id:
+    - sensor.dumberos_battery_state
+    to:
+    - discharging
+    id: 'off'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_dumberos
+    metadata: {}
+    data:
+      message: command_dnd
+      data:
+        command: '{{ trigger.id }}'
+  mode: single
+- id: '1787370146974'
+  alias: Read todo list
+  triggers:
+  - trigger: conversation
+    id: shopping
+    command:
+    - what's on my shopping list
+    - what is on my shopping list
+    - read my shopping list
+  - trigger: conversation
+    id: inbox
+    command:
+    - what's in my inbox
+    - what is in my inbox
+    - read my inbox
+    - what's on my todo list
+    - what is on my todo list
+    - read my todo list
+    - What's on my To Do List
+  actions:
+  - variables:
+      list_entity: "{{\n  {\n    'shopping': 'todo.shopping_list',\n    'inbox': 'todo.inbox'\n
+        \ }[trigger.id]\n}}"
+      list_name: "{{\n  {\n    'shopping': 'shopping list',\n    'inbox': 'todo list'\n
+        \ }[trigger.id]\n}}"
+  - action: todo.get_items
+    target:
+      entity_id: '{{ list_entity }}'
+    data:
+      status: needs_action
+    response_variable: todo_items
+  - set_conversation_response: "{% set items = todo_items[list_entity]['items']\n
+      \   | map(attribute='summary')\n    | list %}\n{% if items %}\n  Your {{ list_name
+      }} contains {{ items | join(', ') }}.\n{% else %}\n  Your {{ list_name }} is
+      empty.\n{% endif %}"
+- id: '1787370284075'
+  alias: Voice - Add reminder to inbox
+  triggers:
+  - trigger: conversation
+    command:
+    - remind me to {item}
+    - remember to {item}
+    - add {item} to my inbox
+  actions:
+  - action: todo.add_item
+    target:
+      entity_id: todo.inbox
+    data:
+      item: '{{ trigger.slots.item }}'
+  - set_conversation_response: Added {{ trigger.slots.item }} to your inbox.
+  mode: parallel

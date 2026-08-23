@@ -1,0 +1,26 @@
+# Home Assistant runtime/generated state
+.storage/
+.cloud/
+.google.token
+.uuid
+*.db
+*.db-*
+*.log
+*.log.*
+OZW_Log.txt
+home-assistant.log*
+deps/
+tts/
+www/community/
+blueprints/automation/homeassistant/
+blueprints/script/homeassistant/
+blueprints/template/homeassistant/
+custom_components
+.ha_run.lock
+.cache
+.config
+media
+image
+backups
+secrets.yaml
+.shopping_list.json
