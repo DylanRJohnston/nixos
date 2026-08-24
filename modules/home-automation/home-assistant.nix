@@ -1,4 +1,4 @@
-{ arc, ... }:
+{ arc, unitTest, ... }:
 {
   arc.home-automation.includes = [
     arc.home-automation._.home-assistant
@@ -17,6 +17,8 @@
             environment.TZ = "Australia/Perth";
             extraOptions = [
               "--network=host"
+              # Podman filters Tailscale's resolver from the generated resolv.conf.
+              "--dns=100.100.100.100"
               # Required by Home Assistant's Bluetooth and DHCP watchers.
               "--cap-add=NET_ADMIN"
               "--cap-add=NET_RAW"
@@ -50,5 +52,27 @@
 
         services.dbus.enable = true;
       };
+  };
+
+  flake.tests.home-assistant = {
+    test-enabled = unitTest (
+      { arc, igloo, ... }:
+      {
+        den.hosts.x86_64-linux.igloo.aspects = [ arc.home-automation ];
+
+        expr = builtins.elem "--dns=100.100.100.100" igloo.virtualisation.oci-containers.containers.homeassistant.extraOptions;
+        expected = true;
+      }
+    );
+
+    test-disabled = unitTest (
+      { arc, igloo, ... }:
+      {
+        den.hosts.x86_64-linux.igloo.aspects = [ arc.base ];
+
+        expr = igloo.virtualisation.oci-containers.containers ? homeassistant;
+        expected = false;
+      }
+    );
   };
 }
