@@ -82,6 +82,39 @@ arc.base._.bluetooth._.high_quality_audio.nixos = {
 
 Avoid mixing a top-level attrset assignment with separate dot-path assignments at the same level — Nix will report a duplicate definition error.
 
+## Universal schema and host-facing behavior
+
+`arc.ctx.host` and `arc.base` serve different purposes even when nearly every real host selects `base`:
+
+- **`arc.ctx.host` is universal evaluation plumbing.** Put behavior-free option declarations, schema, and composition machinery here when every host must understand them. This is particularly important when one optional aspect registers values that another optional aspect consumes.
+- **`arc.base` is explicit baseline behavior.** Keep packages, enabled services, security policy, administration defaults, and other runtime effects here only when they should apply to every managed host.
+
+Do not make all of `arc.base` implicit by including it from `arc.ctx.host`. Doing so would make minimal and synthetic hosts receive hidden behavior, weaken negative tests, and conceal undeclared dependencies. Instead, make evaluation independent of `base` where appropriate by moving only universal, behavior-free declarations into context.
+
+For example, an option allowing applications to register Tailscale Serve endpoints can be universally declared without activating Tailscale:
+
+```nix
+# Every host can evaluate aspects that register endpoints.
+arc.ctx.host.nixos.options.services.tailscale-serve = lib.mkOption {
+  type = lib.types.lazyAttrsOf endpointType;
+  default = { };
+};
+
+# Only mesh members apply those registrations at runtime.
+arc.mesh._.services.nixos = { config, ... }: {
+  systemd.services.tailscale-serve = {
+    # Build the service from config.services.tailscale-serve.
+  };
+};
+```
+
+When a module fails without `arc.base`, determine which case applies rather than automatically adding `base`:
+
+1. A behavior-free option declaration or composition primitive belongs in `arc.ctx.host`.
+2. The module has a real runtime dependency that should be expressed through aspect composition.
+3. The synthetic test is intended to represent a normal managed host and should explicitly include `arc.base`.
+4. The dependency is accidental and should be removed.
+
 ## How hosts use aspects
 
 Hosts are defined in `hosts/<name>/<name>.nix`:

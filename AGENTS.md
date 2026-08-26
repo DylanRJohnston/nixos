@@ -42,6 +42,10 @@ Use these definitions and litmus tests when deciding where configuration belongs
 
 Selector namespaces such as `arc.bootloader` and `arc.hardware` provide implementations or profiles rather than broad machine roles. `arc.schema` and `arc.ctx` are framework internals.
 
+### Universal Schema vs. Baseline Behavior
+
+Keep `arc.base` explicit and host-facing; do not make the whole aspect implicit through `arc.ctx`. Put behavior-free option declarations and composition plumbing that every host must understand under `arc.ctx.host`, especially when one optional aspect registers configuration consumed by another. Keep packages, services, policy, and other runtime effects under `arc.base` or a more specific opt-in aspect. A module failing to evaluate without `base` may indicate misplaced universal schema or an undeclared aspect dependency; do not make `base` implicit merely to hide that distinction.
+
 Deferred aspect-boundary audits and migrations are tracked in [`agents/aspect-refactor-todo.md`](agents/aspect-refactor-todo.md). Do not perform those unrelated refactors opportunistically while completing another task.
 
 ### Sub-aspect Registration

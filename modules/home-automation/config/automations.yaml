@@ -485,3 +485,40 @@
       item: '{{ trigger.slots.item }}'
   - set_conversation_response: Added {{ trigger.slots.item }} to your inbox.
   mode: parallel
+- id: '1787579558713'
+  alias: Play brown noise at bedtime
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_select.time_vibe
+    to:
+    - Bedtime
+    id: priority_only
+  conditions: []
+  actions:
+  - action: media_player.volume_set
+    metadata: {}
+    target:
+      entity_id: media_player.bedroom
+    data:
+      volume_level: 0.5
+  - action: media_player.play_media
+    metadata: {}
+    target:
+      entity_id: media_player.bedroom
+    data:
+      media:
+        media_content_id: media-source://noise_generator/deeper_noise
+        media_content_type: audio/wav
+        metadata:
+          title: Noise Generator · Deeper Noise
+          thumbnail:
+          media_class: music
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://noise_generator
+          browse_entity_id: media_player.bedroom
+  mode: single

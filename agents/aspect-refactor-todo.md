@@ -2,7 +2,18 @@
 
 This is an agent-facing backlog for known aspect-boundary improvements. These items are intentionally deferred: do not fold them into unrelated tasks. Before moving configuration, inspect all platform-specific effects and add focused `unitTest` coverage proving both inclusion and exclusion where practical.
 
-## Audit `arc.base`
+## Audit universal schema vs. `arc.base`
+
+`arc.base` should remain an explicit host-facing aspect rather than being implicitly included through `arc.ctx`. Audit evaluation failures on hosts that omit `base`: behavior-free option declarations and cross-aspect composition plumbing that every host must understand generally belong in `arc.ctx.host`, while packages, services, policy, and other runtime effects remain in explicit aspects.
+
+- [ ] Audit option declarations currently scoped under `arc.base` and move only universally required, behavior-free schema to `arc.ctx.host`.
+- [ ] Audit optional aspects that set options declared by other optional aspects; separate universal registration schema from opt-in runtime implementations.
+- [ ] Revisit `services.tailscale-serve`: endpoints should be safe to register without `arc.mesh`, while the systemd implementation and Tailscale behavior remain gated by `arc.mesh`.
+- [ ] Identify modules that fail evaluation without `arc.base` and classify each failure as misplaced schema, a real but undeclared aspect dependency, an unrealistic synthetic test, or an accidental dependency.
+- [ ] Add focused black-box tests for migrated composition points, including a host that registers values without enabling the consuming runtime aspect.
+- [ ] Do not make all of `arc.base` implicit merely to resolve these failures; preserve meaningful minimal and negative host evaluations.
+
+## Audit `arc.base` contents
 
 `arc.base` must contain only configuration intended for every managed host. For each candidate below, determine whether it belongs in `arc.interactive`, `arc.development`, another capability aspect, or an explicit host selection.
 

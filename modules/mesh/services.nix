@@ -5,6 +5,22 @@
   ...
 }:
 {
+  arc.base.nixos.options.services.tailscale-serve = lib.mkOption {
+    type = lib.types.lazyAttrsOf (
+      lib.types.submodule {
+        options.protocol = lib.mkOption {
+          type = lib.types.enum [ "https" ];
+          default = "https";
+        };
+
+        options.target = lib.mkOption {
+          type = lib.types.str;
+        };
+      }
+    );
+    default = { };
+  };
+
   arc.mesh.includes = [ arc.mesh._.services ];
 
   arc.mesh._.services.nixos =
@@ -22,23 +38,7 @@
         |> lib.concatLines;
     in
     {
-      options.services.tailscale-serve = lib.mkOption {
-        type = lib.types.lazyAttrsOf (
-          lib.types.submodule {
-            options.protocol = lib.mkOption {
-              type = lib.types.enum [ "https" ];
-              default = "https";
-            };
-
-            options.target = lib.mkOption {
-              type = lib.types.str;
-            };
-          }
-        );
-        default = { };
-      };
-
-      config.systemd.services.tailscale-serve = {
+      systemd.services.tailscale-serve = {
         after = [
           "tailscaled.service"
           "tailscaled-autoconnect.service"
@@ -72,7 +72,7 @@
         igloo.systemd.services.tailscale-serve.script
         |> lib.strings.split "\n"
         |> lib.filter (x: lib.typeOf x == "string" && x != "")
-        |> lib.map (lib.strings.substring 65 (-1));
+        |> lib.map (line: line |> lib.splitString "/bin/" |> lib.last);
       expected = [
         "tailscale serve --service=svc:bass --https=443 localhost:8124 || true"
         "tailscale serve --service=svc:hass --https=443 localhost:8123 || true"
