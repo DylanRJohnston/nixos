@@ -380,18 +380,9 @@
     alias: When I open the front door
   conditions: []
   actions:
-  - action: media_player.volume_set
-    metadata: {}
-    target:
-      entity_id: media_player.q_series_soundbar
-    data:
-      volume_level: 0.1
-    alias: Set the volume to 10%
   - alias: Say "Welcome Home"
     action: media_player.play_media
     metadata: {}
-    target:
-      entity_id: media_player.q_series_soundbar
     data:
       media:
         media_content_id: media-source://tts/tts.google_translate_en_com?message=Welcome+Home&language=en-au
@@ -408,6 +399,8 @@
           - media_content_type: audio/mp3
             media_content_id: media-source://tts/tts.google_translate_en_com?message=Welcome+Home&language=en-au
           browse_entity_id: media_player.q_series_soundbar
+    target:
+      entity_id: media_player.kitchen
   mode: single
 - id: '1787146897358'
   alias: Enable DND at Bedtime
@@ -502,7 +495,7 @@
     target:
       entity_id: media_player.bedroom
     data:
-      volume_level: 0.5
+      volume_level: 0.44
   - action: media_player.play_media
     metadata: {}
     target:
