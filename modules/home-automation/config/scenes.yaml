@@ -510,7 +510,6 @@
       - light.trisolaris_bottom
       - light.trisolaris_middle
       - light.trisolaris_top
-      icon: mdi:lightbulb-group
       friendly_name: Trisolaris
       supported_features: 32
       state: 'on'
@@ -563,13 +562,12 @@
       - 145
       - 43
       xy_color:
-      - 0.581
-      - 0.385
+      - 0.580996
+      - 0.384995
       entity_id:
       - light.oval_bottom
       - light.oval_middle
       - light.oval_top
-      icon: mdi:lightbulb-group
       friendly_name: Oval Light
       supported_features: 44
       state: 'on'
@@ -701,8 +699,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: true
-      off_brightness: 36
+      off_with_transition: false
+      off_brightness: 204
       friendly_name: Kitchen Bench Light
       supported_features: 44
       state: 'off'
@@ -753,7 +751,6 @@
       - light.rocket_bottom
       - light.rocket_middle
       - light.rocket_top
-      icon: mdi:lightbulb-group
       friendly_name: Rocket
       supported_features: 32
       state: 'on'
@@ -826,8 +823,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: true
-      off_brightness: 46
+      off_with_transition: false
+      off_brightness: 254
       friendly_name: 'Column Light: 2'
       supported_features: 40
       state: 'off'
@@ -842,8 +839,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: true
-      off_brightness: 98
+      off_with_transition: false
+      off_brightness: 254
       friendly_name: 'Column Light: 3'
       supported_features: 40
       state: 'off'
@@ -858,8 +855,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: true
-      off_brightness: 99
+      off_with_transition: false
+      off_brightness: 254
       friendly_name: 'Column Light: 4'
       supported_features: 40
       state: 'off'
@@ -874,8 +871,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: true
-      off_brightness: 92
+      off_with_transition: false
+      off_brightness: 254
       friendly_name: 'Column Light: 5'
       supported_features: 40
       state: 'off'
@@ -890,8 +887,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: true
-      off_brightness: 99
+      off_with_transition: false
+      off_brightness: 254
       friendly_name: 'Column Light: 6'
       supported_features: 40
       state: 'off'
@@ -930,19 +927,18 @@
       color_temp_kelvin:
       hs_color:
       - 12.756
-      - 70.472
+      - 70.079
       rgb_color:
       - 255
       - 114
-      - 75
+      - 76
       xy_color:
-      - 0.593
-      - 0.338
+      - 0.592
+      - 0.337
       entity_id:
       - light.task_light_east
       - light.task_light_middle
       - light.task_light_west
-      icon: mdi:lightbulb-group
       friendly_name: Task Light
       supported_features: 32
       state: 'on'
@@ -997,6 +993,29 @@
       friendly_name: Bedside Table Lamp
       supported_features: 32
       state: 'on'
+    light.bedroom_orb:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 3
+      color_temp_kelvin:
+      hs_color:
+      - 19.843
+      - 100
+      rgb_color:
+      - 255
+      - 84
+      - 0
+      xy_color:
+      - 0.66
+      - 0.334
+      friendly_name: Bedroom Orb
+      supported_features: 32
+      state: 'on'
   metadata:
     light.trisolaris:
       entity_only: true
@@ -1044,6 +1063,8 @@
       entity_only: true
     light.bedside_table:
       entity_only: true
+    light.bedroom_orb:
+      entity_only: true
   icon: mdi:power-sleep
 - id: '1778423208110'
   name: Bedtime
@@ -1065,7 +1086,6 @@
       - light.trisolaris_bottom
       - light.trisolaris_middle
       - light.trisolaris_top
-      icon: mdi:lightbulb-group
       friendly_name: Trisolaris
       supported_features: 32
       state: 'off'
@@ -1086,7 +1106,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 61
+      off_brightness:
       friendly_name: Fluffy Light
       supported_features: 44
       state: 'off'
@@ -1110,7 +1130,6 @@
       - light.oval_bottom
       - light.oval_middle
       - light.oval_top
-      icon: mdi:lightbulb-group
       friendly_name: Oval Light
       supported_features: 44
       state: 'off'
@@ -1130,7 +1149,7 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
+      off_with_transition: true
       off_brightness: 18
       friendly_name: Cuck Light
       supported_features: 44
@@ -1151,7 +1170,7 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
+      off_with_transition: true
       off_brightness: 46
       friendly_name: Metal Light
       supported_features: 44
@@ -1172,7 +1191,7 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
+      off_with_transition: true
       off_brightness: 31
       friendly_name: Onion Light
       supported_features: 44
@@ -1193,7 +1212,7 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
+      off_with_transition: true
       off_brightness: 48
       friendly_name: Orb Light
       supported_features: 44
@@ -1215,7 +1234,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 36
+      off_brightness: 204
       friendly_name: Kitchen Bench Light
       supported_features: 44
       state: 'off'
@@ -1230,8 +1249,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
-      off_brightness: 26
+      off_with_transition: true
+      off_brightness: 10
       friendly_name: Mushroom Light
       supported_features: 40
       state: 'off'
@@ -1243,7 +1262,7 @@
       - hs
       - xy
       color_mode: hs
-      brightness: 26
+      brightness: 3
       color_temp_kelvin:
       hs_color:
       - 29.764
@@ -1259,7 +1278,6 @@
       - light.rocket_bottom
       - light.rocket_middle
       - light.rocket_top
-      icon: mdi:lightbulb-group
       friendly_name: Rocket
       supported_features: 32
       state: 'on'
@@ -1286,8 +1304,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
-      off_brightness: 41
+      off_with_transition: true
+      off_brightness: 2
       friendly_name: Egg Light
       supported_features: 44
       state: 'off'
@@ -1302,7 +1320,7 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
+      off_with_transition: true
       off_brightness: 33
       friendly_name: 'Column Light: 1'
       supported_features: 40
@@ -1319,7 +1337,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 99
+      off_brightness: 254
       friendly_name: 'Column Light: 2'
       supported_features: 40
       state: 'off'
@@ -1335,7 +1353,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 99
+      off_brightness: 254
       friendly_name: 'Column Light: 3'
       supported_features: 40
       state: 'off'
@@ -1351,7 +1369,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 99
+      off_brightness: 254
       friendly_name: 'Column Light: 4'
       supported_features: 40
       state: 'off'
@@ -1367,7 +1385,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 99
+      off_brightness: 254
       friendly_name: 'Column Light: 5'
       supported_features: 40
       state: 'off'
@@ -1383,7 +1401,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 99
+      off_brightness: 254
       friendly_name: 'Column Light: 6'
       supported_features: 40
       state: 'off'
@@ -1416,6 +1434,10 @@
       hs_color:
       rgb_color:
       xy_color:
+      entity_id:
+      - light.task_light_east
+      - light.task_light_middle
+      - light.task_light_west
       friendly_name: Task Light
       supported_features: 32
       state: 'off'
@@ -1456,6 +1478,22 @@
       friendly_name: Bedside Table Lamp
       supported_features: 32
       state: 'off'
+    light.bedroom_orb:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Bedroom Orb
+      supported_features: 32
+      state: 'off'
   metadata:
     light.trisolaris:
       entity_only: true
@@ -1502,6 +1540,8 @@
     switch.bedroom_air_quality_display:
       entity_only: true
     light.bedside_table:
+      entity_only: true
+    light.bedroom_orb:
       entity_only: true
   icon: mdi:power-sleep
 - id: '1778640901260'
@@ -2217,6 +2257,33 @@
       - 0.611
       - 0.325
       friendly_name: Toilet Light
+      supported_features: 32
+      state: 'on'
+  metadata: {}
+- id: '1788103024333'
+  name: Reading
+  entities:
+    light.bedside_table:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 140
+      color_temp_kelvin:
+      hs_color:
+      - 21.26
+      - 80.709
+      rgb_color:
+      - 255
+      - 122
+      - 49
+      xy_color:
+      - 0.603
+      - 0.358
+      friendly_name: Bedside Table Lamp
       supported_features: 32
       state: 'on'
   metadata: {}
