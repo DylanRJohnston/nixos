@@ -14,6 +14,7 @@ let
         {
           options.expr = lib.mkOption { };
           options.expected = lib.mkOption { };
+          options.expectedError = lib.mkOption { };
 
           config._module.args.igloo = config.flake.nixosConfigurations.igloo.config;
           config._module.args.apple = config.flake.darwinConfigurations.apple.config;
@@ -34,12 +35,29 @@ let
           ];
         };
 
-      unitTest = module: {
-        inherit ((evalArc module).config) expr expected;
-      };
+      unitTest =
+        module:
+        let
+          evaluated = evalArc module;
+        in
+        { inherit (evaluated.config) expr; }
+        // lib.optionalAttrs evaluated.options.expected.isDefined {
+          inherit (evaluated.config) expected;
+        }
+        // lib.optionalAttrs evaluated.options.expectedError.isDefined {
+          inherit (evaluated.config) expectedError;
+        };
     in
     {
       _module.args.unitTest = unitTest;
+
+      flake.tests.unit-test.test-expected-error = unitTest {
+        expr = throw "unit-test harness expected failure";
+        expectedError = {
+          type = "ThrownError";
+          msg = "harness expected failure";
+        };
+      };
 
       flake.packages = den.lib.perSystem (
         { pkgs, ... }:
