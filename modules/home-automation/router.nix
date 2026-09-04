@@ -5,7 +5,7 @@
   ];
 
   arc.home-automation._.router.nixos = {
-    services.tailscale-serve.router.target = "http://192.168.0.1";
+    services.tailscale-serve.router.target = "192.168.0.1:80";
   };
 
   flake.tests.home-automation-router = {
@@ -18,7 +18,7 @@
         ];
 
         expr = igloo.services.tailscale-serve.router.target;
-        expected = "http://192.168.0.1";
+        expected = "192.168.0.1:80";
       }
     );
 
