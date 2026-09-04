@@ -15,8 +15,8 @@
     virtualisation.oci-containers = {
       backend = "podman";
       containers.koreader-sync-server = {
-        image = "koreader/kosync:latest";
-        ports = [ "0.0.0.0:7200:7200" ];
+        image = "koreader/kosync:v2.1.1@sha256:bb3f13615365703315a43b9059f65e71e876440f867e23a42bf27f2fa18264e1";
+        ports = [ "127.0.0.1:7200:7200" ];
         volumes = [
           "/var/lib/koreader-sync-server/logs/app:/app/koreader-sync-server/logs"
           "/var/lib/koreader-sync-server/logs/redis:/var/log/redis"
@@ -26,13 +26,12 @@
       };
     };
 
-    services.tailscale-serve.kosync.target = "127.0.0.1:7200";
-    networking.firewall.allowedTCPPorts = [ 7200 ];
+    services.tailscale-serve.kosync.target = "https+insecure://127.0.0.1:7200";
   };
 
   flake.tests.koreader-sync-server = {
     test-enabled = unitTest (
-      { arc, igloo, ... }:
+      { arc, igloo, lib, ... }:
       {
         den.hosts.x86_64-linux.igloo.aspects = [
           arc.base
@@ -48,10 +47,13 @@
           registration =
             igloo.virtualisation.oci-containers.containers.koreader-sync-server.environment.ENABLE_USER_REGISTRATION;
           tailscaleTarget = igloo.services.tailscale-serve.kosync.target;
-          directories = igloo.systemd.tmpfiles.rules;
+          directories = lib.filter (
+            lib.hasPrefix "d /var/lib/koreader-sync-server/"
+          ) igloo.systemd.tmpfiles.rules;
+          portOpen = builtins.elem 7200 igloo.networking.firewall.allowedTCPPorts;
         };
         expected = {
-          image = "koreader/kosync:latest";
+          image = "koreader/kosync:v2.1.1@sha256:bb3f13615365703315a43b9059f65e71e876440f867e23a42bf27f2fa18264e1";
           ports = [ "127.0.0.1:7200:7200" ];
           volumes = [
             "/var/lib/koreader-sync-server/logs/app:/app/koreader-sync-server/logs"
@@ -59,12 +61,13 @@
             "/var/lib/koreader-sync-server/data/redis:/var/lib/redis"
           ];
           registration = "true";
-          tailscaleTarget = "127.0.0.1:7200";
+          tailscaleTarget = "https+insecure://127.0.0.1:7200";
           directories = [
             "d /var/lib/koreader-sync-server/logs/app 0755 root root -"
             "d /var/lib/koreader-sync-server/logs/redis 0755 root root -"
             "d /var/lib/koreader-sync-server/data/redis 0755 root root -"
           ];
+          portOpen = false;
         };
       }
     );

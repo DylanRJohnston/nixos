@@ -515,3 +515,46 @@
             media_content_id: media-source://noise_generator
           browse_entity_id: media_player.bedroom
   mode: single
+- id: '1788415395973'
+  alias: Start vacuum cleaner when I leave home
+  description: ''
+  triggers:
+  - trigger: zone.left
+    target:
+      entity_id: person.dylan_johnston
+    options:
+      for: 00:00:00
+      zone: zone.out_and_about
+  conditions:
+  - condition: switch.is_off
+    target:
+      entity_id: input_boolean.cleaned_house_today
+    options:
+      behavior: any
+      for: 00:00:00
+  actions:
+  - action: vacuum.start
+    metadata: {}
+    target:
+      entity_id: vacuum.living_room_roomba
+    data: {}
+  - action: input_boolean.turn_on
+    metadata: {}
+    target:
+      entity_id: input_boolean.cleaned_house_today
+    data: {}
+  mode: single
+- id: '1788415726972'
+  alias: Reset cleaned house debouncer
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  conditions: []
+  actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    target:
+      entity_id: input_boolean.cleaned_house_today
+    data: {}
+  mode: single

@@ -1,24 +1,21 @@
 {
   inputs = {
-    darwin = {
-      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     den.url = "github:dylanrjohnston/den/dylan.johnston/strict-mode";
-
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-
-    hardware.url = "github:nixos/nixos-hardware";
-
-    home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     import-tree.url = "github:vic/import-tree";
 
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    darwin.url = "github:nix-darwin/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    determinate.url = "github:determinateSystems/determinate/v3.22.2";
+    determinate.inputs.nix.url = "github:determinateSystems/nix-src/v3.22.2";
+    determinate.inputs.nixpkgs.follows = "nixpkgs";
+
+    hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs =

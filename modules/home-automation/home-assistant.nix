@@ -12,7 +12,7 @@
         virtualisation.oci-containers = {
           backend = "podman";
           containers.homeassistant = {
-            image = "ghcr.io/home-assistant/home-assistant:stable";
+            image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
             volumes = [ "/etc/nixos/modules/home-automation/config:/config" ];
             environment.TZ = "Australia/Perth";
             extraOptions = [
@@ -58,10 +58,23 @@
     test-enabled = unitTest (
       { arc, igloo, ... }:
       {
-        den.hosts.x86_64-linux.igloo.aspects = [ arc.home-automation ];
+        den.hosts.x86_64-linux.igloo.aspects = [
+          arc.base
+          arc.home-automation
+        ];
 
-        expr = builtins.elem "--dns=100.100.100.100" igloo.virtualisation.oci-containers.containers.homeassistant.extraOptions;
-        expected = true;
+        expr =
+          let
+            container = igloo.virtualisation.oci-containers.containers.homeassistant;
+          in
+          {
+            inherit (container) image;
+            tailscaleDns = builtins.elem "--dns=100.100.100.100" container.extraOptions;
+          };
+        expected = {
+          image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
+          tailscaleDns = true;
+        };
       }
     );
 

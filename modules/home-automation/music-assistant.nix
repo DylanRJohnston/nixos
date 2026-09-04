@@ -9,7 +9,7 @@
     virtualisation.oci-containers = {
       backend = "podman";
       containers.music-assistant = {
-        image = "ghcr.io/music-assistant/server:latest";
+        image = "ghcr.io/music-assistant/server:2.10.2@sha256:09c02b4ee491976efa6d698265f72571f064031bb1a2c9a1c32e104392209690";
         volumes = [ "/var/lib/music-assistant:/data" ];
         environment = {
           LOG_LEVEL = "info";
@@ -46,7 +46,7 @@
           tailscaleTarget = igloo.services.tailscale-serve.music.target;
         };
         expected = {
-          image = "ghcr.io/music-assistant/server:latest";
+          image = "ghcr.io/music-assistant/server:2.10.2@sha256:09c02b4ee491976efa6d698265f72571f064031bb1a2c9a1c32e104392209690";
           volumes = [ "/var/lib/music-assistant:/data" ];
           hostNetwork = true;
           openPorts = true;

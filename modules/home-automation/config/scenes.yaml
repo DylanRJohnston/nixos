@@ -25,7 +25,6 @@
       - light.trisolaris_bottom
       - light.trisolaris_middle
       - light.trisolaris_top
-      icon: mdi:lightbulb-group
       friendly_name: Trisolaris
       supported_features: 32
       state: 'on'
@@ -84,7 +83,6 @@
       - light.oval_bottom
       - light.oval_middle
       - light.oval_top
-      icon: mdi:lightbulb-group
       friendly_name: Oval Light
       supported_features: 44
       state: 'on'
@@ -275,7 +273,6 @@
       - light.rocket_bottom
       - light.rocket_middle
       - light.rocket_top
-      icon: mdi:lightbulb-group
       friendly_name: Rocket
       supported_features: 32
       state: 'on'
@@ -339,7 +336,6 @@
       - light.column_light_4
       - light.column_light_5
       - light.column_light_6
-      icon: mdi:lightbulb-group
       friendly_name: Column Light
       supported_features: 40
       state: 'on'
@@ -354,15 +350,15 @@
       brightness: 120
       color_temp_kelvin:
       hs_color:
-      - 24.094
-      - 73.622
+      - 21.26
+      - 72.835
       rgb_color:
       - 255
-      - 143
-      - 67
+      - 135
+      - 69
       xy_color:
-      - 0.568
-      - 0.373
+      - 0.575
+      - 0.363
       friendly_name: Mini Lamp
       supported_features: 32
       state: 'on'
@@ -414,7 +410,6 @@
       - light.task_light_east
       - light.task_light_middle
       - light.task_light_west
-      icon: mdi:lightbulb-group
       friendly_name: Task Light
       supported_features: 32
       state: 'on'
@@ -443,6 +438,98 @@
       - 0.548
       - 0.393
       friendly_name: Bedside Table Lamp
+      supported_features: 32
+      state: 'on'
+    light.bedroom_orb:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 59
+      color_temp_kelvin:
+      hs_color:
+      - 25.512
+      - 77.953
+      rgb_color:
+      - 255
+      - 141
+      - 56
+      xy_color:
+      - 0.577
+      - 0.376
+      friendly_name: Bedroom Orb
+      supported_features: 32
+      state: 'on'
+    light.office_bounce_light_bottom:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 92
+      color_temp_kelvin:
+      hs_color:
+      - 296.22
+      - 55.906
+      rgb_color:
+      - 246
+      - 112
+      - 255
+      xy_color:
+      - 0.361
+      - 0.189
+      friendly_name: Bounce Light Bottom
+      supported_features: 32
+      state: 'on'
+    light.office_bounce_light_top:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 145
+      color_temp_kelvin:
+      hs_color:
+      - 19.843
+      - 74.803
+      rgb_color:
+      - 255
+      - 127
+      - 64
+      xy_color:
+      - 0.588
+      - 0.357
+      friendly_name: Bounce Light Top
+      supported_features: 32
+      state: 'on'
+    light.office_desk_task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 125
+      color_temp_kelvin:
+      hs_color:
+      - 12.756
+      - 82.677
+      rgb_color:
+      - 255
+      - 89
+      - 44
+      xy_color:
+      - 0.64
+      - 0.329
+      friendly_name: Desk Task Light
       supported_features: 32
       state: 'on'
   metadata:
@@ -481,6 +568,8 @@
     switch.bedroom_air_quality_display:
       entity_only: true
     light.bedside_table:
+      entity_only: true
+    light.bedroom_orb:
       entity_only: true
   icon: mdi:weather-sunset
 - id: '1778162274547'
@@ -562,8 +651,8 @@
       - 145
       - 43
       xy_color:
-      - 0.580996
-      - 0.384995
+      - 0.580993
+      - 0.384992
       entity_id:
       - light.oval_bottom
       - light.oval_middle
@@ -700,7 +789,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 204
+      off_brightness: 36
       friendly_name: Kitchen Bench Light
       supported_features: 44
       state: 'off'
@@ -824,7 +913,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 254
+      off_brightness: 99
       friendly_name: 'Column Light: 2'
       supported_features: 40
       state: 'off'
@@ -840,7 +929,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 254
+      off_brightness: 99
       friendly_name: 'Column Light: 3'
       supported_features: 40
       state: 'off'
@@ -856,7 +945,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 254
+      off_brightness: 99
       friendly_name: 'Column Light: 4'
       supported_features: 40
       state: 'off'
@@ -872,7 +961,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 254
+      off_brightness: 99
       friendly_name: 'Column Light: 5'
       supported_features: 40
       state: 'off'
@@ -888,7 +977,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 254
+      off_brightness: 99
       friendly_name: 'Column Light: 6'
       supported_features: 40
       state: 'off'
@@ -1016,6 +1105,61 @@
       friendly_name: Bedroom Orb
       supported_features: 32
       state: 'on'
+    light.office_bounce_light_bottom:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Bounce Light Bottom
+      supported_features: 32
+      state: 'off'
+    light.office_bounce_light_top:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Bounce Light Top
+      supported_features: 32
+      state: 'off'
+    light.office_desk_task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: hs
+      brightness: 130
+      color_temp_kelvin:
+      hs_color:
+      - 0
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      xy_color:
+      - 0.701
+      - 0.299
+      friendly_name: Desk Task Light
+      supported_features: 32
+      state: 'on'
   metadata:
     light.trisolaris:
       entity_only: true
@@ -1064,6 +1208,12 @@
     light.bedside_table:
       entity_only: true
     light.bedroom_orb:
+      entity_only: true
+    light.office_bounce_light_bottom:
+      entity_only: true
+    light.office_bounce_light_top:
+      entity_only: true
+    light.office_desk_task_light:
       entity_only: true
   icon: mdi:power-sleep
 - id: '1778423208110'
@@ -1643,22 +1793,21 @@
       - xy
       color_mode: color_temp
       brightness: 125
-      color_temp_kelvin: 3663
+      color_temp_kelvin: 1801
       hs_color:
-      - 27.026
-      - 41.343
+      - 29.751
+      - 100
       rgb_color:
       - 255
-      - 197
-      - 150
+      - 126
+      - 0
       xy_color:
-      - 0.441
-      - 0.37
+      - 0.614
+      - 0.373
       entity_id:
       - light.trisolaris_bottom
       - light.trisolaris_middle
       - light.trisolaris_top
-      icon: mdi:lightbulb-group
       friendly_name: Trisolaris
       supported_features: 32
       state: 'on'
@@ -1717,7 +1866,6 @@
       - light.oval_bottom
       - light.oval_middle
       - light.oval_top
-      icon: mdi:lightbulb-group
       friendly_name: Oval Light
       supported_features: 44
       state: 'on'
@@ -1737,8 +1885,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
-      off_brightness: 163
+      off_with_transition: true
+      off_brightness: 18
       friendly_name: Cuck Light
       supported_features: 44
       state: 'off'
@@ -1759,7 +1907,7 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 196
+      off_brightness: 3
       friendly_name: Metal Light
       supported_features: 44
       state: 'off'
@@ -1807,8 +1955,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
-      off_brightness: 171
+      off_with_transition: true
+      off_brightness: 48
       friendly_name: Orb Light
       supported_features: 44
       state: 'off'
@@ -1851,8 +1999,8 @@
       hs_color:
       rgb_color:
       xy_color:
-      off_with_transition: false
-      off_brightness: 79
+      off_with_transition: true
+      off_brightness: 26
       friendly_name: Mushroom Light
       supported_features: 40
       state: 'off'
@@ -1865,22 +2013,21 @@
       - xy
       color_mode: color_temp
       brightness: 153
-      color_temp_kelvin: 4201
+      color_temp_kelvin: 1801
       hs_color:
-      - 26.743
-      - 31.347
+      - 29.751
+      - 100
       rgb_color:
       - 255
-      - 211
-      - 175
+      - 126
+      - 0
       xy_color:
-      - 0.408
-      - 0.362
+      - 0.614
+      - 0.373
       entity_id:
       - light.rocket_bottom
       - light.rocket_middle
       - light.rocket_top
-      icon: mdi:lightbulb-group
       friendly_name: Rocket
       supported_features: 32
       state: 'on'
@@ -1944,7 +2091,6 @@
       - light.column_light_4
       - light.column_light_5
       - light.column_light_6
-      icon: mdi:lightbulb-group
       friendly_name: Column Light
       supported_features: 40
       state: 'on'
@@ -2004,28 +2150,96 @@
       - xy
       color_mode: color_temp
       brightness: 194
-      color_temp_kelvin: 5235
+      color_temp_kelvin: 4090
       hs_color:
-      - 27.321
-      - 16.142
+      - 26.776
+      - 33.264
       rgb_color:
       - 255
-      - 233
-      - 214
+      - 208
+      - 170
       xy_color:
-      - 0.362
-      - 0.347
+      - 0.415
+      - 0.363
       entity_id:
       - light.task_light_east
       - light.task_light_middle
       - light.task_light_west
-      icon: mdi:lightbulb-group
       friendly_name: Task Light
       supported_features: 32
       state: 'on'
     switch.bedroom_air_quality_display:
       device_class: outlet
       friendly_name: Bedroom Air Quality Sensor
+      state: 'on'
+    light.office_bounce_light_bottom:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 224
+      color_temp_kelvin: 4149
+      hs_color:
+      - 26.757
+      - 32.237
+      rgb_color:
+      - 255
+      - 209
+      - 173
+      xy_color:
+      - 0.411
+      - 0.362
+      friendly_name: Bounce Light Bottom
+      supported_features: 32
+      state: 'on'
+    light.office_bounce_light_top:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 237
+      color_temp_kelvin: 4484
+      hs_color:
+      - 26.726
+      - 26.745
+      rgb_color:
+      - 255
+      - 217
+      - 187
+      xy_color:
+      - 0.394
+      - 0.357
+      friendly_name: Bounce Light Top
+      supported_features: 32
+      state: 'on'
+    light.office_desk_task_light:
+      min_color_temp_kelvin: 1801
+      max_color_temp_kelvin: 6535
+      supported_color_modes:
+      - color_temp
+      - hs
+      - xy
+      color_mode: color_temp
+      brightness: 219
+      color_temp_kelvin: 4016
+      hs_color:
+      - 26.805
+      - 34.581
+      rgb_color:
+      - 255
+      - 206
+      - 167
+      xy_color:
+      - 0.419
+      - 0.364
+      friendly_name: Desk Task Light
+      supported_features: 32
       state: 'on'
   metadata:
     light.trisolaris:
@@ -2061,6 +2275,12 @@
     light.task_light:
       entity_only: true
     switch.bedroom_air_quality_display:
+      entity_only: true
+    light.office_bounce_light_bottom:
+      entity_only: true
+    light.office_bounce_light_top:
+      entity_only: true
+    light.office_desk_task_light:
       entity_only: true
   icon: mdi:weather-pouring
 - id: '1784564113146'
@@ -2271,18 +2491,18 @@
       - hs
       - xy
       color_mode: hs
-      brightness: 140
+      brightness: 168
       color_temp_kelvin:
       hs_color:
-      - 21.26
-      - 80.709
+      - 0
+      - 100
       rgb_color:
       - 255
-      - 122
-      - 49
+      - 0
+      - 0
       xy_color:
-      - 0.603
-      - 0.358
+      - 0.701
+      - 0.299
       friendly_name: Bedside Table Lamp
       supported_features: 32
       state: 'on'
