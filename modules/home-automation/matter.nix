@@ -1,67 +1,34 @@
-let
-  chip-ota-provider-app =
-    {
-      fetchurl,
-      stdenv,
-      glibc,
-      libnl,
-      autoPatchelfHook,
-      writeShellScriptBin,
-    }:
-    let
-      raw = fetchurl {
-        url = "https://github.com/home-assistant-libs/matter-linux-ota-provider/releases/download/2025.9.0/chip-ota-provider-app-aarch64";
-        sha256 = "4GirbEBQ4j6qbM2pv37M3Et5KiUU4QmMvBK0FM1kqn4=";
-      };
-
-      patched = stdenv.mkDerivation {
-        name = "chip-ota-provider-app";
-        version = "2025.9.0";
-        src = raw;
-        dontUnpack = true;
-
-        nativeBuildInputs = [ autoPatchelfHook ];
-        buildInputs = [
-          glibc
-          stdenv.cc.cc.lib
-          libnl
-        ];
-
-        installPhase = ''
-          runHook preInstall
-          mkdir -p $out/bin
-          cp ${raw} $out/bin/chip-ota-provider-app
-          chmod +x $out/bin/chip-ota-provider-app
-          runHook postInstall
-        '';
-      };
-    in
-    writeShellScriptBin "chip-ota-provider-app" ''
-      set -eo pipefail
-      args=()
-      while (( $# )); do
-        if [[ "$1" == "--secured-device-port" && "''${2-}" == "0" ]]; then
-          args+=( "--secured-device-port" "5540" )
-          shift 2
-        else
-          args+=( "$1" )
-          shift
-        fi
-      done
-
-      exec ${patched}/bin/chip-ota-provider-app "''${args[@]}"
-    '';
-in
-{ den, arc, ... }:
+{ arc, unitTest, ... }:
 {
   arc.home-automation.includes = [ arc.home-automation._.matter ];
 
   arc.home-automation._.matter.nixos =
     { pkgs, ... }:
     {
-      services.matter-server.enable = true;
-      services.tailscale-serve."matter".target = "127.0.0.1:5580";
-      systemd.services.matter-server.path = [ (pkgs.callPackage chip-ota-provider-app { }) ];
+      virtualisation.podman.enable = true;
+      virtualisation.oci-containers = {
+        backend = "podman";
+        containers.matterjs-server = {
+          image = "ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236";
+          volumes = [ "/var/lib/matter-server:/data" ];
+          environment = {
+            FABRIC_ID = "1";
+            LISTEN_ADDRESS = "127.0.0.1";
+            PRIMARY_INTERFACE = "end0";
+            TZ = "Australia/Perth";
+            VENDOR_ID = "4939";
+          };
+          extraOptions = [ "--network=host" ];
+        };
+      };
+
+      # The official image runs as UID/GID 1000. Follow the persisted-state symlink so
+      # files created by the previous NixOS Python Matter Server are writable for migration.
+      systemd.services.podman-matterjs-server.serviceConfig.ExecStartPre = [
+        "+${pkgs.coreutils}/bin/chown -R -H 1000:1000 /var/lib/matter-server"
+      ];
+
+      services.tailscale-serve.matter.target = "127.0.0.1:5580";
       networking.firewall.allowedUDPPorts = [ 5540 ];
       # fd36:da06:8db4 is my thread network, battery powered devices exceed the conntrack timeout
       networking.firewall.extraCommands = ''
@@ -69,10 +36,53 @@ in
       '';
     };
 
-  flake.packages = den.lib.withSystems [ "x86_64-linux" "aarch64-linux" ] (
-    { pkgs, ... }:
-    {
-      chip-ota-provider-app = pkgs.callPackage chip-ota-provider-app { };
-    }
-  );
+  flake.tests.matter = {
+    test-enabled = unitTest (
+      { arc, igloo, ... }:
+      {
+        den.hosts.x86_64-linux.igloo.aspects = [
+          arc.base
+          arc.home-automation
+        ];
+
+        expr =
+          let
+            container = igloo.virtualisation.oci-containers.containers.matterjs-server;
+          in
+          {
+            pythonServerDisabled = !igloo.services.matter-server.enable;
+            inherit (container) image volumes;
+            fabricId = container.environment.FABRIC_ID;
+            listenAddress = container.environment.LISTEN_ADDRESS;
+            primaryInterface = container.environment.PRIMARY_INTERFACE;
+            vendorId = container.environment.VENDOR_ID;
+            hostNetwork = builtins.elem "--network=host" container.extraOptions;
+            matterPortOpen = builtins.elem 5540 igloo.networking.firewall.allowedUDPPorts;
+            tailscaleTarget = igloo.services.tailscale-serve.matter.target;
+          };
+        expected = {
+          pythonServerDisabled = true;
+          image = "ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236";
+          volumes = [ "/var/lib/matter-server:/data" ];
+          fabricId = "1";
+          listenAddress = "127.0.0.1";
+          primaryInterface = "end0";
+          vendorId = "4939";
+          hostNetwork = true;
+          matterPortOpen = true;
+          tailscaleTarget = "127.0.0.1:5580";
+        };
+      }
+    );
+
+    test-disabled = unitTest (
+      { arc, igloo, ... }:
+      {
+        den.hosts.x86_64-linux.igloo.aspects = [ arc.base ];
+
+        expr = igloo.virtualisation.oci-containers.containers ? matterjs-server;
+        expected = false;
+      }
+    );
+  };
 }
