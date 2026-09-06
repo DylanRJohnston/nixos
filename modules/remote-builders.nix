@@ -1,9 +1,4 @@
-{
-  arc,
-  lib,
-  unitTest,
-  ...
-}:
+{ arc, nixosAspectTest, ... }:
 {
   arc.remote-builders.nixos = {
     nix = {
@@ -62,36 +57,24 @@
     };
   };
 
-  flake.tests.remote-builders = {
-    test-enabled = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo.aspects = [
-          arc.base
-          arc.remote-builders
-        ];
-
-        expr = {
+  flake.tests.remote-builders = nixosAspectTest {
+    baseline = [ arc.base ];
+    aspects = [ arc.remote-builders ];
+    expr =
+      igloo:
+      if igloo.nix.settings.fallback or false then
+        {
           inherit (igloo.nix) distributedBuilds;
           inherit (igloo.nix.settings) builders-use-substitutes connect-timeout fallback;
-        };
-        expected = {
-          distributedBuilds = true;
-          builders-use-substitutes = true;
-          connect-timeout = 5;
-          fallback = true;
-        };
-      }
-    );
-
-    test-disabled = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo.aspects = [ arc.base ];
-
-        expr = igloo.nix.settings.fallback or false;
-        expected = false;
-      }
-    );
+        }
+      else
+        false;
+    enabled = {
+      distributedBuilds = true;
+      builders-use-substitutes = true;
+      connect-timeout = 5;
+      fallback = true;
+    };
+    disabled = false;
   };
 }

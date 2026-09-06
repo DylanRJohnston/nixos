@@ -1,4 +1,4 @@
-{ arc, unitTest, ... }:
+{ arc, nixosAspectTest, ... }:
 {
   arc.home-automation.includes = [
     arc.home-automation._.home-assistant
@@ -54,38 +54,39 @@
       };
   };
 
-  flake.tests.home-assistant = {
-    test-enabled = unitTest (
-      { arc, igloo, ... }:
+  flake.tests.home-assistant = nixosAspectTest {
+    baseline = [ arc.base ];
+    aspects = [ arc.home-automation ];
+    expr =
+      igloo:
+      let
+        containers = igloo.virtualisation.oci-containers.containers;
+        present = containers ? homeassistant;
+      in
       {
-        den.hosts.x86_64-linux.igloo.aspects = [
-          arc.base
-          arc.home-automation
-        ];
-
-        expr =
-          let
-            container = igloo.virtualisation.oci-containers.containers.homeassistant;
-          in
-          {
-            inherit (container) image;
-            tailscaleDns = builtins.elem "--dns=100.100.100.100" container.extraOptions;
-          };
-        expected = {
-          image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
-          tailscaleDns = true;
-        };
-      }
-    );
-
-    test-disabled = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo.aspects = [ arc.base ];
-
-        expr = igloo.virtualisation.oci-containers.containers ? homeassistant;
-        expected = false;
-      }
-    );
+        inherit present;
+        details =
+          if present then
+            let
+              container = containers.homeassistant;
+            in
+            {
+              inherit (container) image;
+              tailscaleDns = builtins.elem "--dns=100.100.100.100" container.extraOptions;
+            }
+          else
+            null;
+      };
+    enabled = {
+      present = true;
+      details = {
+        image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
+        tailscaleDns = true;
+      };
+    };
+    disabled = {
+      present = false;
+      details = null;
+    };
   };
 }

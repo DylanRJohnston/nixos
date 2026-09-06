@@ -1,4 +1,4 @@
-{ arc, unitTest, ... }:
+{ arc, nixosAspectTest, ... }:
 {
   arc.home-automation.includes = [
     arc.home-automation._.router
@@ -8,28 +8,16 @@
     services.tailscale-serve.router.target = "192.168.0.1:80";
   };
 
-  flake.tests.home-automation-router = {
-    test-enabled = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo.aspects = [
-          arc.base
-          arc.home-automation
-        ];
-
-        expr = igloo.services.tailscale-serve.router.target;
-        expected = "192.168.0.1:80";
-      }
-    );
-
-    test-disabled = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo.aspects = [ arc.base ];
-
-        expr = igloo.services.tailscale-serve ? router;
-        expected = false;
-      }
-    );
+  flake.tests.home-automation-router = nixosAspectTest {
+    baseline = [ arc.base ];
+    aspects = [ arc.home-automation ];
+    expr =
+      igloo:
+      if igloo.services.tailscale-serve ? router then
+        igloo.services.tailscale-serve.router.target
+      else
+        false;
+    enabled = "192.168.0.1:80";
+    disabled = false;
   };
 }

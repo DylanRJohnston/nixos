@@ -51,10 +51,8 @@
 
   flake.tests.darwin-settings.remove-old-trash-items = darwinAspectTest {
     aspects = [ arc.base ];
-    assertion = apple: {
-      expr = apple.system.defaults.finder.FXRemoveOldTrashItems;
-      enabled = true;
-      disabled = null;
-    };
+    expr = apple: apple.system.defaults.finder.FXRemoveOldTrashItems;
+    enabled = true;
+    disabled = null;
   };
 }

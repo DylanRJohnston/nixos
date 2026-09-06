@@ -1,4 +1,4 @@
-{ arc, unitTest, ... }:
+{ arc, nixosAspectTest, ... }:
 {
   arc.home-automation.includes = [ arc.home-automation._.matter ];
 
@@ -36,53 +36,54 @@
       '';
     };
 
-  flake.tests.matter = {
-    test-enabled = unitTest (
-      { arc, igloo, ... }:
+  flake.tests.matter = nixosAspectTest {
+    baseline = [ arc.base ];
+    aspects = [ arc.home-automation ];
+    expr =
+      igloo:
+      let
+        containers = igloo.virtualisation.oci-containers.containers;
+        present = containers ? matterjs-server;
+      in
       {
-        den.hosts.x86_64-linux.igloo.aspects = [
-          arc.base
-          arc.home-automation
-        ];
-
-        expr =
-          let
-            container = igloo.virtualisation.oci-containers.containers.matterjs-server;
-          in
-          {
-            pythonServerDisabled = !igloo.services.matter-server.enable;
-            inherit (container) image volumes;
-            fabricId = container.environment.FABRIC_ID;
-            listenAddress = container.environment.LISTEN_ADDRESS;
-            primaryInterface = container.environment.PRIMARY_INTERFACE;
-            vendorId = container.environment.VENDOR_ID;
-            hostNetwork = builtins.elem "--network=host" container.extraOptions;
-            matterPortOpen = builtins.elem 5540 igloo.networking.firewall.allowedUDPPorts;
-            tailscaleTarget = igloo.services.tailscale-serve.matter.target;
-          };
-        expected = {
-          pythonServerDisabled = true;
-          image = "ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236";
-          volumes = [ "/var/lib/matter-server:/data" ];
-          fabricId = "1";
-          listenAddress = "127.0.0.1";
-          primaryInterface = "end0";
-          vendorId = "4939";
-          hostNetwork = true;
-          matterPortOpen = true;
-          tailscaleTarget = "127.0.0.1:5580";
-        };
-      }
-    );
-
-    test-disabled = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo.aspects = [ arc.base ];
-
-        expr = igloo.virtualisation.oci-containers.containers ? matterjs-server;
-        expected = false;
-      }
-    );
+        inherit present;
+        details =
+          if present then
+            let
+              container = containers.matterjs-server;
+            in
+            {
+              pythonServerDisabled = !igloo.services.matter-server.enable;
+              inherit (container) image volumes;
+              fabricId = container.environment.FABRIC_ID;
+              listenAddress = container.environment.LISTEN_ADDRESS;
+              primaryInterface = container.environment.PRIMARY_INTERFACE;
+              vendorId = container.environment.VENDOR_ID;
+              hostNetwork = builtins.elem "--network=host" container.extraOptions;
+              matterPortOpen = builtins.elem 5540 igloo.networking.firewall.allowedUDPPorts;
+              tailscaleTarget = igloo.services.tailscale-serve.matter.target;
+            }
+          else
+            null;
+      };
+    enabled = {
+      present = true;
+      details = {
+        pythonServerDisabled = true;
+        image = "ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236";
+        volumes = [ "/var/lib/matter-server:/data" ];
+        fabricId = "1";
+        listenAddress = "127.0.0.1";
+        primaryInterface = "end0";
+        vendorId = "4939";
+        hostNetwork = true;
+        matterPortOpen = true;
+        tailscaleTarget = "127.0.0.1:5580";
+      };
+    };
+    disabled = {
+      present = false;
+      details = null;
+    };
   };
 }

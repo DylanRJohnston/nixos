@@ -2,6 +2,7 @@
 let
   module =
     {
+      arc,
       config,
       den,
       inputs,
@@ -52,14 +53,15 @@ let
 
       mkAspectTest =
         { system, hostName }:
-        {
+        spec@{
           aspects,
-          assertion,
+          expr,
           baseline ? [ ],
+          ...
         }:
         let
           mkTest =
-            enabled:
+            state:
             unitTest {
               __functionArgs = {
                 ${hostName} = false;
@@ -68,39 +70,72 @@ let
               __functor =
                 _self: args:
                 let
-                  result = assertion args.${hostName};
+                  errorKey = "${state}Err";
+                  outcome =
+                    if builtins.hasAttr state spec then
+                      { expected = spec.${state}; }
+                    else
+                      { expectedError = spec.${errorKey}; };
                 in
                 {
                   den.hosts.${system}.${hostName} = {
                     users.tux = { };
-                    aspects = baseline ++ lib.optionals enabled aspects;
+                    aspects = baseline ++ lib.optionals (state == "enabled") aspects;
                   };
-
-                  inherit (result) expr;
-                  expected = result.${if enabled then "enabled" else "disabled"};
-                };
+                }
+                // {
+                  expr = expr args.${hostName};
+                }
+                // outcome;
             };
         in
         {
-          test-enabled = mkTest true;
-          test-disabled = mkTest false;
+          test-enabled = mkTest "enabled";
+          test-disabled = mkTest "disabled";
         };
 
       darwinAspectTest = mkAspectTest {
         system = "aarch64-darwin";
         hostName = "apple";
       };
+
+      nixosAspectTest = mkAspectTest {
+        system = "x86_64-linux";
+        hostName = "igloo";
+      };
     in
     {
       _module.args = {
-        inherit darwinAspectTest unitTest;
+        inherit darwinAspectTest nixosAspectTest unitTest;
       };
 
-      flake.tests.unit-test.test-expected-error = unitTest {
-        expr = throw "unit-test harness expected failure";
-        expectedError = {
-          type = "ThrownError";
-          msg = "harness expected failure";
+      flake.tests.unit-test = {
+        test-expected-error = unitTest {
+          expr = throw "unit-test harness expected failure";
+          expectedError = {
+            type = "ThrownError";
+            msg = "harness expected failure";
+          };
+        };
+
+        shared-expression = nixosAspectTest {
+          baseline = [ arc.base ];
+          aspects = [ arc.interactive ];
+          expr = igloo: igloo.qt.enable;
+          enabled = true;
+          disabled = false;
+        };
+
+        shared-expression-error = nixosAspectTest {
+          baseline = [ arc.base ];
+          aspects = [
+            {
+              nixos.environment.etc."aspect-test".text = "enabled";
+            }
+          ];
+          expr = igloo: igloo.environment.etc."aspect-test".text;
+          enabled = "enabled";
+          disabledErr.msg = "attribute.*aspect-test.*missing";
         };
       };
 

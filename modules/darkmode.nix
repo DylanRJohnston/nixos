@@ -1,4 +1,4 @@
-{ arc, unitTest, ... }:
+{ arc, nixosAspectTest, ... }:
 {
   arc.interactive.includes = [ arc.interactive._.darkmode ];
 
@@ -22,34 +22,11 @@
     };
   };
 
-  flake.tests.darkmode = {
-    test-interactive-host = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo = {
-          users.tux = { };
-          aspects = with arc; [
-            base
-            interactive
-          ];
-        };
-
-        expr = igloo.qt.enable;
-        expected = true;
-      }
-    );
-
-    test-headless-host = unitTest (
-      { arc, igloo, ... }:
-      {
-        den.hosts.x86_64-linux.igloo = {
-          users.tux = { };
-          aspects = [ arc.base ];
-        };
-
-        expr = igloo.qt.enable;
-        expected = false;
-      }
-    );
+  flake.tests.darkmode = nixosAspectTest {
+    baseline = [ arc.base ];
+    aspects = [ arc.interactive ];
+    expr = igloo: igloo.qt.enable;
+    enabled = true;
+    disabled = false;
   };
 }
