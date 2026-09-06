@@ -12,6 +12,7 @@
         image = "docker.io/louislam/uptime-kuma:2.5.3@sha256:3e24e96c89efff0e3a4b0698cbdd36c15ad3022371db57166e5588853002ee5c";
         ports = [ "127.0.0.1:3001:3001" ];
         volumes = [ "/var/lib/uptime-kuma:/app/data" ];
+        extraOptions = [ "--cap-add=NET_RAW" ];
       };
     };
 
@@ -39,6 +40,7 @@
               volumes
               ;
             podmanEnabled = igloo.virtualisation.podman.enable;
+            canPing = builtins.elem "--cap-add=NET_RAW" igloo.virtualisation.oci-containers.containers.uptime-kuma.extraOptions;
             stateDirectory = igloo.systemd.services.podman-uptime-kuma.serviceConfig.StateDirectory;
             portOpen = builtins.elem 3001 igloo.networking.firewall.allowedTCPPorts;
           }
@@ -60,6 +62,7 @@
       ports = [ "127.0.0.1:3001:3001" ];
       volumes = [ "/var/lib/uptime-kuma:/app/data" ];
       podmanEnabled = true;
+      canPing = true;
       stateDirectory = "uptime-kuma";
       tailscaleTarget = "127.0.0.1:3001";
       portOpen = false;
