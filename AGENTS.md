@@ -72,6 +72,10 @@ Do not register one module's sub-aspect from an unrelated module, such as regist
 
 Hosts live under `hosts/<name>/<name>.nix` (or `hosts/<name>.nix` for simple cases). They declare the host's system, users, and which aspects apply.
 
+## Persistent Container Bind Mounts
+
+Whenever an OCI container bind-mounts a host path, ensure that path is created before the generated container service starts; do not rely on Podman to create bind-mount sources. For a service's simple `/var/lib/<name>` state directory, prefer `systemd.services.<generated-service>.serviceConfig.StateDirectory = "<name>"`. Use `systemd.tmpfiles.rules` when the container needs multiple, nested, or otherwise custom host directories. Extend the service's black-box unit test to assert the resulting directory-creation configuration as well as the volume mount.
+
 ## Unit Tests
 
 Every new feature and every refactor must include a black-box unit test. Use the `unitTest` helper from `modules/unit-test.nix` to define a synthetic host and assert against its final evaluated configuration. Tests must verify externally observable host behavior rather than implementation details such as the contents of an aspect's `includes` list.

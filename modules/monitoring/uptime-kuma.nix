@@ -4,6 +4,8 @@
 
   arc.monitoring._.uptime-kuma.nixos = {
     virtualisation.podman.enable = true;
+    systemd.services.podman-uptime-kuma.serviceConfig.StateDirectory = "uptime-kuma";
+
     virtualisation.oci-containers = {
       backend = "podman";
       containers.uptime-kuma = {
@@ -37,6 +39,7 @@
               volumes
               ;
             podmanEnabled = igloo.virtualisation.podman.enable;
+            stateDirectory = igloo.systemd.services.podman-uptime-kuma.serviceConfig.StateDirectory;
             portOpen = builtins.elem 3001 igloo.networking.firewall.allowedTCPPorts;
           }
         else
@@ -57,6 +60,7 @@
       ports = [ "127.0.0.1:3001:3001" ];
       volumes = [ "/var/lib/uptime-kuma:/app/data" ];
       podmanEnabled = true;
+      stateDirectory = "uptime-kuma";
       tailscaleTarget = "127.0.0.1:3001";
       portOpen = false;
     };
