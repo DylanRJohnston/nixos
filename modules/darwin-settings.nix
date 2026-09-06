@@ -1,3 +1,4 @@
+{ arc, darwinAspectTest, ... }:
 {
   arc.base.darwin = {
     system.defaults = {
@@ -9,6 +10,7 @@
       };
 
       finder = {
+        FXRemoveOldTrashItems = true;
         ShowPathbar = true;
       };
 
@@ -45,5 +47,14 @@
       defaults import com.apple.symbolichotkeys ${./plists/symbolichotkeys.plist}
       sudo /usr/sbin/nvram StartupMute=%01
     '';
+  };
+
+  flake.tests.darwin-settings.remove-old-trash-items = darwinAspectTest {
+    aspects = [ arc.base ];
+    assertion = apple: {
+      expr = apple.system.defaults.finder.FXRemoveOldTrashItems;
+      enabled = true;
+      disabled = null;
+    };
   };
 }

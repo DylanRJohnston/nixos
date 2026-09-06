@@ -40,16 +40,61 @@ let
         let
           evaluated = evalArc module;
         in
-        { inherit (evaluated.config) expr; }
+        {
+          inherit (evaluated.config) expr;
+        }
         // lib.optionalAttrs evaluated.options.expected.isDefined {
           inherit (evaluated.config) expected;
         }
         // lib.optionalAttrs evaluated.options.expectedError.isDefined {
           inherit (evaluated.config) expectedError;
         };
+
+      mkAspectTest =
+        { system, hostName }:
+        {
+          aspects,
+          assertion,
+          baseline ? [ ],
+        }:
+        let
+          mkTest =
+            enabled:
+            unitTest {
+              __functionArgs = {
+                ${hostName} = false;
+              };
+
+              __functor =
+                _self: args:
+                let
+                  result = assertion args.${hostName};
+                in
+                {
+                  den.hosts.${system}.${hostName} = {
+                    users.tux = { };
+                    aspects = baseline ++ lib.optionals enabled aspects;
+                  };
+
+                  inherit (result) expr;
+                  expected = result.${if enabled then "enabled" else "disabled"};
+                };
+            };
+        in
+        {
+          test-enabled = mkTest true;
+          test-disabled = mkTest false;
+        };
+
+      darwinAspectTest = mkAspectTest {
+        system = "aarch64-darwin";
+        hostName = "apple";
+      };
     in
     {
-      _module.args.unitTest = unitTest;
+      _module.args = {
+        inherit darwinAspectTest unitTest;
+      };
 
       flake.tests.unit-test.test-expected-error = unitTest {
         expr = throw "unit-test harness expected failure";
