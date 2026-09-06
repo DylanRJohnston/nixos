@@ -78,6 +78,8 @@ Every new feature and every refactor must include a black-box unit test. Use the
 
 For aspect-scoping changes, test both a host that includes the aspect and one that omits it. A refactor should preserve or deliberately update the existing behavioral assertions, while a new feature should cover its intended enabled behavior and any meaningful exclusion or default behavior.
 
+When the same expression succeeds with an aspect and naturally fails without it, prefer asserting the evaluation error (`expectedError`, or `disabledErr` with an aspect test helper) over adding defensive field-access logic such as presence checks and conditional placeholder values solely to keep the expression evaluable. Incrementally simplify existing tests that use such defensive access when working in those files, but do not broaden an unrelated task into a repository-wide test refactor.
+
 Do not consider a feature or refactor complete until its focused black-box test suite passes.
 
 ```nix
