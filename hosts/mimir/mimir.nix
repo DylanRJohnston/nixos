@@ -19,6 +19,7 @@
       arc.home-automation
       arc.media-server
       arc.mesh
+      arc.monitoring
       arc.remote-builders
     ];
   };

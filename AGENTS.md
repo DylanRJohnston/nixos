@@ -8,6 +8,12 @@ A personal Nix configuration using `flake.nix` with [den](https://github.com/dyl
 
 All `.nix` files under `./modules` and `./hosts` are automatically imported via `import-tree`. **Never edit `flake.nix` to add imports** — just place a new `.nix` file in the right directory.
 
+## Git Working Tree and Staging
+
+Inspect the Git status near the start of each task. The expected workflow is either a fresh working tree for a new feature or existing changes that are relevant to debugging, completing, or polishing the current task. If uncommitted changes appear unrelated to the user's request, warn the user before making edits; if they overlap files that need modification or make intent ambiguous, ask how to proceed. Never discard or overwrite unrelated work.
+
+Agents have permission to modify the Git staging area. In particular, stage newly created files before evaluating Git-backed flake outputs so auto-discovered modules and their tests are visible to Nix. Preserve any pre-existing staged work and do not reset or unstage it.
+
 ## Config Classes
 
 Each aspect can define config for different targets using these keys:
