@@ -14,6 +14,10 @@ Inspect the Git status near the start of each task. The expected workflow is eit
 
 Agents have permission to modify the Git staging area. In particular, stage newly created files before evaluating Git-backed flake outputs so auto-discovered modules and their tests are visible to Nix. Preserve any pre-existing staged work and do not reset or unstage it.
 
+## End-of-Session Learning Review
+
+When the user gives their recurring end-of-session prompt, review the session for durable lessons that would improve future work. If there is a genuine reusable lesson, update the narrowest appropriate agent documentation: use this file only for guidance relevant to nearly every task, a focused document under `agents/` for project-specific technical patterns, or a skill for reusable specialized workflows. Do not add speculative or one-off details merely to produce an update; state clearly when nothing warrants documenting.
+
 ## Config Classes
 
 Each aspect can define config for different targets using these keys:

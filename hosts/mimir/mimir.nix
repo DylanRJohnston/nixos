@@ -6,6 +6,7 @@
 {
   den.hosts.aarch64-linux.mimir = {
     flake = "/etc/nixos";
+    bulkStoragePath = "/mnt/external";
 
     boot = arc.bootloader._.sd-card;
 

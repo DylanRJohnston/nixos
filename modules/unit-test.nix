@@ -57,6 +57,7 @@ let
           aspects,
           expr,
           baseline ? [ ],
+          host ? { },
           ...
         }:
         let
@@ -78,7 +79,7 @@ let
                       { expectedError = spec.${errorKey}; };
                 in
                 {
-                  den.hosts.${system}.${hostName} = {
+                  den.hosts.${system}.${hostName} = host // {
                     users.tux = { };
                     aspects = baseline ++ lib.optionals (state == "enabled") aspects;
                   };

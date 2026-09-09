@@ -115,6 +115,36 @@ When a module fails without `arc.base`, determine which case applies rather than
 3. The synthetic test is intended to represent a normal managed host and should explicitly include `arc.base`.
 4. The dependency is accidental and should be removed.
 
+## Host context values vs. direct aspect parameters
+
+Use host schema values for facts about machine topology or capabilities that multiple aspects may consume, such as a bulk-storage root. Define the behavior-free option under `arc.schema.host`, configure it in the host declaration, and consume it through `den.lib.perHost`. Prefer a nullable default when hosts that do not use the dependent aspect should remain valid.
+
+Use direct aspect parameters for values specific to one aspect invocation or instance. Remember that direct parameters must be propagated through every aspect inclusion layer, so they are a poor fit for shared host facts.
+
+When an aspect requires a nullable host value, place a clear assertion directly alongside the configuration that consumes it. Nix module values are lazy, so the assertion and dependent definitions can ordinarily remain in one module attrset without defensive `mkIf`, `mkMerge`, placeholder paths, or a separate `config` block:
+
+```nix
+arc.services._.example = den.lib.perHost (
+  { host }:
+  {
+    nixos = {
+      assertions = [
+        {
+          assertion = host.bulkStoragePath != null;
+          message = "arc.services._.example requires host.bulkStoragePath to be defined";
+        }
+      ];
+
+      systemd.tmpfiles.rules = [
+        "d ${host.bulkStoragePath}/example 0755 root root -"
+      ];
+    };
+  }
+);
+```
+
+Test both a configured synthetic host and a host that selects the aspect without the required value. The latter can inspect the final `assertions` entry to verify both the failed condition and the operator-facing message.
+
 ## How hosts use aspects
 
 Hosts are defined in `hosts/<name>/<name>.nix`:
