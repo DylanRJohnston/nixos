@@ -22,6 +22,11 @@
       arc.mesh
       arc.monitoring
       arc.remote-builders
+      {
+        nixos = {
+          deployment.targetUser = "dylanj";
+        };
+      }
     ];
   };
 }

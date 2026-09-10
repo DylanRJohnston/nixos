@@ -40,7 +40,11 @@ in
   };
 
   arc.determinate = {
-    nixos.imports = [ inputs.determinate.nixosModules.default ];
+    nixos = {
+      imports = [ inputs.determinate.nixosModules.default ];
+      nix.settings.trusted-users = [ "dylanj" ]; # TODO: Make this derived
+    };
+
     os.homeManager = {
       imports = [ inputs.determinate.homeManagerModules.default ];
       nix.package = lib.mkForce null;
