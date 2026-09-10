@@ -12,6 +12,7 @@
           image = "ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236";
           volumes = [ "/var/lib/matter-server:/data" ];
           environment = {
+            ENABLE_TIME_SYNC = "true";
             FABRIC_ID = "1";
             LISTEN_ADDRESS = "127.0.0.1";
             PRIMARY_INTERFACE = "end0";
@@ -55,9 +56,11 @@
             {
               pythonServerDisabled = !igloo.services.matter-server.enable;
               inherit (container) image volumes;
+              timeSyncEnabled = container.environment.ENABLE_TIME_SYNC;
               fabricId = container.environment.FABRIC_ID;
               listenAddress = container.environment.LISTEN_ADDRESS;
               primaryInterface = container.environment.PRIMARY_INTERFACE;
+              timezone = container.environment.TZ;
               vendorId = container.environment.VENDOR_ID;
               hostNetwork = builtins.elem "--network=host" container.extraOptions;
               matterPortOpen = builtins.elem 5540 igloo.networking.firewall.allowedUDPPorts;
@@ -72,9 +75,11 @@
         pythonServerDisabled = true;
         image = "ghcr.io/matter-js/matterjs-server:1.4.0@sha256:54232d0d3e7dff5a54759469d2753399270412b4c30c55b31750a4595e4cb236";
         volumes = [ "/var/lib/matter-server:/data" ];
+        timeSyncEnabled = "true";
         fabricId = "1";
         listenAddress = "127.0.0.1";
         primaryInterface = "end0";
+        timezone = "Australia/Perth";
         vendorId = "4939";
         hostNetwork = true;
         matterPortOpen = true;
