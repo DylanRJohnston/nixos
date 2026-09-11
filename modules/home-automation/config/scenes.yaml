@@ -78,7 +78,7 @@
       - 58
       xy_color:
       - 0.557992
-      - 0.392996
+      - 0.392991
       entity_id:
       - light.oval_bottom
       - light.oval_middle
@@ -208,19 +208,19 @@
       - color_temp
       - xy
       effect: 'off'
-      color_mode: color_temp
-      brightness: 36
-      color_temp_kelvin: 2732
+      color_mode: xy
+      brightness: 33
+      color_temp_kelvin:
       hs_color:
-      - 28.327
-      - 64.71
+      - 22.895
+      - 59.608
       rgb_color:
       - 255
-      - 168
-      - 90
+      - 161
+      - 103
       xy_color:
-      - 0.522
-      - 0.387
+      - 0.52
+      - 0.37
       off_with_transition: false
       off_brightness:
       friendly_name: Kitchen Bench Light
@@ -414,8 +414,7 @@
       supported_features: 32
       state: 'on'
     switch.bedroom_air_quality_display:
-      device_class: outlet
-      friendly_name: Bedroom Air Quality Sensor
+      friendly_name: Bedroom Air Quality Sensor Display
       state: 'on'
     light.bedside_table:
       min_color_temp_kelvin: 1801
@@ -474,15 +473,15 @@
       brightness: 92
       color_temp_kelvin:
       hs_color:
-      - 296.22
+      - 294.803
       - 55.906
       rgb_color:
-      - 246
+      - 243
       - 112
       - 255
       xy_color:
-      - 0.361
-      - 0.189
+      - 0.357
+      - 0.187
       friendly_name: Bounce Light Bottom
       supported_features: 32
       state: 'on'
@@ -498,13 +497,13 @@
       color_temp_kelvin:
       hs_color:
       - 19.843
-      - 74.803
+      - 74.409
       rgb_color:
       - 255
-      - 127
-      - 64
+      - 128
+      - 65
       xy_color:
-      - 0.588
+      - 0.586
       - 0.357
       friendly_name: Bounce Light Top
       supported_features: 32
@@ -521,14 +520,14 @@
       color_temp_kelvin:
       hs_color:
       - 12.756
-      - 82.677
+      - 82.283
       rgb_color:
       - 255
-      - 89
-      - 44
+      - 90
+      - 45
       xy_color:
-      - 0.64
-      - 0.329
+      - 0.639
+      - 0.33
       friendly_name: Desk Task Light
       supported_features: 32
       state: 'on'
