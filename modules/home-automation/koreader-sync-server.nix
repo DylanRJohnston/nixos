@@ -37,6 +37,7 @@
   flake.tests.koreader-sync-server = nixosAspectTest {
     baseline = [ arc.base ];
     aspects = [ arc.home-automation ];
+    host.bulkStoragePath = "/srv/bulk";
     expr =
       igloo:
       let

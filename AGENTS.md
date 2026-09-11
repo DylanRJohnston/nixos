@@ -110,3 +110,11 @@ Run a focused test suite with:
 ```bash
 nix-unit --flake '.#tests.feature'
 ```
+
+After focused validation passes, run the repository CI script before considering a code or configuration change complete:
+
+```bash
+./.github/workflows/CI.sh
+```
+
+This final check is required because flake-wide evaluation and the complete unit suite can expose cross-module regressions that focused tests miss.

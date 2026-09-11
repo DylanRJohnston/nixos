@@ -10,11 +10,7 @@
   arc.base._.ssh = {
     nixos.programs.ssh.startAgent = true;
 
-    darwin.homeManager.programs.ssh.settings = {
-      "*".extraOptions = {
-        "UseKeychain" = "yes";
-      };
-    };
+    darwin.homeManager.programs.ssh.settings."*".UseKeychain = "yes";
 
     homeManager = {
       programs.ssh = {
@@ -71,7 +67,7 @@
       aspects = [ arc.base ];
       expr = host: {
         inherit (host.home-manager.users.tux.programs.ssh) enable;
-        useKeychain = host.home-manager.users.tux.programs.ssh.settings."*".data.extraOptions.UseKeychain;
+        useKeychain = host.home-manager.users.tux.programs.ssh.settings."*".data.UseKeychain;
         githubIdentity = host.home-manager.users.tux.programs.ssh.settings."github.com".data.identityFile;
         personalIdentity =
           host.home-manager.users.tux.programs.ssh.settings."personal.github.com".data.identityFile;
