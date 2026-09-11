@@ -9,6 +9,7 @@
   arc.public-ingress = den.lib.perHost (
     { host }:
     let
+      cloudflaredUid = 65532;
       secretFile = "${inputs.self}/secrets/${host.name}/cloudflare-tunnel.yaml";
     in
     {
@@ -27,6 +28,9 @@
           sops.secrets.cloudflare-tunnel-token = {
             sopsFile = secretFile;
             key = "key";
+            uid = cloudflaredUid;
+            gid = cloudflaredUid;
+            mode = "0400";
             restartUnits = [ "podman-public-ingress.service" ];
           };
 
@@ -86,7 +90,13 @@
             ;
           podmanEnabled = mimir.virtualisation.podman.enable;
           secret = {
-            inherit (secret) key restartUnits;
+            inherit (secret)
+              gid
+              key
+              mode
+              restartUnits
+              uid
+              ;
             expectedSource = lib.hasSuffix "/secrets/mimir/cloudflare-tunnel.yaml" secret.sopsFile;
             sourceExists = builtins.pathExists secret.sopsFile;
           };
@@ -107,8 +117,11 @@
           extraOptions = [ "--network=host" ];
           podmanEnabled = true;
           secret = {
+            gid = 65532;
             key = "key";
+            mode = "0400";
             restartUnits = [ "podman-public-ingress.service" ];
+            uid = 65532;
             expectedSource = true;
             sourceExists = true;
           };
