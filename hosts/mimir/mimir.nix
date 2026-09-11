@@ -23,6 +23,7 @@
       arc.monitoring
       arc.remote-builders
       arc.secrets
+      arc.public-ingress
       {
         nixos = {
           deployment.targetUser = "dylanj";

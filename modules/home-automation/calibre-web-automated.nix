@@ -70,7 +70,7 @@
             volumes
             environment
             ;
-          tailscaleTarget = igloo.services.tailscale-serve.calibre.target;
+          tailscaleTarget = igloo.services.tailscale-serve.books.target;
           directories = lib.filter (
             rule: lib.hasInfix "calibre-web-automated/" rule
           ) igloo.systemd.tmpfiles.rules;
