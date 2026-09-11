@@ -13,6 +13,8 @@
 
   arc.base.includes = [ arc.base._.bootloader ];
 
+  arc.base.nixos.boot.zfs.forceImportRoot = false;
+
   arc.base._.bootloader = den.lib.perHost ({ host }: host.boot);
 
   arc.bootloader._.systemd.nixos.boot.loader = {
@@ -38,6 +40,7 @@
           extlinux = false;
           systemd = true;
           canTouch = true;
+          forceImportRoot = false;
         };
       };
 
@@ -47,6 +50,7 @@
           extlinux = true;
           systemd = false;
           canTouch = false;
+          forceImportRoot = false;
         };
       };
     in
@@ -66,6 +70,7 @@
             extlinux = generic-extlinux-compatible.enable;
             systemd = systemd-boot.enable;
             canTouch = efi.canTouchEfiVariables;
+            forceImportRoot = igloo.boot.zfs.forceImportRoot;
           };
 
           inherit expected;
