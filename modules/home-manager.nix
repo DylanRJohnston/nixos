@@ -1,4 +1,9 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  unitTest,
+  ...
+}:
 {
   arc.base = rec {
     includes = [
@@ -26,7 +31,23 @@
           imports = [ osConfig.homeManager ];
 
           home.stateVersion = "26.05";
+
+          # Work around https://github.com/nix-community/home-manager/issues/7935.
+          manual.manpages.enable = false;
         };
     };
   };
+
+  flake.tests.home-manager.test-disable-manpages = unitTest (
+    { arc, igloo, ... }:
+    {
+      den.hosts.x86_64-linux.igloo = {
+        users.tux = { };
+        aspects = [ arc.base ];
+      };
+
+      expr = igloo.home-manager.users.tux.manual.manpages.enable;
+      expected = false;
+    }
+  );
 }

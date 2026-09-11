@@ -16,7 +16,7 @@ Agents have permission to modify the Git staging area. In particular, stage newl
 
 ## End-of-Session Learning Review
 
-When the user gives their recurring end-of-session prompt, review the session for durable lessons that would improve future work. If there is a genuine reusable lesson, update the narrowest appropriate agent documentation: use this file only for guidance relevant to nearly every task, a focused document under `agents/` for project-specific technical patterns, or a skill for reusable specialized workflows. Do not add speculative or one-off details merely to produce an update; state clearly when nothing warrants documenting.
+At the end of every session, without waiting for a separate user prompt, review the session for durable lessons that would improve future work. If there is a genuine reusable lesson, update the narrowest appropriate agent documentation: use this file only for guidance relevant to nearly every task, a focused document under `agents/` for project-specific technical patterns, or a skill for reusable specialized workflows. Do not add speculative or one-off details merely to produce an update; state clearly when nothing warrants documenting.
 
 ## Config Classes
 
@@ -88,7 +88,7 @@ For aspect-scoping changes, test both a host that includes the aspect and one th
 
 When the same expression succeeds with an aspect and naturally fails without it, prefer asserting the evaluation error (`expectedError`, or `disabledErr` with an aspect test helper) over adding defensive field-access logic such as presence checks and conditional placeholder values solely to keep the expression evaluable. Incrementally simplify existing tests that use such defensive access when working in those files, but do not broaden an unrelated task into a repository-wide test refactor.
 
-Do not consider a feature or refactor complete until its focused black-box test suite passes.
+Do not consider a feature or refactor complete until its focused black-box test suite passes. Name each leaf test attribute with a `test-` prefix; `nix-unit` otherwise skips it and may misleadingly report `0/0 successful`.
 
 ```nix
 flake.tests.feature.test-included = unitTest (
