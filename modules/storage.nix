@@ -1,4 +1,4 @@
-{ arc, lib, ... }:
+{ lib, ... }:
 {
   arc.schema.host.options.bulkStoragePath = lib.mkOption {
     type = lib.types.nullOr (lib.types.strMatching "/.*");

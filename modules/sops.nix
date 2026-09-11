@@ -1,7 +1,6 @@
 {
   arc,
   darwinAspectTest,
-  den,
   inputs,
   nixosAspectTest,
   ...
