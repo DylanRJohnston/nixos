@@ -10,6 +10,8 @@ let
       ...
     }:
     let
+      colmenaOptions = import "${inputs.colmena}/src/nix/hive/options.nix";
+
       nixosHosts =
         den.hosts
         |> lib.attrValues
@@ -43,17 +45,35 @@ let
         };
       };
 
-      config.arc.development.os =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [ inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena ];
-        };
+      config.arc = {
+        ctx.host = den.lib.perHost (
+          { host }:
+          {
+            nixos =
+              args@{ lib, ... }:
+              let
+                deploymentModule = colmenaOptions.deploymentOptions (args // { name = host.name; });
+              in
+              {
+                options = lib.optionalAttrs (!(args ? nodes)) deploymentModule.options;
+              };
+          }
+        );
+
+        development.os =
+          { pkgs, ... }:
+          {
+            environment.systemPackages = [ inputs.colmena.packages.${pkgs.stdenv.hostPlatform.system}.colmena ];
+          };
+      };
 
       config.flake = {
         colmena = rawHive;
         colmenaHive = inputs.colmena.lib.makeHive rawHive;
 
-        packages = inputs.colmena.packages;
+        packages = {
+          inherit (inputs.colmena.packages) aarch64-linux aarch64-darwin x86_64-linux;
+        };
 
         tests.colmena = {
           test-hive = unitTest (
@@ -61,7 +81,10 @@ let
             {
               den.hosts.x86_64-linux.igloo = {
                 users.tux = { };
-                aspects = [ arc.base ];
+                aspects = [
+                  arc.base
+                  { nixos.deployment.targetUser = "tux"; }
+                ];
               };
               den.hosts.aarch64-darwin.apple = {
                 users.tux = { };
@@ -73,12 +96,14 @@ let
                 excludesDarwinHost = !(config.flake.colmenaHive.nodes ? apple);
                 hostName = config.flake.colmenaHive.nodes.igloo.config.networking.hostName;
                 targetHost = config.flake.colmenaHive.deploymentConfig.igloo.targetHost;
+                targetUser = config.flake.colmenaHive.deploymentConfig.igloo.targetUser;
               };
               expected = {
                 includesNixosHost = true;
                 excludesDarwinHost = true;
                 hostName = "igloo";
                 targetHost = "igloo";
+                targetUser = "tux";
               };
             }
           );
