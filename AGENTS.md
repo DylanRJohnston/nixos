@@ -14,6 +14,12 @@ Inspect the Git status near the start of each task. The expected workflow is eit
 
 Agents have permission to modify the Git staging area. In particular, stage newly created files before evaluating Git-backed flake outputs so auto-discovered modules and their tests are visible to Nix. Preserve any pre-existing staged work and do not reset or unstage it.
 
+## Failed NixOS Switch Recovery
+
+A live `switch-to-configuration switch` is not transactional: it can install and reload a generation before aborting while starting units. Retrying the same generation may report success without starting units missed by the failed attempt because there is no longer a generation diff. After a failed switch, do not treat an identical retry as reconciliation.
+
+Prefer rolling back with `sudo nixos-rebuild switch --rollback`, verifying `systemctl --failed`, fixing the cause, and then deploying the desired configuration again so systemd receives a real old-to-new transition. If deliberately repairing forward instead, explicitly reset/restart failed units and start every newly introduced unit that the interrupted activation missed; verify their status and `systemctl --failed`. A controlled reboot into the desired boot generation also queues all enabled units from a clean target transaction, but use it only when remote boot safety is established.
+
 ## End-of-Session Learning Review
 
 At the end of every session, without waiting for a separate user prompt, review the session for durable lessons that would improve future work. If there is a genuine reusable lesson, update the narrowest appropriate agent documentation: use this file only for guidance relevant to nearly every task, a focused document under `agents/` for project-specific technical patterns, or a skill for reusable specialized workflows. Do not add speculative or one-off details merely to produce an update; state clearly when nothing warrants documenting.

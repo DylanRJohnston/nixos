@@ -49,10 +49,6 @@
             };
           };
 
-          systemd.services.podman-public-ingress = {
-            after = [ "sops-install-secrets.service" ];
-            requires = [ "sops-install-secrets.service" ];
-          };
         };
     }
   );
@@ -116,11 +112,8 @@
             expectedSource = true;
             sourceExists = true;
           };
-          after = [
-            "network-online.target"
-            "sops-install-secrets.service"
-          ];
-          requires = [ "sops-install-secrets.service" ];
+          after = [ "network-online.target" ];
+          requires = [ ];
         };
       }
     );
