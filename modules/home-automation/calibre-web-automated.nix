@@ -14,42 +14,50 @@
   arc.home-automation._.calibre-web-automated = den.lib.perHost (
     { host }:
     {
-      nixos = {
-        assertions = [
-          {
-            assertion = host.bulkStoragePath != null;
-            message = "arc.home-automation._.calibre-web-automated requires host.bulkStoragePath to be defined";
-          }
-        ];
+      nixos =
+        { pkgs, ... }:
+        {
+          assertions = [
+            {
+              assertion = host.bulkStoragePath != null;
+              message = "arc.home-automation._.calibre-web-automated requires host.bulkStoragePath to be defined";
+            }
+          ];
 
-        virtualisation.podman.enable = true;
-        systemd.tmpfiles.rules = [
-          "d /var/lib/calibre-web-automated/config 0755 1000 1000 -"
-          "d ${host.bulkStoragePath}/calibre-web-automated/ingest 0755 1000 1000 -"
-          "d ${host.bulkStoragePath}/calibre-web-automated/library 0755 1000 1000 -"
-        ];
-        systemd.services.podman-calibre-web-automated.unitConfig.RequiresMountsFor = host.bulkStoragePath;
-
-        virtualisation.oci-containers = {
-          backend = "podman";
-          containers.calibre-web-automated = {
-            image = "docker.io/crocodilestick/calibre-web-automated:v4.0.6@sha256:c31a738b6d5ec6982c050063dd3f063b6943eb1051fc81144789f840d9093a8d";
-            ports = [ "127.0.0.1:8083:8083" ];
-            volumes = [
-              "/var/lib/calibre-web-automated/config:/config"
-              "${host.bulkStoragePath}/calibre-web-automated/ingest:/cwa-book-ingest"
-              "${host.bulkStoragePath}/calibre-web-automated/library:/calibre-library"
+          virtualisation.podman.enable = true;
+          systemd.tmpfiles.rules = [
+            "d /var/lib/calibre-web-automated/config 0755 1000 1000 -"
+            "d ${host.bulkStoragePath}/calibre-web-automated/ingest 0755 1000 1000 -"
+            "d ${host.bulkStoragePath}/calibre-web-automated/library 0755 1000 1000 -"
+          ];
+          systemd.services.podman-calibre-web-automated = {
+            unitConfig.RequiresMountsFor = host.bulkStoragePath;
+            # Boot-time tmpfiles may run before removable bulk storage is mounted.
+            serviceConfig.ExecStartPre = [
+              "${pkgs.systemd}/bin/systemd-tmpfiles --create --prefix=${host.bulkStoragePath}/calibre-web-automated"
             ];
-            environment = {
-              PUID = "1000";
-              PGID = "1000";
-              TZ = "Australia/Perth";
+          };
+
+          virtualisation.oci-containers = {
+            backend = "podman";
+            containers.calibre-web-automated = {
+              image = "docker.io/crocodilestick/calibre-web-automated:v4.0.6@sha256:c31a738b6d5ec6982c050063dd3f063b6943eb1051fc81144789f840d9093a8d";
+              ports = [ "127.0.0.1:8083:8083" ];
+              volumes = [
+                "/var/lib/calibre-web-automated/config:/config"
+                "${host.bulkStoragePath}/calibre-web-automated/ingest:/cwa-book-ingest"
+                "${host.bulkStoragePath}/calibre-web-automated/library:/calibre-library"
+              ];
+              environment = {
+                PUID = "1000";
+                PGID = "1000";
+                TZ = "Australia/Perth";
+              };
             };
           };
-        };
 
-        services.tailscale-serve.books.target = "127.0.0.1:8083";
-      };
+          services.tailscale-serve.books.target = "127.0.0.1:8083";
+        };
     }
   );
 
@@ -76,6 +84,10 @@
           ) igloo.systemd.tmpfiles.rules;
           requiresMountsFor =
             igloo.systemd.services.podman-calibre-web-automated.unitConfig.RequiresMountsFor;
+          createsDirectoriesBeforeStart = lib.any (
+            command:
+            lib.hasSuffix "bin/systemd-tmpfiles --create --prefix=/srv/bulk/calibre-web-automated" command
+          ) igloo.systemd.services.podman-calibre-web-automated.serviceConfig.ExecStartPre;
           portOpen = builtins.elem 8083 igloo.networking.firewall.allowedTCPPorts;
         };
       enabled = {
@@ -98,6 +110,7 @@
           "d /srv/bulk/calibre-web-automated/library 0755 1000 1000 -"
         ];
         requiresMountsFor = "/srv/bulk";
+        createsDirectoriesBeforeStart = true;
         portOpen = false;
       };
       disabledErr.msg = "attribute.*calibre-web-automated.*missing";
