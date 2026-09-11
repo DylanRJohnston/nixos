@@ -11,6 +11,7 @@
       arc.entertainment
       arc.gaming
       arc.mesh
+      arc.secrets
     ];
   };
 }

@@ -1,0 +1,15 @@
+keys:
+  # Administrator user keys for editing secrets.
+  - &dylanj_odin_user age1m9px0q2lmykkda4lxm5ypncvwm5a6yzjw8capvrrkn8usj06tqlsrkgtu5
+  - &dylanj_loki_user age17m7wwv2tdnwdanumszx7hs9lmzgk07tcyd0hn8wrka5ze77g8e5sqx64mk
+
+  # Target host key used by sops-nix during activation.
+  - &mimir_host age1hqy25nl6dn3vgtswgux9kz0j97cuntn7yeraq3cpf7hm7y7pqqqsc83jxm
+
+creation_rules:
+  - path_regex: secrets/mimir/.*\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *dylanj_odin_user
+          - *dylanj_loki_user
+          - *mimir_host

@@ -22,6 +22,7 @@
       arc.mesh
       arc.monitoring
       arc.remote-builders
+      arc.secrets
       {
         nixos = {
           deployment.targetUser = "dylanj";
