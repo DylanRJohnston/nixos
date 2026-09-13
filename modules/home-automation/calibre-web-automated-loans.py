@@ -20,7 +20,31 @@ def load_deacsm():
             "DeACSM is not installed in CWA's Calibre configuration"
         ) from error
 
-    return prefs.ACSMInput_Prefs, fulfill.tryReturnBook, calibre_lock.SingleInstance
+    prefs_class = getattr(prefs, "ACSMInput_Prefs", None)
+    if prefs_class is None:
+        prefs_class = getattr(prefs, "DeACSM_Prefs", None)
+    if prefs_class is None:
+        raise RuntimeError("Unsupported DeACSM preferences API")
+
+    return prefs_class, fulfill.tryReturnBook, calibre_lock.SingleInstance
+
+
+def refresh_prefs(prefs):
+    refresh = getattr(prefs, "refresh", None)
+    if refresh is not None:
+        refresh()
+
+
+def save_prefs(prefs):
+    commit = getattr(prefs, "commit", None)
+    if commit is not None:
+        commit()
+        return
+
+    writeprefs = getattr(prefs, "writeprefs", None)
+    if writeprefs is None:
+        raise RuntimeError("Unsupported DeACSM preferences persistence API")
+    writeprefs()
 
 
 def list_loans(loans):
@@ -48,7 +72,7 @@ def find_loan(loans, loan_id):
 
 
 def return_loan(prefs, try_return_book, loan_id):
-    prefs.refresh()
+    refresh_prefs(prefs)
     loans = prefs["list_of_rented_books"]
     loan = find_loan(loans, loan_id)
 
@@ -58,7 +82,7 @@ def return_loan(prefs, try_return_book, loan_id):
         raise RuntimeError(f"DeACSM rejected the return: {response}")
 
     prefs["list_of_rented_books"].remove(loan)
-    prefs.commit()
+    save_prefs(prefs)
     print("Book successfully returned and its local loan record was removed.")
 
 
@@ -91,7 +115,7 @@ def main(argv=None):
             )
 
         prefs = prefs_class()
-        prefs.refresh()
+        refresh_prefs(prefs)
         if args.command == "list":
             list_loans(prefs["list_of_rented_books"])
         else:

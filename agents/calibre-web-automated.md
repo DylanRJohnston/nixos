@@ -6,6 +6,8 @@ BorrowBox and other Adobe Content Server distributors disable returns in their o
 
 CWA does not expose the Calibre plugin configuration UI. The `arc.home-automation._.calibre-web-automated` aspect therefore installs `cwa-loans`, which executes the mounted `calibre-web-automated-loans.py` helper through CWA's own `calibre-debug`. The helper deliberately delegates signing and notification behavior to the installed DeACSM plugin instead of reimplementing Adobe's protocol.
 
+Keep both plugin preferences APIs supported: DeACSM 0.0.16 exposes `DeACSM_Prefs` and persists with `writeprefs()`, while newer ACSM Input builds expose `ACSMInput_Prefs` with `refresh()` and `commit()`.
+
 After deploying the configuration, list persisted loan records on the CWA host:
 
 ```bash
