@@ -13,7 +13,11 @@
           backend = "podman";
           containers.homeassistant = {
             image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
-            volumes = [ "/etc/nixos/modules/home-automation/config:/config" ];
+            volumes = [
+              "/etc/nixos/modules/home-automation/config:/config"
+              # Home Assistant discovers and controls host Bluetooth adapters over BlueZ D-Bus.
+              "/run/dbus:/run/dbus:ro"
+            ];
             environment.TZ = "Australia/Perth";
             extraOptions = [
               "--network=host"
@@ -51,6 +55,10 @@
         };
 
         services.dbus.enable = true;
+        systemd.services.podman-homeassistant = {
+          after = [ "dbus.service" ];
+          requires = [ "dbus.service" ];
+        };
       };
   };
 
@@ -73,6 +81,12 @@
             {
               inherit (container) image;
               tailscaleDns = builtins.elem "--dns=100.100.100.100" container.extraOptions;
+              dbus = {
+                enabled = igloo.services.dbus.enable;
+                mounted = builtins.elem "/run/dbus:/run/dbus:ro" container.volumes;
+                startsAfter = builtins.elem "dbus.service" igloo.systemd.services.podman-homeassistant.after;
+                required = builtins.elem "dbus.service" igloo.systemd.services.podman-homeassistant.requires;
+              };
             }
           else
             null;
@@ -82,6 +96,12 @@
       details = {
         image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
         tailscaleDns = true;
+        dbus = {
+          enabled = true;
+          mounted = true;
+          startsAfter = true;
+          required = true;
+        };
       };
     };
     disabled = {
