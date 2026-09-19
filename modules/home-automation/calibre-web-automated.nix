@@ -65,7 +65,7 @@ in
           virtualisation.oci-containers = {
             backend = "podman";
             containers.calibre-web-automated = {
-              image = "docker.io/crocodilestick/calibre-web-automated:v4.0.6@sha256:c31a738b6d5ec6982c050063dd3f063b6943eb1051fc81144789f840d9093a8d";
+              image = "ghcr.io/new-usemame/calibre-web-nextgen:v4.1.43@sha256:092b583be20202a983797d27b75960ece9625517fa6916068574e23ef4e092b1";
               ports = [ "127.0.0.1:8083:8083" ];
               volumes = [
                 "/var/lib/calibre-web-automated/config:/config"
@@ -119,7 +119,7 @@ in
           portOpen = builtins.elem 8083 igloo.networking.firewall.allowedTCPPorts;
         };
       enabled = {
-        image = "docker.io/crocodilestick/calibre-web-automated:v4.0.6@sha256:c31a738b6d5ec6982c050063dd3f063b6943eb1051fc81144789f840d9093a8d";
+        image = "ghcr.io/new-usemame/calibre-web-nextgen:v4.1.43@sha256:092b583be20202a983797d27b75960ece9625517fa6916068574e23ef4e092b1";
         ports = [ "127.0.0.1:8083:8083" ];
         volumes = [
           "/var/lib/calibre-web-automated/config:/config"

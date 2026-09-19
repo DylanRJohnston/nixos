@@ -13,6 +13,7 @@
     nixos.security.sudo.extraConfig = ''
       %wheel ALL=(root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild
       %wheel ALL=(root) NOPASSWD: /nix/store/*-nixos-system-*/bin/switch-to-configuration
+      %wheel ALL=(root) NOPASSWD: /run/current-system/sw/bin/nix build --no-link --profile /nix/var/nix/profiles/system /nix/store/*-nixos-system-*
     '';
   };
 
@@ -20,10 +21,24 @@
     aspects = [ arc.base ];
     expr =
       igloo:
-      lib.hasInfix
-        "%wheel ALL=(root) NOPASSWD: /nix/store/*-nixos-system-*/bin/switch-to-configuration"
-        igloo.security.sudo.extraConfig;
-    enabled = true;
-    disabled = false;
+      let
+        sudoConfig = igloo.security.sudo.extraConfig;
+      in
+      {
+        switchToConfiguration = lib.hasInfix
+          "%wheel ALL=(root) NOPASSWD: /nix/store/*-nixos-system-*/bin/switch-to-configuration"
+          sudoConfig;
+        setSystemProfile = lib.hasInfix
+          "%wheel ALL=(root) NOPASSWD: /run/current-system/sw/bin/nix build --no-link --profile /nix/var/nix/profiles/system /nix/store/*-nixos-system-*"
+          sudoConfig;
+      };
+    enabled = {
+      switchToConfiguration = true;
+      setSystemProfile = true;
+    };
+    disabled = {
+      switchToConfiguration = false;
+      setSystemProfile = false;
+    };
   };
 }
