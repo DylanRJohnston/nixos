@@ -46,6 +46,10 @@ let
       _1password-gui
       obsidian
       pulseaudio
+      bubblewrap
+      dmidecode
+      usbutils
+      pciutils
     ];
 
   packages.base.casks = [
