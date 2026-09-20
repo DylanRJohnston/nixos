@@ -5,6 +5,7 @@
 
     aspects = [
       arc.base
+      arc.determinate
       arc.development
       arc.entertainment
       arc.gaming
