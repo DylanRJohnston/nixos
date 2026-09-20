@@ -1,4 +1,9 @@
-{ den, arc, ... }:
+{
+  den,
+  arc,
+  unitTest,
+  ...
+}:
 {
   arc.gaming = {
     includes = [
@@ -16,7 +21,7 @@
             softrealtime = "auto";
             renice = 10;
             desiredgov = "performance";
-            defaultgov = "schedutil";
+            defaultgov = "powersave";
           };
         };
       };
@@ -26,4 +31,25 @@
       user.extraGroups = [ "gamemode" ];
     };
   };
+
+  flake.tests.gamemode.test-governors = unitTest (
+    { arc, igloo, ... }:
+    {
+      den.hosts.x86_64-linux.igloo = {
+        users.tux = { };
+        aspects = with arc; [
+          base
+          gaming
+        ];
+      };
+
+      expr = {
+        inherit (igloo.programs.gamemode.settings.general) desiredgov defaultgov;
+      };
+      expected = {
+        desiredgov = "performance";
+        defaultgov = "powersave";
+      };
+    }
+  );
 }
