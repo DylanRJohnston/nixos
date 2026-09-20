@@ -43,6 +43,12 @@
 
           layout.gaps = 5;
 
+          # TODO: This is Loki specific and should be refactored in some way to live there instead
+          "output \"Dell Inc. DELL S3220DGF 9R40G03\"" = {
+            "mode \"2560x1440@164.056\"" = { };
+            "variable-refresh-rate on-demand=true" = { };
+          };
+
           binds = {
 
             "Mod+Shift+Slash".show-hotkey-overlay = { };
