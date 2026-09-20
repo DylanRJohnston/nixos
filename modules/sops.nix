@@ -7,11 +7,11 @@
 }:
 {
   arc.secrets = {
-      nixos.imports = [ inputs.sops-nix.nixosModules.sops ];
-      darwin.imports = [ inputs.sops-nix.darwinModules.sops ];
+    nixos.imports = [ inputs.sops-nix.nixosModules.sops ];
+    darwin.imports = [ inputs.sops-nix.darwinModules.sops ];
 
-      os.sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    };
+    os.sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
 
   flake.tests.sops = {
     nixos = nixosAspectTest {
