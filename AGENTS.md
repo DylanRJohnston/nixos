@@ -24,6 +24,10 @@ Prefer rolling back with `sudo nixos-rebuild switch --rollback`, verifying `syst
 
 At the end of every session, without waiting for a separate user prompt, review the session for durable lessons that would improve future work. If there is a genuine reusable lesson, update the narrowest appropriate agent documentation: use this file only for guidance relevant to nearly every task, a focused document under `agents/` for project-specific technical patterns, or a skill for reusable specialized workflows. Do not add speculative or one-off details merely to produce an update; state clearly when nothing warrants documenting.
 
+## Architecture Decision Records
+
+Significant architecture decisions and their historical context live under [`docs/architecture/decisions/`](docs/architecture/decisions/). Follow that directory's process when a change establishes or supersedes a cross-cutting design rule, has meaningful alternatives or tradeoffs, or would otherwise be difficult to reconstruct from the resulting code. Keep this file focused on current operating rules; do not remove or rewrite accepted decision history when current guidance changes—supersede it with a new ADR.
+
 ## Config Classes
 
 Each aspect can define config for different targets using these keys:
@@ -56,7 +60,7 @@ Use these definitions and litmus tests when deciding where configuration belongs
 - **`arc.gaming` — game execution and support.** It contains game clients, compatibility layers, performance tooling, streaming, controller support, and gaming-specific system configuration. It applies to gaming machines, not general servers or Raspberry Pis.
 - **`arc.mesh` — trusted private-network membership.** It opts a host into the Tailscale mesh and the access/trust configuration shared by participating hosts, currently including SSH/Mosh and cross-host key distribution. Implementations may change (for example, to Tailscale SSH) without changing the aspect's intent.
 
-Selector namespaces such as `arc.bootloader` and `arc.hardware` provide implementations or profiles rather than broad machine roles. `arc.schema` and `arc.ctx` are framework internals.
+Selector namespaces such as `arc.bootloader` and `arc.hardware` provide implementations or profiles rather than broad machine roles. Keep role aspects and hardware profiles independent: for example, a gaming host with NVIDIA graphics should compose both `arc.gaming` and `arc.hardware._.nvidia`, rather than making the vendor implementation a child or automatic consequence of `gaming`. Config classes such as `.nixos` select the target platform; they are not implementation-selector namespaces. See [ADR 0002](docs/architecture/decisions/0002-separate-hardware-profiles-from-host-roles.md). `arc.schema` and `arc.ctx` are framework internals.
 
 ### Universal Schema vs. Baseline Behavior
 

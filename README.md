@@ -39,20 +39,11 @@ To bootstrap a Darwin system configuration.
 
 ## Project Structure
 
-[flake.nix](./flake.nix) contains [System Configurations](#system-configurations) and [Templates](#templates).
+[`flake.nix`](./flake.nix) evaluates all Nix files under `modules/` and `hosts/` through [`import-tree`](https://github.com/vic/import-tree). New modules and hosts are discovered automatically without adding explicit imports to the flake.
 
-### System Configurations
+- [`modules/`](./modules/) defines composable `arc` aspects and their tests.
+- [`hosts/`](./hosts/) declares each managed host and the aspects it composes.
+- [`docs/architecture/decisions/`](./docs/architecture/decisions/) records significant architecture decisions, alternatives, and supersession history as lightweight ADRs.
+- [`agents/`](./agents/) contains current project guidance and focused operational notes for coding agents.
 
-`flake.nix` contains a number of system configurations as well as a number of helper methods for constructing Darwin (`mkDarwin`) and NixOS (`mkNixOS`) system configurations which are specialisations of the generic `mkSystem` function.
-
-NixOS or Nix-Darwin modules are provided with a number of extra parameters.
-
-- **lockfile** - The contents of the flake.lock, currently used to pin the `/etc/nix/registry.conf` to the same version as the lockfile. Ensuring all invocations of `nix shell nixpkgs#foobar` use the same `nixpkgs` as the system configuration.
-- **hardware** - The [nixos/nixos-hardware](https://github.com/nixos/nixos-hardware) flake contents. Contains hardware specific modules to support things like the Raspberry PI.
-- **common** - Contains NixOS modules that are shared between NixOS system configurations.
-
-Home Manager modules are provided similarly with an extra **common** argument that contains shared home-manager modules.
-
-NixOS, Nix Darwin, and Home Manager all have a **common.base** module that contains a sensible collection of modules. Most of the system configurations contain just these base modules with use cases specific overrides. For example, for [AU-L-0226](./hosts/AU-L-0226/) the [NixOS Configuration](./hosts/AU-L-0226/configuration.nix) contains just the base configuration with an additional Homebrew Cask for LastPass. The [Home Manager](./hosts/AU-L-0226/home-manager.nix) module is similarly just the base configuration with overrides for the git config.
-
-### Templates
+The configuration uses [den](https://github.com/dylanrjohnston/den) to map each host's selected aspects into NixOS, nix-darwin, Home Manager, and user-level configuration.

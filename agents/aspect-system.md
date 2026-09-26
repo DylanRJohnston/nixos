@@ -145,9 +145,25 @@ arc.services._.example = den.lib.perHost (
 
 Test both a configured synthetic host and a host that selects the aspect without the required value. The latter can inspect the final `assertions` entry to verify both the failed condition and the operator-facing message.
 
+## Roles and implementation profiles
+
+Role aspects describe what a host is used for, while selector namespaces describe concrete implementations or hardware profiles. Compose these independently in the host:
+
+```nix
+aspects = [
+  arc.gaming
+  arc.hardware._.nvidia
+  arc.interactive
+];
+```
+
+Do not place a vendor implementation under the role that currently uses it. For example, NVIDIA configuration belongs in `arc.hardware._.nvidia.nixos`, not `arc.gaming._.nvidia.nixos` or `arc.gaming.nixos.nvidia`. The `.nixos` class selects the target platform; it does not select a hardware backend.
+
+Prefer explicit host composition until multiple real implementations demonstrate a need for host schema, automatic dispatch, or a shared capability interface. See [ADR 0002](../docs/architecture/decisions/0002-separate-hardware-profiles-from-host-roles.md).
+
 ## How hosts use aspects
 
-Hosts are defined in `hosts/<name>/<name>.nix`:
+Hosts are defined under `hosts/<name>/<name>.nix`:
 
 ```nix
 { arc, ... }: {
@@ -156,6 +172,7 @@ Hosts are defined in `hosts/<name>/<name>.nix`:
     aspects = [
       arc.base
       arc.gaming
+      arc.hardware._.nvidia
       arc.interactive
     ];
   };
