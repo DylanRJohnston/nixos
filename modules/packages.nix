@@ -33,6 +33,7 @@ let
       nixd
       nixfmt
       pv
+      ripgrep
       sops
       tmux
       tree
