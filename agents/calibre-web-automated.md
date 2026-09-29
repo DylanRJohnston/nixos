@@ -1,5 +1,11 @@
 # Calibre Web Automated
 
+## Calibre user plugins
+
+The NextGen container requires `CWA_CALIBRE_USER_PLUGINS=true` to load installed Calibre user plugins; ZIPs and existing activation/settings files alone are not sufficient. Keep this opt-in in the container environment and its black-box test. It enables all installed user plugins, so only trusted plugin ZIPs should be present.
+
+The host directory `/var/lib/calibre-web-automated/config/.config/calibre/plugins` maps to `/config/.config/calibre/plugins` in the container. Preserve plugin settings and the `DeACSM/` activation directory when troubleshooting ACSM ingestion. After deploying an environment change, check container startup logs for `Registered Calibre plugin` before retrying an ACSM from `processed_books/failed`.
+
 ## Returning DeACSM library loans
 
 BorrowBox and other Adobe Content Server distributors disable returns in their own UI after an ACSM is fulfilled by an external Adobe-compatible client. A DeACSM return is a separately signed `loanReturn` request to the fulfillment response's `operatorURL + "/LoanReturn"`; fulfillment notifications whose response text mentions “Return accepted” are not loan returns.

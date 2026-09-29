@@ -74,6 +74,7 @@ in
                 "${cwaLoansScript}:/opt/cwa-loans.py:ro"
               ];
               environment = {
+                CWA_CALIBRE_USER_PLUGINS = "true";
                 PUID = "1000";
                 PGID = "1000";
                 TZ = "Australia/Perth";
@@ -128,6 +129,7 @@ in
           "${cwaLoansScript}:/opt/cwa-loans.py:ro"
         ];
         environment = {
+          CWA_CALIBRE_USER_PLUGINS = "true";
           PUID = "1000";
           PGID = "1000";
           TZ = "Australia/Perth";
