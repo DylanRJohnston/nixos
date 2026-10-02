@@ -14,7 +14,7 @@
         os =
           { pkgs, lib, ... }:
           {
-            users.users.${user.userName}.shell = lib.mkDefault pkgs.zsh;
+            users.users.${user.userName}.shell = lib.mkOverride 999 pkgs.zsh;
           };
       };
 
