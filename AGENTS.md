@@ -94,6 +94,8 @@ Whenever an OCI container bind-mounts a host path, ensure that path is created b
 
 ## Unit Tests
 
+Keep tests in the same `.nix` file as the implementation they test, rather than creating separate test modules.
+
 Every new feature and every refactor must include a black-box unit test. Use the `unitTest` helper from `modules/unit-test.nix` to define a synthetic host and assert against its final evaluated configuration. Tests must verify externally observable host behavior rather than implementation details such as the contents of an aspect's `includes` list.
 
 For aspect-scoping changes, test both a host that includes the aspect and one that omits it. A refactor should preserve or deliberately update the existing behavioral assertions, while a new feature should cover its intended enabled behavior and any meaningful exclusion or default behavior.

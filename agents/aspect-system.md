@@ -20,6 +20,8 @@ User SSH public keys **must** be assigned as `users.<name>.config.key`. Upstream
 
 See [ADR 0003](../docs/architecture/decisions/0003-adopt-upstream-den-host-projection.md) for the migration decision and tradeoffs. Architectural adoption does not imply final migration CI or build validation has passed.
 
+Aspect context functions can request handler-provided arguments directly, for example `{ host, ... }: ...`. Do not wrap them in `den.lib.take.upTo`; that helper is deprecated because `bind.fn` resolves arguments from handlers.
+
 ## Aspect config classes
 
 ```nix
