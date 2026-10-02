@@ -7,7 +7,7 @@
   ...
 }:
 {
-  arc.home-automation._.calibre-web-automated._.cloudflare-fail2ban = den.lib.perHost (
+  arc.home-automation._.calibre-web-automated._.cloudflare-fail2ban = (
     { host }:
     let
       secretFile = "${inputs.self}/secrets/${host.name}/cloudflare-tunnel.yaml";
@@ -221,7 +221,7 @@
           name = "mimir";
           bulkStoragePath = "/srv/bulk";
           users.tux = { };
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.home-automation
             arc.home-automation._.calibre-web-automated._.cloudflare-fail2ban
@@ -291,7 +291,7 @@
       {
         den.hosts.x86_64-linux.igloo = {
           users.tux = { };
-          aspects = [ arc.base ];
+          aspect.includes = [ arc.base ];
         };
 
         expr = {

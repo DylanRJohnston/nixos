@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A personal Nix configuration using `flake.nix` with [den](https://github.com/dylanrjohnston/den) as the underlying framework and `import-tree` for module discovery.
+A personal Nix configuration using `flake.nix` with [upstream den 0.19](https://github.com/denful/den) as the underlying framework and `import-tree` for module discovery.
 
 ## Module Auto-Discovery
 
@@ -45,7 +45,9 @@ Each aspect can define config for different targets using these keys:
 This codebase is organised around **aspects** — named, composable units of configuration. Understanding this is essential for any module work.
 
 - Aspects live at `arc.<name>` (e.g. `arc.base`, `arc.gaming`, `arc.interactive`)
-- Hosts opt into aspects via their `aspects = [ ... ]` list in `hosts/<name>/<name>.nix`
+- Hosts opt into aspects via `aspect.includes = [ ... ]` in their host declaration; upstream `host.aspects` is read-only introspection. Explicit includes replace default named-host selection, so include `den.aspects.<host>` when its configuration is required.
+- Use plain aspect context functions (`{ host, ... }: { ... }`), not `den.lib.perHost`.
+- Register host-to-user projection directly through `den.schema.user.includes = [ den.batteries.host-aspects ]` and export the integration via `flake.flakeModule`; do not relocate the hook into deferred `arc.schema.user.includes`. Native OS-user and HM evaluations are separate; preserve the OS `homeManager` shim. See [ADR 0003](docs/architecture/decisions/0003-adopt-upstream-den-host-projection.md).
 - Named sub-aspects (`arc.<aspect>._.<name>`) exist for debuggability — they are **not** automatically included; their parent must explicitly include them
 - `arc.interactive` represents machines with an attached display. Graphical settings, desktop integration, GUI toolkits, and similar configuration belong under it rather than `arc.base`, so headless hosts remain unaffected.
 
@@ -84,7 +86,7 @@ Do not register one module's sub-aspect from an unrelated module, such as regist
 
 ## Host Files
 
-Hosts live under `hosts/<name>/<name>.nix` (or `hosts/<name>.nix` for simple cases). They declare the host's system, users, and which aspects apply.
+Hosts live under `hosts/<name>/<name>.nix` (or `hosts/<name>.nix` for simple cases). They declare the host's system, users, and which aspects apply. Assign user SSH public keys with `users.<name>.config.key`, never `users.<name>.key`: upstream `configOf` strips top-level `key` as module metadata.
 
 ## Persistent Container Bind Mounts
 
@@ -104,7 +106,7 @@ Do not consider a feature or refactor complete until its focused black-box test 
 flake.tests.feature.test-included = unitTest (
   { arc, igloo, ... }:
   {
-    den.hosts.x86_64-linux.igloo.aspects = with arc; [
+    den.hosts.x86_64-linux.igloo.aspect.includes = with arc; [
       base
       interactive
     ];

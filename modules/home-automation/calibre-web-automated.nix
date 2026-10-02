@@ -14,7 +14,7 @@ in
     arc.home-automation._.calibre-web-automated
   ];
 
-  arc.home-automation._.calibre-web-automated = den.lib.perHost (
+  arc.home-automation._.calibre-web-automated = (
     { host }:
     {
       nixos =
@@ -161,7 +161,7 @@ in
         {
           den.hosts.x86_64-linux.igloo = {
             users.tux = { };
-            aspects = [
+            aspect.includes = [
               arc.base
               arc.home-automation
             ];

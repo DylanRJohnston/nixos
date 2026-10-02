@@ -1,9 +1,10 @@
-{ arc, ... }:
+{ arc, den, ... }:
 {
   den.hosts.x86_64-linux.loki = {
-    users.dylanj.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFK2pIjOVUaMqazexDV1Cu6NVSq4cNxUkjLvTQVPzv6v dylanj@loki";
+    users.dylanj.config.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFK2pIjOVUaMqazexDV1Cu6NVSq4cNxUkjLvTQVPzv6v dylanj@loki";
 
-    aspects = [
+    aspect.includes = [
+      den.aspects.loki
       arc.base
       arc.determinate
       arc.development

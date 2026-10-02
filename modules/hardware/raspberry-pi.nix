@@ -41,7 +41,7 @@
     test-bluetooth-enabled = unitTest (
       { arc, igloo, ... }:
       {
-        den.hosts.aarch64-linux.igloo.aspects = [ arc.hardware._.raspberry-pi ];
+        den.hosts.aarch64-linux.igloo.aspect.includes = [ arc.hardware._.raspberry-pi ];
 
         expr = igloo.hardware.raspberry-pi."4".bluetooth.enable;
         expected = true;
@@ -51,7 +51,7 @@
     test-kernel-cross-compiled = unitTest (
       { arc, igloo, ... }:
       {
-        den.hosts.aarch64-linux.igloo.aspects = [ arc.hardware._.raspberry-pi ];
+        den.hosts.aarch64-linux.igloo.aspect.includes = [ arc.hardware._.raspberry-pi ];
 
         expr = {
           buildPlatform = igloo.boot.kernelPackages.kernel.stdenv.buildPlatform.system;
@@ -67,7 +67,7 @@
     test-bluetooth-disabled = unitTest (
       { arc, igloo, ... }:
       {
-        den.hosts.aarch64-linux.igloo.aspects = [ arc.base ];
+        den.hosts.aarch64-linux.igloo.aspect.includes = [ arc.base ];
 
         expr = igloo.hardware.raspberry-pi."4".bluetooth.enable;
         expectedError.msg = "attribute 'raspberry-pi' missing";

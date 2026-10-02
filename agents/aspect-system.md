@@ -4,6 +4,22 @@
 
 An aspect is a named, composable unit of configuration. Each aspect can carry config for any combination of targets (nixos, darwin, homeManager, user, os). Hosts opt into a set of aspects, and the framework fans out each aspect's config to the right target.
 
+## Upstream den 0.19 integration
+
+Hosts select configuration through `den.hosts.<system>.<name>.aspect.includes`. The host's `aspects` field is read-only resolved-tree introspection, not an input. An explicit `aspect.includes` list replaces the default named `den.aspects.<name>` selection: include that named aspect explicitly when it carries hardware or other host-specific configuration. This also applies to synthetic hosts.
+
+`modules/host-aspects.nix` registers `den.batteries.host-aspects` directly in `den.schema.user.includes`, defaults user classes to `[ "user" "homeManager" ]`, and exports the same integration through `flake.flakeModule` for importing consumers and unit tests. Do not move this projection hook to `arc.schema.user.includes`: that deferred-module transport preserves instance configuration but does not activate the required schema-level hook.
+
+Native integration projects transitive host-selected content into separate destinations: host platform and `os` configuration at the OS root, `user` configuration in `users.users.<userName>`, and `homeManager` configuration in `home-manager.users.<userName>`. The two user classes select environments; they do **not** combine OS user and Home Manager module evaluations. HM retains its own `config` and `pkgs`.
+
+Keep the OS Home Manager shim in `modules/home-manager.nix`: the `os` class declares a deferred `homeManager` option, and the HM class imports `osConfig.homeManager`. This supports `aspect.nixos.homeManager`, `aspect.darwin.homeManager`, and `aspect.os.homeManager` alongside direct `aspect.homeManager` projection. Keep explicit platform HM module imports too: `arc.base` must evaluate on hosts with no users, where native automatic HM detection does not activate.
+
+Strict namespace integration in `modules/namespace.nix` declares the five class options as deferred modules and removes exported provides-navigation aliases before re-importing the namespace. Preserve strict mode rather than treating navigation aliases as configuration options.
+
+User SSH public keys **must** be assigned as `users.<name>.config.key`. Upstream `configOf` strips a top-level `key` as module metadata, so `users.<name>.key` silently leaves the declared user key at its default. Focused mesh tests confirmed that changing only this assignment restores cross-host keys; it is not a namespace closure or projection defect.
+
+See [ADR 0003](../docs/architecture/decisions/0003-adopt-upstream-den-host-projection.md) for the migration decision and tradeoffs. Architectural adoption does not imply final migration CI or build validation has passed.
+
 ## Aspect config classes
 
 ```nix
@@ -61,7 +77,7 @@ arc.base._.bluetooth._.high_quality_audio.nixos = {
 **Opt-in from a host (for optional sub-aspects not in `.includes`):**
 
 ```nix
-aspects = [
+aspect.includes = [
   arc.base
   arc.base._.bluetooth._.debug  # explicitly pulled in for this host only
 ];
@@ -117,15 +133,15 @@ When a module fails without `arc.base`, determine which case applies rather than
 
 ## Host context values vs. direct aspect parameters
 
-Use host schema values for facts about machine topology or capabilities that multiple aspects may consume, such as a bulk-storage root. Define the behavior-free option under `arc.schema.host`, configure it in the host declaration, and consume it through `den.lib.perHost`. Prefer a nullable default when hosts that do not use the dependent aspect should remain valid.
+Use host schema values for facts about machine topology or capabilities that multiple aspects may consume, such as a bulk-storage root. Define the behavior-free option under `arc.schema.host`, configure it in the host declaration, and consume it through a plain aspect context function (`{ host, ... }: { ... }`), not the deprecated `den.lib.perHost`. Prefer a nullable default when hosts that do not use the dependent aspect should remain valid.
 
 Use direct aspect parameters for values specific to one aspect invocation or instance. Remember that direct parameters must be propagated through every aspect inclusion layer, so they are a poor fit for shared host facts.
 
 When an aspect requires a nullable host value, place a clear assertion directly alongside the configuration that consumes it. Nix module values are lazy, so the assertion and dependent definitions can ordinarily remain in one module attrset without defensive `mkIf`, `mkMerge`, placeholder paths, or a separate `config` block:
 
 ```nix
-arc.services._.example = den.lib.perHost (
-  { host }:
+arc.services._.example =
+  { host, ... }:
   {
     nixos = {
       assertions = [
@@ -139,8 +155,7 @@ arc.services._.example = den.lib.perHost (
         "d ${host.bulkStoragePath}/example 0755 root root -"
       ];
     };
-  }
-);
+  };
 ```
 
 Test both a configured synthetic host and a host that selects the aspect without the required value. The latter can inspect the final `assertions` entry to verify both the failed condition and the operator-facing message.
@@ -150,7 +165,7 @@ Test both a configured synthetic host and a host that selects the aspect without
 Role aspects describe what a host is used for, while selector namespaces describe concrete implementations or hardware profiles. Compose these independently in the host:
 
 ```nix
-aspects = [
+aspect.includes = [
   arc.gaming
   arc.hardware._.nvidia
   arc.interactive
@@ -166,10 +181,11 @@ Prefer explicit host composition until multiple real implementations demonstrate
 Hosts are defined under `hosts/<name>/<name>.nix`:
 
 ```nix
-{ arc, ... }: {
+{ arc, den, ... }: {
   den.hosts.x86_64-linux.loki = {
-    users.dylanj.key = "ssh-ed25519 ...";
-    aspects = [
+    users.dylanj.config.key = "ssh-ed25519 ...";
+    aspect.includes = [
+      den.aspects.loki
       arc.base
       arc.gaming
       arc.hardware._.nvidia
@@ -182,7 +198,7 @@ Hosts are defined under `hosts/<name>/<name>.nix`:
 Inline aspect fragments are also valid for one-off host-specific settings:
 
 ```nix
-aspects = [
+aspect.includes = [
   arc.base
   { nixos.boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; }
   { user.extraGroups = [ "dialout" ]; }

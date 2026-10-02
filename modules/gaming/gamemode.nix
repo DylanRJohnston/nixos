@@ -37,7 +37,7 @@
     {
       den.hosts.x86_64-linux.igloo = {
         users.tux = { };
-        aspects = with arc; [
+        aspect.includes = with arc; [
           base
           gaming
         ];

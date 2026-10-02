@@ -43,7 +43,7 @@ in
   arc.schema.user.options.key = lib.mkOption {
     type = lib.types.nullOr lib.types.str;
     default = null;
-    description = "SSH public key";
+    description = "SSH public key (assign via config.key; shorthand key is module metadata)";
   };
 
   arc.schema.host.options.hostKey = lib.mkOption {
@@ -58,26 +58,26 @@ in
       {
         den.hosts.aarch64-darwin.apple = {
           users.kiki = { };
-          users.boba.key = "boba-apple";
+          users.boba.config.key = "boba-apple";
 
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.mesh._.keys
           ];
         };
 
         den.hosts.x86_64-linux.pear = {
-          users.kiki.key = "kiki-pear";
-          users.boba.key = "boba-pear";
+          users.kiki.config.key = "kiki-pear";
+          users.boba.config.key = "boba-pear";
 
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.mesh._.keys
           ];
         };
 
         den.hosts.aarch64-linux.orange = {
-          users.kiki.key = "kiki-orange";
+          users.kiki.config.key = "kiki-orange";
         };
 
         expr = {
@@ -103,26 +103,26 @@ in
       {
         den.hosts.aarch64-darwin.apple = {
           users.kiki = { };
-          users.boba.key = "boba-apple";
+          users.boba.config.key = "boba-apple";
 
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.mesh._.keys
           ];
         };
 
         den.hosts.x86_64-linux.pear = {
-          users.kiki.key = "kiki-pear";
-          users.boba.key = "boba-pear";
+          users.kiki.config.key = "kiki-pear";
+          users.boba.config.key = "boba-pear";
 
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.mesh._.keys
           ];
         };
 
         den.hosts.aarch64-linux.orange = {
-          users.kiki.key = "kiki-orange";
+          users.kiki.config.key = "kiki-orange";
           hostKey = "orange-host-key";
         };
 

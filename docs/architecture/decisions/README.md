@@ -10,6 +10,7 @@ ADRs complement current guidance such as `AGENTS.md`. Current guidance may chang
 | --- | --- | --- |
 | [0001](0001-adopt-lightweight-architecture-decision-records.md) | Adopt lightweight architecture decision records | Accepted |
 | [0002](0002-separate-hardware-profiles-from-host-roles.md) | Separate hardware profiles from host roles | Accepted |
+| [0003](0003-adopt-upstream-den-host-projection.md) | Adopt upstream den host projection | Accepted |
 
 ## Process
 

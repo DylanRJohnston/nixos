@@ -13,6 +13,10 @@ let
       testModule =
         { config, ... }:
         {
+          # Synthetic hosts may have no users or no primary user. Their flake
+          # path must not force the production default through primaryUser.
+          config.den.schema.host.config.flake = lib.mkDefault "/tmp/arc-unit-test";
+
           options.expr = lib.mkOption { };
           options.expected = lib.mkOption { };
           options.expectedError = lib.mkOption { };
@@ -81,7 +85,7 @@ let
                 {
                   den.hosts.${system}.${hostName} = host // {
                     users.tux = { };
-                    aspects = baseline ++ lib.optionals (state == "enabled") aspects;
+                    aspect.includes = baseline ++ lib.optionals (state == "enabled") aspects;
                   };
                 }
                 // {

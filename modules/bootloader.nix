@@ -7,7 +7,7 @@
 }:
 {
   arc.schema.host.options.boot = lib.mkOption {
-    type = den.lib.aspects.types.aspectType;
+    type = den.lib.aspects.types.providerType;
     default = arc.bootloader._.systemd;
   };
 
@@ -15,7 +15,7 @@
 
   arc.base.nixos.boot.zfs.forceImportRoot = false;
 
-  arc.base._.bootloader = den.lib.perHost ({ host }: host.boot);
+  arc.base._.bootloader = { host, ... }: host.boot;
 
   arc.bootloader._.systemd.nixos.boot.loader = {
     systemd-boot = {
@@ -44,6 +44,27 @@
         };
       };
 
+      tests.test-invalid-value = {
+        boot = 42;
+        # Upstream loads provider modules before reporting the option's type error.
+        expectedError.msg = "cannot coerce an integer to a string: 42";
+      };
+
+      tests.test-undeclared-aspect-option = {
+        boot.typo = { };
+        expectedError.msg = ''Attempted to set the option "typo"'';
+      };
+
+      tests.test-inline-aspect = {
+        boot.nixos.boot.loader.generic-extlinux-compatible.enable = true;
+        expected = {
+          extlinux = true;
+          systemd = false;
+          canTouch = false;
+          forceImportRoot = false;
+        };
+      };
+
       tests.test-sd-card = {
         boot = arc.bootloader._.sd-card;
         expected = {
@@ -56,14 +77,13 @@
     in
     tests
     |> lib.mapAttrs (
-      _:
-      { boot, expected }:
+      _: test:
       unitTest (
         { arc, igloo, ... }:
         {
           den.hosts.x86_64-linux.igloo = {
-            inherit boot;
-            aspects = [ arc.base ];
+            inherit (test) boot;
+            aspect.includes = [ arc.base ];
           };
 
           expr = with igloo.boot.loader; {
@@ -72,9 +92,8 @@
             canTouch = efi.canTouchEfiVariables;
             forceImportRoot = igloo.boot.zfs.forceImportRoot;
           };
-
-          inherit expected;
         }
+        // builtins.removeAttrs test [ "boot" ]
       )
     );
 }

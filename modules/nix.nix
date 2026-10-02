@@ -84,7 +84,7 @@ in
     {
       den.hosts.x86_64-linux.igloo = {
         users.tux = { };
-        aspects = with arc; [ base ];
+        aspect.includes = with arc; [ base ];
       };
 
       expr = igloo.nix.nixPath;

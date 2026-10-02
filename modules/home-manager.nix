@@ -43,7 +43,7 @@
     {
       den.hosts.x86_64-linux.igloo = {
         users.tux = { };
-        aspects = [ arc.base ];
+        aspect.includes = [ arc.base ];
       };
 
       expr = igloo.home-manager.users.tux.manual.manpages.enable;

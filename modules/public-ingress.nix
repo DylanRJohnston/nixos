@@ -6,7 +6,7 @@
   ...
 }:
 {
-  arc.public-ingress = den.lib.perHost (
+  arc.public-ingress = (
     { host }:
     let
       cloudflaredUid = 65532;
@@ -75,7 +75,7 @@
         den.hosts.x86_64-linux.public-ingress-test = {
           name = "mimir";
           users.tux = { };
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.public-ingress
           ];
@@ -136,7 +136,7 @@
       {
         den.hosts.x86_64-linux.igloo = {
           users.tux = { };
-          aspects = [ arc.base ];
+          aspect.includes = [ arc.base ];
         };
 
         expr = igloo.virtualisation.oci-containers.containers ? public-ingress;
@@ -157,7 +157,7 @@
       {
         den.hosts.x86_64-linux.igloo = {
           users.tux = { };
-          aspects = [
+          aspect.includes = [
             arc.base
             arc.public-ingress
           ];

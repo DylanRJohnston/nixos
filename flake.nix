@@ -1,6 +1,6 @@
 {
   inputs = {
-    den.url = "github:dylanrjohnston/den/dylan.johnston/strict-mode";
+    den.url = "github:denful/den/v0.19.0";
     import-tree.url = "github:vic/import-tree";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

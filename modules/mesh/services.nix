@@ -56,9 +56,15 @@
     };
 
   flake.tests.mesh.test-service = unitTest (
-    { arc, igloo, ... }:
     {
-      den.hosts.x86_64-linux.igloo.aspects = [
+      arc,
+      den,
+      igloo,
+      ...
+    }:
+    {
+      den.hosts.x86_64-linux.igloo.aspect.includes = [
+        den.aspects.igloo
         arc.base
         arc.mesh._.services
       ];

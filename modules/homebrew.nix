@@ -18,7 +18,7 @@
     {
       den.hosts.aarch64-darwin.apple = {
         users.tux = { };
-        aspects = with arc; [ base ];
+        aspect.includes = with arc; [ base ];
       };
 
       expr = apple.homebrew.onActivation.cleanup;

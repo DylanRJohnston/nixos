@@ -12,9 +12,9 @@
       { user, ... }:
       {
         os =
-          { pkgs, ... }:
+          { pkgs, lib, ... }:
           {
-            users.users.${user.userName}.shell = pkgs.zsh;
+            users.users.${user.userName}.shell = lib.mkDefault pkgs.zsh;
           };
       };
 

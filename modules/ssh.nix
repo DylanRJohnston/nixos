@@ -60,7 +60,7 @@
         };
         thothPort = 8022;
       };
-      disabledErr.msg = "attribute.*home-manager.*missing";
+      disabledErr.msg = "home.stateVersion.*no value defined";
     };
 
     darwin = darwinAspectTest {
@@ -80,7 +80,7 @@
         personalIdentity = "~/.ssh/personal";
         thothPort = 8022;
       };
-      disabledErr.msg = "attribute.*home-manager.*missing";
+      disabledErr.msg = "home.stateVersion.*no value defined";
     };
   };
 }

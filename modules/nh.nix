@@ -2,7 +2,7 @@
 {
   arc.base.includes = [ arc.base._.nh ];
 
-  arc.base._.nh = den.lib.perHost (
+  arc.base._.nh = (
     { host }:
     {
       os =
