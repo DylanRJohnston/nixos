@@ -4,6 +4,10 @@
 
 A personal Nix configuration using `flake.nix` with [upstream den 0.19](https://github.com/denful/den) as the underlying framework and `import-tree` for module discovery.
 
+## Tooling Scope
+
+Tooling in this repository must solve the user's specific current problem. Do not generalise until a concrete requirement demands it. Prefer small, easy-to-invoke scripts with repository-specific hosts, services, and defaults hard-coded where appropriate; avoid speculative configurability, abstractions, and infrastructure. For example, the build-offload helper exists to get Mimir builds working around Determinate's native Linux builder failures using `ssh://eu.nixbuild.net`, not to provide a general subgraph build-offloading framework.
+
 ## Module Auto-Discovery
 
 All `.nix` files under `./modules` and `./hosts` are automatically imported via `import-tree`. **Never edit `flake.nix` to add imports** — just place a new `.nix` file in the right directory.

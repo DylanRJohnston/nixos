@@ -81,6 +81,7 @@ let
     "spotify"
     "transmission"
     "vlc"
+    "whatsapp"
   ];
 
   packages.entertainment.nixos =
@@ -97,7 +98,6 @@ let
       awscli2
       binaryen
       cachix
-      claude-code
       kubectl
       kubectx
       nmap
