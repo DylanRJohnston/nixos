@@ -1,6 +1,7 @@
 { arc, ... }:
 {
   den.hosts.aarch64-darwin.asgard = {
+    hostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAsVLCGh3YLIt2Op56kQ59ODSv2HvbomXAle0QPxqFzZ root@asgard";
     users.dylanj.config.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQYIShY4/BF912NKRcsr9evTDZ8L8o54Qad6qOx9BVw dylanj@asgard";
 
     aspect.includes = [
