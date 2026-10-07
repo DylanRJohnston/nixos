@@ -30,7 +30,7 @@ The two generation paths should match and no units should be failed.
 
 ## Offloading builds by derivation name
 
-The Python 3 helper is specific to Mimir: its flake output, nixbuild.net server, and SSH host identity are hard-coded. Run it from the repository root and quote name globs so your shell does not expand them:
+The Python 3 helper is specific to Mimir: its flake output, Loki builder, and SSH host identity are hard-coded. Run it from the repository root and quote name globs so your shell does not expand them:
 
 ```bash
 ./scripts/offload-build '*nix-functional-tests*' --dry-run
@@ -39,13 +39,13 @@ The Python 3 helper is specific to Mimir: its flake output, nixbuild.net server,
 
 With no patterns, it selects `'nix-*-tests-run*'` and `'nix-functional-tests-*'`. Supply one or more case-sensitive name globs to override those defaults. Use `--dry-run` to inspect the selection without building. It traverses the build-time derivation graph, so test runners and other build-only inputs are visible.
 
-The helper builds each selected job's direct consumed dependency outputs using the normal configured builders, then offloads the selected job to nixbuild.net and verifies local reuse with networking and builds disabled. Selected jobs run in dependency order. It uses the multiuser Nix daemon and does not parse or alter builder configuration. It never resumes the whole build or activates anything; rerun your original `nh` command afterward.
+The helper builds each selected job's direct consumed dependency outputs using the normal configured builders, then offloads the selected job to Loki and verifies local reuse with networking and builds disabled. Selected jobs run in dependency order. It uses the multiuser Nix daemon and does not parse or alter builder configuration. It never resumes the whole build or activates anything; rerun your original `nh` command afterward.
 
-Remote results signed by the account-specific nixbuild.net key require that public key in the Mac daemon's trusted keys. The Determinate Darwin configuration in `modules/nix.nix` adds it through `extra-trusted-public-keys`, preserving built-in cache keys. If output copying reports a missing trusted signature, inspect the remote path's signatures and retrieve the corresponding public key with `settings signing-key-for-builds --show` in the nixbuild.net administration shell. Apply the daemon configuration before retrying; a client-side key override did not resolve the observed remote-builder import failure. Do not disable signature verification or change private-key permissions.
+The command-scoped builder is `ssh://loki aarch64-linux /etc/ssh/ssh_host_ed25519_key 1 2`, using the identity and speed factor configured for Loki in `modules/remote-builders.nix`, with one concurrent job. The daemon must be able to authenticate to Loki and verify its host key. Do not bypass host-key or store-signature verification or change private-key permissions.
 
 Only `aarch64-linux` jobs are supported. No matches is an error. If dependency preparation encounters another builder failure, include that affected job in the patterns too.
 
-Each Nix command has a fixed one-hour timeout. Remote builds upload inputs and may incur charges. If a timeout occurs, inspect remote work before retrying: killing the client does not guarantee cancellation. No checks are fabricated or disabled.
+Each Nix command has a fixed one-hour timeout. Remote builds upload inputs and dependency closures to Loki. If a timeout occurs, inspect remote work before retrying: killing the client does not guarantee cancellation. No checks are fabricated or disabled.
 
 Test the helper without remote builds using:
 
@@ -59,7 +59,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts -p 'test_*.py'
 
 In the tested Determinate Nixd 3.22.5 builder, `/dev/ptmx` existed but `/dev/pts` and the `devpts` mount were absent. Determinate Nix 3.22.5's `ReadLine.TreatsEioAsEof` and `ReadLine.PartialLineBeforeEio` consequently failed at `posix_openpt`, before testing `readLine`. Both failed with and without the `enosys` wrapper. The identical full test binary, data, and syscall-blocking wrapper passed when run directly on `mimir` (798 passed, one skipped); this was not a sandboxed derivation build or a complete deployment validation.
 
-Use `ssh://eu.nixbuild.net`, not `mimir`, for future targeted offloads. The user permits offloading **only an individual failing derivation**, including compilation when necessary, while keeping healthy dependencies and the overall build on the Mac. Follow the [offload-linux-build-to-nixbuild skill](../.agents/skills/offload-linux-build-to-nixbuild/SKILL.md): prepare dependencies locally, verify the bounded build plan, use the explicit `/etc/ssh/ssh_host_ed25519_key` client identity, and verify local reuse of the returned outputs. Keep the remote-builder override scoped to the failing derivation; do not move the whole system build to the server. The Pi results below are historical diagnostics, not the current offload procedure.
+Use `ssh://loki`, not nixbuild.net or `mimir`, for future targeted offloads. The user permits offloading **only an individual failing derivation**, including compilation when necessary, while keeping healthy dependencies and the overall build on the Mac. Follow the [offload-linux-build-to-nixbuild skill](../.agents/skills/offload-linux-build-to-nixbuild/SKILL.md): prepare dependencies locally, verify the bounded build plan, use the explicit `/etc/ssh/ssh_host_ed25519_key` client identity, and verify local reuse of the returned outputs. Keep the remote-builder override scoped to the failing derivation; do not move the whole system build to the server. The Pi results below are historical diagnostics, not the current offload procedure.
 
 A full ARM Linux builder VM on the Mac is another option for normal PTY support. Integration must account for Determinate owning the Nix daemon configuration (`nix.enable = false`); nix-darwin's standard `nix.linux-builder` module requires `nix.enable = true`, so it is not a drop-in toggle here.
 

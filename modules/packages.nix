@@ -44,14 +44,18 @@ let
 
   packages.base.nixos =
     pkgs: with pkgs; [
-      _1password-gui
-      obsidian
       pulseaudio
       bubblewrap
       dmidecode
       usbutils
       pciutils
     ];
+
+  packages.interactive.nixos = pkgs: with pkgs; [
+      _1password-gui
+      obsidian
+      zed-editor
+  ];
 
   packages.base.casks = [
     "1password"
@@ -110,6 +114,8 @@ in
   arc.base.darwin = systemCasks packages.base.casks;
 
   arc.development.os = systemPackages packages.development.os;
+
+  arc.interactive.nixos = systemPackages packages.interactive.nixos;
 
   arc.entertainment.nixos = systemPackages packages.entertainment.nixos;
   arc.entertainment.darwin = systemCasks packages.entertainment.casks;

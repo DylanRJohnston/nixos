@@ -6,7 +6,7 @@ A personal Nix configuration using `flake.nix` with [upstream den 0.19](https://
 
 ## Tooling Scope
 
-Tooling in this repository must solve the user's specific current problem. Do not generalise until a concrete requirement demands it. Prefer small, easy-to-invoke scripts with repository-specific hosts, services, and defaults hard-coded where appropriate; avoid speculative configurability, abstractions, and infrastructure. For example, the build-offload helper exists to get Mimir builds working around Determinate's native Linux builder failures using `ssh://eu.nixbuild.net`, not to provide a general subgraph build-offloading framework.
+Tooling in this repository must solve the user's specific current problem. Do not generalise until a concrete requirement demands it. Prefer small, easy-to-invoke scripts with repository-specific hosts, services, and defaults hard-coded where appropriate; avoid speculative configurability, abstractions, and infrastructure. For example, the build-offload helper exists to get Mimir builds working around Determinate's native Linux builder failures using `ssh://loki`, not to provide a general subgraph build-offloading framework.
 
 ## Module Auto-Discovery
 

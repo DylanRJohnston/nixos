@@ -11,7 +11,7 @@
     default = arc.bootloader._.systemd;
   };
 
-  arc.base.includes = [ arc.base._.bootloader ];
+  # arc.base.includes = [ arc.base._.bootloader ];
 
   arc.base.nixos.boot.zfs.forceImportRoot = false;
 

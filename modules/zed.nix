@@ -39,7 +39,7 @@
           };
         };
 
-        config.home.packages = [ pkgs.zed-editor ];
+        # config.home.packages = [ pkgs.zed-editor ];
 
         config.home.activation.zedSettings =
           lib.hm.dag.entryAfter [ "writeBoundary" ]
