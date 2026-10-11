@@ -12,7 +12,7 @@
         virtualisation.oci-containers = {
           backend = "podman";
           containers.homeassistant = {
-            image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
+            image = "ghcr.io/home-assistant/home-assistant:2026.10.0@sha256:1b64d38f38d922bf9d59336451fd6453e1d614f934456af4ee3d2a51061be3a4";
             volumes = [
               "/etc/nixos/modules/home-automation/config:/config"
               # Home Assistant discovers and controls host Bluetooth adapters over BlueZ D-Bus.
@@ -94,7 +94,7 @@
     enabled = {
       present = true;
       details = {
-        image = "ghcr.io/home-assistant/home-assistant:2026.9.0@sha256:372d991e58882a1d8c68c07e9aa3f3b509276e695355f73ccdb03baa70407293";
+        image = "ghcr.io/home-assistant/home-assistant:2026.10.0@sha256:1b64d38f38d922bf9d59336451fd6453e1d614f934456af4ee3d2a51061be3a4";
         tailscaleDns = true;
         dbus = {
           enabled = true;
